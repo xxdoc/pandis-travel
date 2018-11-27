@@ -515,7 +515,7 @@ Dim lngSelectedRow  As Long
 Private Function AbortProcedure(blnStatus)
     
     If Not blnStatus Then
-        If MyMsgBox(3, strAppTitle, strStandardMessages(3), 2) Then
+        If MyMsgBox(3, strApplicationName, strStandardMessages(3), 2) Then
             blnStatus = False
             ClearFields txtDestinationID, txtDestinationShortDescription, txtDestinationDescription
             DisableFields txtDestinationShortDescription, txtDestinationDescription
@@ -533,7 +533,7 @@ End Function
 
 Private Function DeleteRecord()
     
-    If MainDeleteRecord("CommonDB", "Destinations", strAppTitle, "DestinationID", txtDestinationID.text, "True") Then
+    If MainDeleteRecord("CommonDB", "Destinations", strApplicationName, "DestinationID", txtDestinationID.text, "True") Then
         PopulateGrid
         HighlightRow grdDestinations, lngSelectedRow, 1, "", True
         ClearFields txtDestinationID, txtDestinationShortDescription, txtDestinationDescription
@@ -566,7 +566,7 @@ Private Function SaveRecord()
     
     If Not ValidateFields Then Exit Function
     
-    If MainSaveRecord("CommonDB", "Destinations", blnStatus, strAppTitle, "DestinationID", txtDestinationID.text, txtDestinationShortDescription.text, txtDestinationDescription.text, txtShowInList.text, strCurrentUser) <> 0 Then
+    If MainSaveRecord("CommonDB", "Destinations", blnStatus, strApplicationName, "DestinationID", txtDestinationID.text, txtDestinationShortDescription.text, txtDestinationDescription.text, txtShowInList.text, strCurrentUser) <> 0 Then
         PopulateGrid
         HighlightRow grdDestinations, lngSelectedRow, 2, txtDestinationDescription.text, True
         lngSelectedRow = 0
@@ -585,7 +585,7 @@ Private Function ValidateFields()
     
     'Περιγραφή
     If Len(txtDestinationDescription.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtDestinationDescription.SetFocus
         Exit Function
@@ -637,7 +637,7 @@ Private Sub Form_Activate()
 
     If Me.Tag = "True" Then
         Me.Tag = "False"
-        AddColumnsToGrid grdDestinations, 25, GetSetting(strAppTitle, "Layout Strings", "grdDestinations"), "04LNID,40LNDescription", "ID,Περιγραφή"
+        AddColumnsToGrid grdDestinations, 25, GetSetting(strApplicationName, "Layout Strings", "grdDestinations"), "04LNID,40LNDescription", "ID,Περιγραφή"
         Me.Refresh
         PopulateGrid
     End If
@@ -658,19 +658,19 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
     
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     Select Case KeyCode
-        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown And cmdButton(0).Enabled
+        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown = 4 And cmdButton(0).Enabled
             cmdButton_Click 0
-        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown And cmdButton(1).Enabled
+        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown = 4 And cmdButton(1).Enabled
             cmdButton_Click 1
-        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown And cmdButton(2).Enabled
+        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown = 4 And cmdButton(2).Enabled
             cmdButton_Click 2
         Case vbKeyEscape
             If cmdButton(3).Enabled Then cmdButton_Click 3: Exit Function
             If cmdButton(4).Enabled Then cmdButton_Click 4
-        Case vbKeyF12 And CtrlDown
+        Case vbKeyF12 And CtrlDown = 4
             ToggleInfoPanel Me
     End Select
 
@@ -692,7 +692,7 @@ Private Sub grdDestinations_DblClick(ByVal lRow As Long, ByVal lCol As Long, bRe
 
 End Sub
 
-Private Sub grdDestinations_HeaderRightClick(ByVal lCol As Long, ByVal Shift As Integer, ByVal x As Long, ByVal y As Long)
+Private Sub grdDestinations_HeaderRightClick(ByVal lCol As Long, ByVal Shift As Integer, ByVal X As Long, ByVal Y As Long)
 
     PopupMenu mnuHdrPopUp
 
@@ -706,7 +706,7 @@ End Sub
 
 Private Sub mnuΑποθήκευσηΠλάτουςΣτηλών_Click()
 
-    SaveSetting strAppTitle, "Layout Strings", "grdDestinations", grdDestinations.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", "grdDestinations", grdDestinations.LayoutCol
 
 End Sub
 

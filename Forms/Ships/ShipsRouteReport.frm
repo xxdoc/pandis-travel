@@ -1268,7 +1268,7 @@ Private Function DeleteRecord()
     Dim blnErrors As Boolean
     
     'Ερώτηση για διαγραφή
-    If Not MyMsgBox(3, strAppTitle, strAppMessages(10), 2) Then
+    If Not MyMsgBox(3, strApplicationName, strAppMessages(10), 2) Then
         grdShipsRouteReport.SetFocus
         Exit Function
     End If
@@ -1280,7 +1280,7 @@ Private Function DeleteRecord()
     With grdShipsRouteReport
         For lngRow = 1 To .RowCount
             If .CellIcon(lngRow, "Selected") = 3 Then
-                If Not MainDeleteRecord("CommonDB", "Manifest", strAppTitle, "ID", .CellValue(lngRow, "ID"), "False") Then
+                If Not MainDeleteRecord("CommonDB", "Manifest", strApplicationName, "ID", .CellValue(lngRow, "ID"), "False") Then
                     Print #1, .CellValue(lngRow, "ID"); " " & .CellValue(lngRow, "Date") & " " & .CellValue(lngRow, "LastName") & " " & .CellValue(lngRow, "FirstName")
                     blnErrors = True
                 End If
@@ -1293,14 +1293,14 @@ Private Function DeleteRecord()
     
     'Ελεγχος
     If blnErrors Then
-        If MyMsgBox(4, strAppTitle, strAppMessages(6), 1) Then
+        If MyMsgBox(4, strApplicationName, strAppMessages(6), 1) Then
         End If
         grdShipsRouteReport.SetFocus
         Exit Function
     End If
 
     'Μήνυμα ολοκλήρωσης
-    If MyMsgBox(1, strAppTitle, strStandardMessages(8), 1) Then
+    If MyMsgBox(1, strApplicationName, strStandardMessages(8), 1) Then
     End If
     
     'Ανανεώνω τη λίστα
@@ -1323,9 +1323,9 @@ Private Function SeekRecord()
 
 End Function
 
-Private Sub cmdButton_Click(Index As Integer)
+Private Sub cmdButton_Click(index As Integer)
 
-    Select Case Index
+    Select Case index
         Case 0
             FindRecordsAndPopulateGrid
         Case 1
@@ -1357,7 +1357,7 @@ Private Function DoReport(action As String)
             If PrinterExists(strPrinterName) Then
                 RunActiveReport
             Else
-                If MyMsgBox(4, strAppTitle, strStandardMessages(18), 1) Then
+                If MyMsgBox(4, strApplicationName, strStandardMessages(18), 1) Then
                 End If
                 Exit Function
             End If
@@ -1366,14 +1366,14 @@ Private Function DoReport(action As String)
     
     If action = "CreatePDF" Then
         If CreatePDF Then
-            If MyMsgBox(1, strAppTitle, strStandardMessages(8), 1) Then
+            If MyMsgBox(1, strApplicationName, strStandardMessages(8), 1) Then
             End If
         End If
     End If
     
     If action = "CreateFile" Then
         If CreateFile Then
-            If MyMsgBox(1, strAppTitle, strStandardMessages(8), 1) Then
+            If MyMsgBox(1, strApplicationName, strStandardMessages(8), 1) Then
             End If
         End If
     End If
@@ -1416,14 +1416,14 @@ Private Function ValidateFields()
     ValidateFields = False
     
     'Ημερομηνία
-    If Not CheckDate(mskDate.text, strAppTitle) Then
+    If Not CheckDate(mskDate.text, strApplicationName) Then
         mskDate.SetFocus
         Exit Function
     End If
     
     'Πλοίο
     If txtShipID.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtShip.SetFocus
         Exit Function
@@ -1431,7 +1431,7 @@ Private Function ValidateFields()
     
     'Δρομολόγιο
     If txtRouteID.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtRoute.SetFocus
         Exit Function
@@ -1473,10 +1473,10 @@ Private Function FindRecordsAndPopulateGrid()
             UpdateButtons Me, 9, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1
             If Not blnError Then
                 If blnProcessing Then
-                    If MyMsgBox(4, strAppTitle, strStandardMessages(27), 1) Then
+                    If MyMsgBox(4, strApplicationName, strStandardMessages(27), 1) Then
                     End If
                 Else
-                    If MyMsgBox(1, strAppTitle, strStandardMessages(7), 1) Then
+                    If MyMsgBox(1, strApplicationName, strStandardMessages(7), 1) Then
                     End If
                 End If
             End If
@@ -1609,7 +1609,7 @@ Private Function RefreshList()
     If rstRecordset.RecordCount = 0 Then blnErrors = False: RefreshList = False: Exit Function
     
     'Προετοιμάζω τη μπάρα προόδου
-    InitializeProgressBar Me, strAppTitle, rstRecordset
+    InitializeProgressBar Me, strApplicationName, rstRecordset
     
     'Προσωρινά
     UpdateButtons Me, 9, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0
@@ -1682,29 +1682,33 @@ ErrTrap:
 
 End Function
 
-Private Sub cmdIndex_Click(Index As Integer)
+Private Sub cmdIndex_Click(index As Integer)
 
     Dim tmpTableData As typTableData
     Dim tmpRecordset As Recordset
     
-    Select Case Index
+    Select Case index
         Case 0
             'Πλοίο - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "Ships", "ShipDescription", "String", txtShip.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 6, 0, 1, 3, 4, 5, 6, "ID", "Περιγραφή", "Σημαία", "Αρ. Νηολογίου", "Αρ. Ι.Μ.Ο.", "Διαχειριστής", 0, 40, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0)
-            txtShipID.text = tmpTableData.strCode
-            txtShip.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 6, 0, 1, 3, 4, 5, 6, "ID", "Περιγραφή", "Σημαία", "Αρ. Νηολογίου", "Αρ. Ι.Μ.Ο.", "Διαχειριστής", 0, 40, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0)
+                txtShipID.text = tmpTableData.strCode
+                txtShip.text = tmpTableData.strFirstField
+            End If
         Case 1
             'Δρομολόγιο πλοίου - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "Routes", "RouteDescription", "String", txtRoute.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 6, 0, 1, 2, 3, 4, 5, "ID", "Συντ.", "Λιμένας εκκίνησης", "Ενδιάμεσοι λιμένες προσέγγισης", "Λιμένας τελικού προορισμού", "Ωρα", 0, 4, 40, 0, 40, 0, 1, 1, 0, 0, 0, 1)
-            txtRouteID.text = tmpTableData.strCode
-            txtRoute.text = tmpTableData.strFirstField
-            lblRouteDescription.Caption = tmpTableData.strSecondField & " - " & tmpTableData.strFourthField
-            txtFrom.text = tmpTableData.strSecondField
-            txtVia.text = tmpTableData.strThirdField
-            txtTo.text = tmpTableData.strFourthField
-            txtTime.text = tmpTableData.strFifthField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 6, 0, 1, 2, 3, 4, 5, "ID", "Συντ.", "Λιμένας εκκίνησης", "Ενδιάμεσοι λιμένες προσέγγισης", "Λιμένας τελικού προορισμού", "Ωρα", 0, 4, 40, 0, 40, 0, 1, 1, 0, 0, 0, 1)
+                txtRouteID.text = tmpTableData.strCode
+                txtRoute.text = tmpTableData.strFirstField
+                lblRouteDescription.Caption = tmpTableData.strSecondField & " - " & tmpTableData.strFourthField
+                txtFrom.text = tmpTableData.strSecondField
+                txtVia.text = tmpTableData.strThirdField
+                txtTo.text = tmpTableData.strFourthField
+                txtTime.text = tmpTableData.strFifthField
+            End If
     End Select
 
 End Sub
@@ -1713,7 +1717,7 @@ Private Sub Form_Activate()
         
     If Me.Tag = "True" Then
         Me.Tag = "False"
-        AddColumnsToGrid grdShipsRouteReport, 44, GetSetting(strAppTitle, "Layout Strings", "grdShipsRouteReport"), _
+        AddColumnsToGrid grdShipsRouteReport, 44, GetSetting(strApplicationName, "Layout Strings", "grdShipsRouteReport"), _
             "05NRNID,05NRNAA,10NCFDate,40NLNLastName,10NLNFirstName,40NLNRemarks,40NLNCare,40NLNOccupantDescription,40NLNGender,40NLNAge,05NLNRouteID,05NLNDestinationID,05NLNShipID,05NLNOccupantDescriptionID,05NLNGenderID,05NLNAgeID,05NLNShowInList,05NLNUser,05NCNSelected", _
             "ID,Α/Α,Ημερομηνία,Επώνυμο,Ονομα,Παρατηρήσεις,Ειδική φροντίδα,Ιδιότητα,Φύλο,Ηλικία,RouteID,DestinationID,ShipID,OccupantDescriptionID,GenderID,AgeID,ShowInList,User,Ε"
         Me.Refresh
@@ -1737,21 +1741,21 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
 
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     Select Case KeyCode
-        Case vbKeyF10 And cmdButton(0).Enabled, vbKeyC And CtrlDown And cmdButton(0).Enabled
+        Case vbKeyF10 And cmdButton(0).Enabled, vbKeyC And CtrlDown = 4 And cmdButton(0).Enabled
             cmdButton_Click 0
-        Case vbKeyE And CtrlDown And cmdButton(1).Enabled
+        Case vbKeyE And CtrlDown = 4 And cmdButton(1).Enabled
             cmdButton_Click 1
-        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown And cmdButton(2).Enabled
+        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown = 4 And cmdButton(2).Enabled
             cmdButton_Click 2
-        Case vbKeyP And CtrlDown And cmdButton(3).Enabled
+        Case vbKeyP And CtrlDown = 4 And cmdButton(3).Enabled
             cmdButton_Click 3
         Case vbKeyEscape
             If cmdButton(8).Enabled Then cmdButton_Click 8: Exit Function
             If cmdButton(9).Enabled Then cmdButton_Click 9
-        Case vbKeyF12 And CtrlDown
+        Case vbKeyF12 And CtrlDown = 4
             ToggleInfoPanel Me
     End Select
 
@@ -1819,7 +1823,7 @@ Private Sub grdShipsRouteReport_KeyDown(KeyCode As Integer, Shift As Integer, bD
     Dim CtrlDown
     Dim lngRow As Long
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     'Επιλογή γραμμής
     If KeyCode = vbKeySpace Then
@@ -1837,7 +1841,7 @@ Private Sub grdShipsRouteReport_KeyDown(KeyCode As Integer, Shift As Integer, bD
     
     'Επιλογή όλων των γραμμών
     If grdShipsRouteReport.RowCount > 0 Then
-        If KeyCode = vbKeyAdd And CtrlDown Then
+        If KeyCode = vbKeyAdd And CtrlDown = 4 Then
             For lngRow = 1 To grdShipsRouteReport.RowCount
                 grdShipsRouteReport.CellIcon(lngRow, "Selected") = 3
             Next lngRow
@@ -1847,7 +1851,7 @@ Private Sub grdShipsRouteReport_KeyDown(KeyCode As Integer, Shift As Integer, bD
     
     'Αποεπιλογή όλων των γραμμών
     If grdShipsRouteReport.RowCount > 0 Then
-        If KeyCode = vbKeySubtract And CtrlDown Then
+        If KeyCode = vbKeySubtract And CtrlDown = 4 Then
             For lngRow = 1 To grdShipsRouteReport.RowCount
                 grdShipsRouteReport.CellIcon(lngRow, "Selected") = 0
             Next lngRow
@@ -1865,7 +1869,7 @@ End Sub
 
 Private Sub mnuΑποθήκευσηΠλάτουςΣτηλών_Click()
 
-    SaveSetting strAppTitle, "Layout Strings", "grdShipsRouteReport", grdShipsRouteReport.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", "grdShipsRouteReport", grdShipsRouteReport.LayoutCol
 
 End Sub
 
@@ -1919,15 +1923,15 @@ Private Function ImportRecords()
     If strFileName <> "" Then
         strLineWithError = CheckFileForErrors(strFileName)
         If strLineWithError <> "" Then
-            If MyMsgBox(4, strAppTitle, strStandardMessages(13), 1) Then
+            If MyMsgBox(4, strApplicationName, strStandardMessages(13), 1) Then
             End If
         Else
             strLineWithError = AppendRecords(strFileName)
             If strLineWithError <> "0" Then
-                If MyMsgBox(4, strAppTitle, strStandardMessages(13), 1) Then
+                If MyMsgBox(4, strApplicationName, strStandardMessages(13), 1) Then
                 End If
             Else
-                If MyMsgBox(1, strAppTitle, strStandardMessages(8), 1) Then
+                If MyMsgBox(1, strApplicationName, strStandardMessages(8), 1) Then
                 End If
             End If
         End If
@@ -1941,7 +1945,7 @@ Private Function ImportCrew(shipID As Integer)
     Dim tmpRecordset As Recordset
     Dim strResult As String
     
-    If MyMsgBox(2, strAppTitle, strAppMessages(12), 2) Then
+    If MyMsgBox(2, strApplicationName, strAppMessages(12), 2) Then
         
         strSQL = "SELECT * FROM ShipsCrew WHERE CrewShipID = " & shipID
         Set tmpRecordset = CommonDB.OpenRecordset(strSQL, dbOpenSnapshot)
@@ -1949,14 +1953,14 @@ Private Function ImportCrew(shipID As Integer)
         With tmpRecordset
             If .RecordCount > 0 Then
                 While Not .EOF
-                    strResult = MainSaveRecord("CommonDB", "Manifest", True, strAppTitle, "ID", "", mskDate.text, Val(txtRouteID.text), grdShipsRouteReport.CellValue(1, "DestinationID"), Val(txtShipID.text), !CrewPropertyID, !CrewLastName, !CrewFirstName, !CrewGenderID, !CrewAgeID, "", "", "1", strCurrentUser)
+                    strResult = MainSaveRecord("CommonDB", "Manifest", True, strApplicationName, "ID", "", mskDate.text, Val(txtRouteID.text), grdShipsRouteReport.CellValue(1, "DestinationID"), Val(txtShipID.text), !CrewPropertyID, !CrewLastName, !CrewFirstName, !CrewGenderID, !CrewAgeID, "", "", "1", strCurrentUser)
                     .MoveNext
                 Wend
             End If
             .Close
         End With
     
-        If MyMsgBox(1, strAppTitle, strStandardMessages(8), 1) Then
+        If MyMsgBox(1, strApplicationName, strStandardMessages(8), 1) Then
         End If
         
         cmdButton_Click 0
@@ -2030,7 +2034,7 @@ Private Function AppendRecords(fileName)
     Do Until EOF(1)
         Line Input #1, strLine
         lngCurrentRecord = lngCurrentRecord + 1
-        lngID = MainSaveRecord("CommonDB", "Manifest", True, strAppTitle, "ID", _
+        lngID = MainSaveRecord("CommonDB", "Manifest", True, strApplicationName, "ID", _
             "", _
             Mid(strLine, 1, 10), _
             Val(Mid(strLine, 12, 5)), _

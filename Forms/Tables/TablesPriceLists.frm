@@ -1253,7 +1253,7 @@ End Function
 
 Private Function DeleteRecord()
     
-    If MainDeleteRecord("CommonDB", "Prices", strAppTitle, "PriceID", txtPriceID.text, "True") Then
+    If MainDeleteRecord("CommonDB", "Prices", strApplicationName, "PriceID", txtPriceID.text, "True") Then
         blnInputingData = False
         If PopulateGrid Then
             HighlightRow grdPrices, lngSelectedRow, 1, "", True
@@ -1290,7 +1290,7 @@ Private Function SaveRecord()
     
     If Not ValidateFields Then Exit Function
     
-    If MainSaveRecord("CommonDB", "Prices", blnStatus, strAppTitle, "PriceID", txtPriceID.text, txtPriceCustomerID.text, txtPriceDestinationID.text, mskPriceFrom.text, mskPriceTo.text, mskPriceAdultWithTransfer.text, mskPriceKidWithTransfer.text, mskPriceAdultWithoutTransfer.text, mskPriceKidWithoutTransfer.text, txtShowInList.text, strCurrentUser) <> 0 Then
+    If MainSaveRecord("CommonDB", "Prices", blnStatus, strApplicationName, "PriceID", txtPriceID.text, txtPriceCustomerID.text, txtPriceDestinationID.text, mskPriceFrom.text, mskPriceTo.text, mskPriceAdultWithTransfer.text, mskPriceKidWithTransfer.text, mskPriceAdultWithoutTransfer.text, mskPriceKidWithoutTransfer.text, txtShowInList.text, strCurrentUser) <> 0 Then
         blnInputingData = False
         PopulateGrid
         HighlightRow grdPrices, lngSelectedRow, 4, mskPriceFrom.text, True
@@ -1353,7 +1353,7 @@ Private Function ValidateCriteria()
     
     'Πελάτης
     If txtPriceCustomerID.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtPriceCustomerDescription.SetFocus
         Exit Function
@@ -1361,7 +1361,7 @@ Private Function ValidateCriteria()
 
     'Προορισμός
     If txtPriceDestinationID.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtPriceDestinationDescription.SetFocus
         Exit Function
@@ -1376,72 +1376,72 @@ Private Function ValidateFields()
     ValidateFields = False
     
     If Not IsDate(mskPriceFrom.text) Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskPriceFrom.SetFocus
         Exit Function
     End If
     If Not IsDate(mskPriceTo.text) Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskPriceTo.SetFocus
         Exit Function
     End If
     
     If CDate(mskPriceTo.text) < CDate(mskPriceFrom.text) Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(10), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(10), 1) Then
         End If
         mskPriceTo.SetFocus
         Exit Function
     End If
     
     If mskPriceAdultWithTransfer.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskPriceAdultWithTransfer.SetFocus
         Exit Function
     End If
     If CCur(mskPriceAdultWithTransfer.text) > 9999 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskPriceAdultWithTransfer.SetFocus
         Exit Function
     End If
     
     If mskPriceKidWithTransfer.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskPriceKidWithTransfer.SetFocus
         Exit Function
     End If
     If CCur(mskPriceKidWithTransfer.text) > 9999 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskPriceKidWithTransfer.SetFocus
         Exit Function
     End If
     
     If mskPriceAdultWithoutTransfer.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskPriceAdultWithoutTransfer.SetFocus
         Exit Function
     End If
     If CCur(mskPriceAdultWithoutTransfer.text) > 9999 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskPriceAdultWithoutTransfer.SetFocus
         Exit Function
     End If
     
     If mskPriceKidWithoutTransfer.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskPriceKidWithoutTransfer.SetFocus
         Exit Function
     End If
     If CCur(mskPriceKidWithoutTransfer.text) > 9999 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskPriceKidWithoutTransfer.SetFocus
         Exit Function
@@ -1475,9 +1475,9 @@ End Sub
 Private Sub cmdHalf_Click(index As Integer)
 
     'Ενήλικες
-    If index = 0 And mskPriceAdultWithTransfer.text <> "" Then mskPriceKidWithTransfer.text = Format(CCur(mskPriceAdultWithTransfer.text / 2), "#,##0.00")
+    If index = 0 And mskPriceAdultWithTransfer.text <> "" Then mskPriceKidWithTransfer.text = format(CCur(mskPriceAdultWithTransfer.text / 2), "#,##0.00")
     'Παιδιά
-    If index = 1 And mskPriceAdultWithoutTransfer.text <> "" Then mskPriceKidWithoutTransfer.text = Format(CCur(mskPriceAdultWithoutTransfer.text / 2), "#,##0.00")
+    If index = 1 And mskPriceAdultWithoutTransfer.text <> "" Then mskPriceKidWithoutTransfer.text = format(CCur(mskPriceAdultWithoutTransfer.text / 2), "#,##0.00")
     
 End Sub
 
@@ -1490,15 +1490,19 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 0
             'Πελάτης - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "Customers", "Description", "String", txtPriceCustomerDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "PriceID", "Επωνυμία", 0, 40, 1, 0)
-            txtPriceCustomerID.text = tmpTableData.strCode
-            txtPriceCustomerDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "PriceID", "Επωνυμία", 0, 40, 1, 0)
+                txtPriceCustomerID.text = tmpTableData.strCode
+                txtPriceCustomerDescription.text = tmpTableData.strFirstField
+            End If
         Case 1
             'Προορισμός - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "Destinations", "DestinationDescription", "String", txtPriceDestinationDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 2, "PriceID", "Περιγραφή", 0, 40, 1, 0)
-            txtPriceDestinationID.text = tmpTableData.strCode
-            txtPriceDestinationDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 2, "PriceID", "Περιγραφή", 0, 40, 1, 0)
+                txtPriceDestinationID.text = tmpTableData.strCode
+                txtPriceDestinationDescription.text = tmpTableData.strFirstField
+            End If
     End Select
 
 End Sub
@@ -1509,7 +1513,7 @@ Private Sub Form_Activate()
         Me.Tag = "False"
         DisableFields mskPriceFrom, mskPriceTo, mskPriceAdultWithTransfer, mskPriceKidWithTransfer, mskPriceAdultWithoutTransfer, mskPriceKidWithoutTransfer, cmdHalf(0), cmdHalf(1)
         EnableFields txtPriceCustomerDescription, txtPriceDestinationDescription
-        AddColumnsToGrid grdPrices, 44, GetSetting(strAppTitle, "Layout Strings", "grdPrices"), "04NCIPriceID,04NCICompanyID,04NCIDestinationID,10NCDFrom,10NCDTo,10NRFXAdultWithTransfer,10NRFXKidWithTransfer,10NRFXAdultWithoutTransfer,10NRFXKidWithoutTransfer", "ID,CompanyID,DestinationID,Από,Έως,Ενήλικες Με Μεταφορά,Παιδιά Με Μεταφορά,Ενήλικες Χωρίς Μεταφορά,Παιδιά Χωρίς Μεταφορά"
+        AddColumnsToGrid grdPrices, 44, GetSetting(strApplicationName, "Layout Strings", "grdPrices"), "04NCIPriceID,04NCICompanyID,04NCIDestinationID,10NCDFrom,10NCDTo,10NRFXAdultWithTransfer,10NRFXKidWithTransfer,10NRFXAdultWithoutTransfer,10NRFXKidWithoutTransfer", "ID,CompanyID,DestinationID,Από,Έως,Ενήλικες Με Μεταφορά,Παιδιά Με Μεταφορά,Ενήλικες Χωρίς Μεταφορά,Παιδιά Χωρίς Μεταφορά"
         txtPriceCustomerDescription.SetFocus
     End If
     
@@ -1529,23 +1533,23 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
     
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     Select Case KeyCode
-        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown And cmdButton(0).Enabled
+        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown = 4 And cmdButton(0).Enabled
             cmdButton_Click 0
-        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown And cmdButton(1).Enabled
+        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown = 4 And cmdButton(1).Enabled
             cmdButton_Click 1
-        Case vbKeyF10 And cmdButton(3).Enabled, vbKeyC And CtrlDown And cmdButton(3).Enabled
+        Case vbKeyF10 And cmdButton(3).Enabled, vbKeyC And CtrlDown = 4 And cmdButton(3).Enabled
             cmdButton_Click 3
-        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown And cmdButton(2).Enabled
+        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown = 4 And cmdButton(2).Enabled
             cmdButton_Click 2
-        Case vbKeyF7 And cmdButton(4).Enabled, vbKeyF And CtrlDown And cmdButton(4).Enabled
+        Case vbKeyF7 And cmdButton(4).Enabled, vbKeyF And CtrlDown = 4 And cmdButton(4).Enabled
             cmdButton_Click 4
         Case vbKeyEscape
             If cmdButton(5).Enabled Then cmdButton_Click 5: Exit Function
             If cmdButton(6).Enabled Then cmdButton_Click 6
-        Case vbKeyF12 And CtrlDown
+        Case vbKeyF12 And CtrlDown = 4
             ToggleInfoPanel Me
     End Select
 
@@ -1555,7 +1559,7 @@ Private Function AbortProcedure(blnStatus)
     
     If Not blnStatus Then
         If blnInputingData Then
-            If MyMsgBox(3, strAppTitle, strStandardMessages(3), 2) Then
+            If MyMsgBox(3, strApplicationName, strStandardMessages(3), 2) Then
                 blnInputingData = False
                 ClearFields mskPriceFrom, mskPriceTo, mskPriceAdultWithTransfer, mskPriceKidWithTransfer, mskPriceAdultWithoutTransfer, mskPriceKidWithoutTransfer
                 DisableFields mskPriceFrom, mskPriceTo, mskPriceAdultWithTransfer, mskPriceKidWithTransfer, mskPriceAdultWithoutTransfer, mskPriceKidWithoutTransfer, cmdHalf(0), cmdHalf(1)
@@ -1593,7 +1597,7 @@ Private Sub grdPrices_DblClick(ByVal lRow As Long, ByVal lCol As Long, bRequestE
 
 End Sub
 
-Private Sub grdPrices_HeaderRightClick(ByVal lCol As Long, ByVal Shift As Integer, ByVal x As Long, ByVal y As Long)
+Private Sub grdPrices_HeaderRightClick(ByVal lCol As Long, ByVal Shift As Integer, ByVal X As Long, ByVal Y As Long)
 
     PopupMenu mnuHdrPopUp
 
@@ -1607,7 +1611,7 @@ End Sub
 
 Private Sub mnuΑποθήκευσηΠλάτουςΣτηλών_Click()
     
-    SaveSetting strAppTitle, "Layout Strings", "grdPrices", grdPrices.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", "grdPrices", grdPrices.LayoutCol
 
 End Sub
 

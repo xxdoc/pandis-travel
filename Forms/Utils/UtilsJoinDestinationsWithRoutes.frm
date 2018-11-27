@@ -692,7 +692,7 @@ Private Function ValidateFields()
     
     'Προορισμός
     If txtDestinationID.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtDestinationDescription.SetFocus
         Exit Function
@@ -766,7 +766,7 @@ Private Function RefreshList()
     GoSub UpdateVariables
     
     'Προετοιμάζω τη μπάρα προόδου
-    InitializeProgressBar Me, strAppTitle, rstRecordset
+    InitializeProgressBar Me, strApplicationName, rstRecordset
     
     'Προσωρινά
     UpdateButtons Me, 5, 0, 0, 0, 0, 1, 0
@@ -949,10 +949,10 @@ Private Function FindRecordsAndPopulateGrid()
                 UpdateButtons Me, 5, 1, 0, 0, 0, 0, 1
                 If Not blnError Then
                     If blnProcessing Then
-                        If MyMsgBox(4, strAppTitle, strStandardMessages(27), 1) Then
+                        If MyMsgBox(4, strApplicationName, strStandardMessages(27), 1) Then
                         End If
                     Else
-                        If MyMsgBox(1, strAppTitle, strStandardMessages(7), 1) Then
+                        If MyMsgBox(1, strApplicationName, strStandardMessages(7), 1) Then
                         End If
                     End If
                 End If
@@ -965,10 +965,10 @@ Private Function FindRecordsAndPopulateGrid()
             UpdateButtons Me, 5, 1, 0, 0, 0, 0, 1
             If Not blnError Then
                 If blnProcessing Then
-                    If MyMsgBox(4, strAppTitle, strStandardMessages(27), 1) Then
+                    If MyMsgBox(4, strApplicationName, strStandardMessages(27), 1) Then
                     End If
                 Else
-                    If MyMsgBox(1, strAppTitle, strStandardMessages(7), 1) Then
+                    If MyMsgBox(1, strApplicationName, strStandardMessages(7), 1) Then
                     End If
                 End If
             End If
@@ -988,7 +988,7 @@ Private Function SaveRecord()
         AddSelectedRoutesAndPickupPointsForDestination (txtDestinationID.text)
     CommitTrans
         
-    If MyMsgBox(1, strAppTitle, strStandardMessages(8), 1) Then
+    If MyMsgBox(1, strApplicationName, strStandardMessages(8), 1) Then
     End If
     
     ClearFields grdDestinationsJoinRoutes
@@ -1022,7 +1022,7 @@ Private Function ExportRecords()
 
     Dim pdf As New ARExportPDF
     
-    CreateUnicodeFile "ΣΗΜΕΙΑ ΠΑΡΑΛΑΒΗΣ ΠΡΟΟΡΙΣΜΟΥ", txtDestinationDescription.text, "", GetSetting(strAppTitle, "Settings", "Export Report Height")
+    CreateUnicodeFile "ΣΗΜΕΙΑ ΠΑΡΑΛΑΒΗΣ ΠΡΟΟΡΙΣΜΟΥ", txtDestinationDescription.text, "", GetSetting(strApplicationName, "Settings", "Export Report Height")
     
     With rptOneLiner
         .Restart
@@ -1031,7 +1031,7 @@ Private Function ExportRecords()
         pdf.SemiDelimitedNeverEmbedFonts = ""
         pdf.fileName = strReportsPathName & "ΣΗΜΕΙΑ ΠΑΡΑΛΑΒΗΣ ΠΡΟΟΡΙΣΜΟΥ " & txtDestinationDescription.text & ".pdf"
         pdf.Export .Pages
-        If MyMsgBox(1, strAppTitle, strStandardMessages(8), 1) Then
+        If MyMsgBox(1, strApplicationName, strStandardMessages(8), 1) Then
         End If
     End With
     
@@ -1047,17 +1047,21 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 0
             'Συντ. προορισμού
             Set tmpRecordset = CheckForMatch("CommonDB", "Destinations", "DestinationShortDescription", "String", txtDestinationShortDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 3, True, 3, 0, 1, 2, "ID", "Συντ.", "Περιγραφή", 0, 5, 40, 1, 1, 0)
-            txtDestinationID.text = tmpTableData.strCode
-            txtDestinationShortDescription.text = tmpTableData.strFirstField
-            txtDestinationDescription.text = tmpTableData.strSecondField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 3, True, 3, 0, 1, 2, "ID", "Συντ.", "Περιγραφή", 0, 5, 40, 1, 1, 0)
+                txtDestinationID.text = tmpTableData.strCode
+                txtDestinationShortDescription.text = tmpTableData.strFirstField
+                txtDestinationDescription.text = tmpTableData.strSecondField
+            End If
         Case 1
             'Περιγραφή προορισμού
             Set tmpRecordset = CheckForMatch("CommonDB", "Destinations", "DestinationDescription", "String", txtDestinationDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 3, True, 3, 0, 1, 2, "ID", "Συντ.", "Περιγραφή", 0, 5, 40, 1, 1, 0)
-            txtDestinationID.text = tmpTableData.strCode
-            txtDestinationShortDescription.text = tmpTableData.strFirstField
-            txtDestinationDescription.text = tmpTableData.strSecondField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 3, True, 3, 0, 1, 2, "ID", "Συντ.", "Περιγραφή", 0, 5, 40, 1, 1, 0)
+                txtDestinationID.text = tmpTableData.strCode
+                txtDestinationShortDescription.text = tmpTableData.strFirstField
+                txtDestinationDescription.text = tmpTableData.strSecondField
+            End If
     End Select
 
 End Sub
@@ -1072,7 +1076,7 @@ Private Sub Form_Activate()
 
     If Me.Tag = "True" Then
         Me.Tag = "False"
-        AddColumnsToGrid grdDestinationsJoinRoutes, 44, GetSetting(strAppTitle, "Layout Strings", "grdDestinationsJoinRoutes"), "04NCISelectedPickupRouteID,04NCISelectedPickupPointID,04NCIPickupRouteID,04NCIPickupPointID,40NLNPickupRouteDescription,40NLNPickupPointDescription,40NLNPickupPointExactPoint,06NCTPickupPointTime", "-,-,-,-,-,Περιγραφή,Σημείο,Ώρα"
+        AddColumnsToGrid grdDestinationsJoinRoutes, 44, GetSetting(strApplicationName, "Layout Strings", "grdDestinationsJoinRoutes"), "04NCISelectedPickupRouteID,04NCISelectedPickupPointID,04NCIPickupRouteID,04NCIPickupPointID,40NLNPickupRouteDescription,40NLNPickupPointDescription,40NLNPickupPointExactPoint,06NCTPickupPointTime", "-,-,-,-,-,Περιγραφή,Σημείο,Ώρα"
         Me.Refresh
         frmCriteria(0).Visible = True
         txtDestinationShortDescription.SetFocus
@@ -1094,19 +1098,19 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
     
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     Select Case KeyCode
-        Case vbKeyF10 And cmdButton(0).Enabled, vbKeyC And CtrlDown And cmdButton(0).Enabled
+        Case vbKeyF10 And cmdButton(0).Enabled, vbKeyC And CtrlDown = 4 And cmdButton(0).Enabled
             cmdButton_Click 0
-        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown And cmdButton(1).Enabled
+        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown = 4 And cmdButton(1).Enabled
             cmdButton_Click 1
-        Case vbKeyP And CtrlDown And cmdButton(1).Enabled
+        Case vbKeyP And CtrlDown = 4 And cmdButton(1).Enabled
             cmdButton_Click 2
         Case vbKeyEscape
             If cmdButton(4).Enabled Then cmdButton_Click 4: Exit Function
             If cmdButton(5).Enabled Then cmdButton_Click 5
-        Case vbKeyF12 And CtrlDown
+        Case vbKeyF12 And CtrlDown = 4
             ToggleInfoPanel Me
     End Select
 
@@ -1143,7 +1147,7 @@ End Sub
 
 Private Sub mnuΑποθήκευσηΠλάτουςΣτηλών_Click()
 
-    SaveSetting strAppTitle, "Layout Strings", "grdDestinationsJoinRoutes", grdDestinationsJoinRoutes.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", "grdDestinationsJoinRoutes", grdDestinationsJoinRoutes.LayoutCol
 
 End Sub
 
@@ -1189,7 +1193,7 @@ Private Function FindRoutesForDestination(destinationID As String)
     'If rstRecordset.RecordCount <> 0 Then blnErrors = False: FindRoutesForDestination = False: Exit Function
     
     'Προετοιμάζω τη μπάρα προόδου
-    InitializeProgressBar Me, strAppTitle, rstRecordset
+    InitializeProgressBar Me, strApplicationName, rstRecordset
     
     'Προσωρινά
     UpdateButtons Me, 5, 0, 0, 0, 0, 1, 0

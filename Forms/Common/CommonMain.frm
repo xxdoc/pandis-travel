@@ -251,7 +251,7 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
     
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
 End Function
 
@@ -280,7 +280,7 @@ Private Sub Form_Load()
 
     BuildMenu
     
-    strImageDirectory = GetSetting(strAppTitle, "Path Names", "Image Directory")
+    strImageDirectory = GetSetting(strApplicationName, "Path Names", "Image Directory")
 
     With CommonMain
         .ScaleHeight = .Height
@@ -293,9 +293,9 @@ Private Sub Form_Load()
     
     UpdateCompanyLabel
     
-    strReportsPathName = GetSetting(AppName:=strAppTitle, Section:="Path Names", Key:="Reports Path Name")
-    strUnicodeFile = GetSetting(AppName:=strAppTitle, Section:="Path Names", Key:="Reports Path Name") & "UnicodeFile.txt"
-    strAsciiFile = GetSetting(AppName:=strAppTitle, Section:="Path Names", Key:="Reports Path Name") & "AsciiFile.txt"
+    strReportsPathName = GetSetting(appName:=strApplicationName, Section:="Path Names", Key:="Reports Path Name")
+    strUnicodeFile = GetSetting(appName:=strApplicationName, Section:="Path Names", Key:="Reports Path Name") & "UnicodeFile.txt"
+    strAsciiFile = GetSetting(appName:=strApplicationName, Section:="Path Names", Key:="Reports Path Name") & "AsciiFile.txt"
     
     blnAppIsRunning = True
     
@@ -317,7 +317,7 @@ Private Function BuildMenu()
         .ScaleHeight = .Height
     End With
     
-    strMenuCategories = GetSetting(strAppTitle, "Settings", "Menu Categories")
+    strMenuCategories = GetSetting(strApplicationName, "Settings", "Menu Categories")
     For intLoop = 1 To Len(strMenuCategories)
         While Mid(strMenuCategories, intLoop, 1) <> "," And intLoop <= Len(strMenuCategories)
             strMenuCategory = strMenuCategory & Mid(strMenuCategories, intLoop, 1)
@@ -331,12 +331,12 @@ Private Function BuildMenu()
     
     With CommonMain.vbExplorerBar
         
-        .Height = GetSetting(strAppTitle, "Settings", "Menu Height")
+        .Height = GetSetting(strApplicationName, "Settings", "Menu Height")
         .Left = ((Screen.Width / Screen.TwipsPerPixelX) / 3)
         .Redraw = False
         .Top = (CommonMain.Height / 2) - (.Height / 2) - 200
         .UseExplorerStyle = False
-        .Width = GetSetting(strAppTitle, "Settings", "Menu Width")
+        .Width = GetSetting(strApplicationName, "Settings", "Menu Width")
         
         AddIncomeMenu
         AddExpensesMenu
@@ -357,16 +357,22 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
 
     Dim obj As Object
     
-    'Επιλογή κλεισίματος απο το μενού συστήματος
+    'Επιλογή κλεισίματος απο το μενού συστήματος, κλικ στο Χ ή ALT-F4
     If UnloadMode = 0 Then
         If CloseApp Then
             For Each obj In Forms
                 Unload obj
             Next
-            End
+            KillProcess strApplicationEXEName: End
         Else
             Cancel = 1
+            Exit Sub
         End If
+    End If
+    
+    'Επιλογή κλεισίματος από την επιλογή Εξοδος > Τερματισμός
+    If UnloadMode = 1 Then
+        KillProcess strApplicationEXEName
     End If
 
 End Sub
@@ -375,7 +381,7 @@ Private Function CloseApp()
 
     CloseApp = False
     
-    If MyMsgBox(2, strAppTitle, strStandardMessages(16), 2) Then
+    If MyMsgBox(2, strApplicationName, strStandardMessages(16), 2) Then
         CloseApp = True
     End If
 
@@ -393,7 +399,7 @@ Private Sub ResizeBar(intKey, blnState As Boolean, ExplorerBar As vbalExplorerBa
 
     'Κάθετο κεντράρισμα
     With ExplorerBar
-        .Height = GetSetting(strAppTitle, "Settings", "Menu Height")
+        .Height = GetSetting(strApplicationName, "Settings", "Menu Height")
         If Not blnState Then .Top = (Me.Height / 2) - (.Height / 2): Exit Sub
         .Redraw = False
         .Height = Buttons(intKey - 1)
@@ -520,6 +526,7 @@ Private Sub vbExplorerBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
             End With
         Case "ΧρεώστεςΙσοζύγιο"
             With PersonsBalanceSheet
+                .lblTitle.Caption = "Ισοζύγιο χρεωστών"
                 .txtInvoiceMasterRefersTo.text = "2"
                 .txtCustomersOrSuppliers.text = "Customers"
                 .txtPaymentInOrPaymentOut.text = "PaymentIn"
@@ -574,6 +581,7 @@ Private Sub vbExplorerBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
             End With
         Case "ΠιστωτέςΙσοζύγιο"
             With PersonsBalanceSheet
+                .lblTitle.Caption = "Ισοζύγιο πιστωτών"
                 .txtInvoiceMasterRefersTo.text = "1"
                 .txtCustomersOrSuppliers.text = "Suppliers"
                 .txtPaymentInOrPaymentOut.text = "PaymentOut"

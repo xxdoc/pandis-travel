@@ -1131,7 +1131,7 @@ Dim lngSelectedRow As Long
 Private Function AbortProcedure(blnStatus)
     
     If Not blnStatus Then
-        If MyMsgBox(3, strAppTitle, strStandardMessages(3), 2) Then
+        If MyMsgBox(3, strApplicationName, strStandardMessages(3), 2) Then
             blnStatus = False
             ClearFields txtCodeID, txtCodeShortDescriptionA, txtCodeShortDescriptionB, txtCodeDescription, txtCodeBatch, txtCodeHandID, txtCodeHandDescription, txtCodeCustomers, txtCodeSuppliers, txtCodeLastNo, mskCodeLastDate
             DisableFields txtCodeShortDescriptionA, txtCodeShortDescriptionB, txtCodeDescription, txtCodeBatch, txtCodeCustomers, txtCodeSuppliers, txtCodeHandDescription, txtCodeLastNo, mskCodeLastDate, cmdIndex(0)
@@ -1148,7 +1148,7 @@ End Function
 
 Private Function DeleteRecord()
     
-    If MainDeleteRecord("CommonDB", "Codes", strAppTitle, "CodeID", Val(txtCodeID.text), "True") Then
+    If MainDeleteRecord("CommonDB", "Codes", strApplicationName, "CodeID", Val(txtCodeID.text), "True") Then
         PopulateGrid
         HighlightRow grdCodes, lngSelectedRow, 2, "", True
         ClearFields txtCodeID, txtCodeShortDescriptionA, txtCodeShortDescriptionB, txtCodeDescription, txtCodeBatch, txtCodeHandID, txtCodeHandDescription, txtCodeCustomers, txtCodeSuppliers, txtCodeLastNo, mskCodeLastDate
@@ -1181,7 +1181,7 @@ Private Function SaveRecord()
     
     If Not ValidateFields Then Exit Function
     
-    If MainSaveRecord("CommonDB", "Codes", blnStatus, strAppTitle, "CodeID", Val(txtCodeID.text), txtCodeMasterRefersTo.text, txtCodeSecondaryRefersTo.text, txtCodeShortDescriptionA.text, txtCodeShortDescriptionB.text, txtCodeDescription.text, txtCodeBatch.text, Val(txtCodeHandID.text), txtCodeCustomers.text, txtCodeSuppliers.text, txtCodeLastNo.text, mskCodeLastDate.text, 1, strCurrentUser) <> 0 Then
+    If MainSaveRecord("CommonDB", "Codes", blnStatus, strApplicationName, "CodeID", Val(txtCodeID.text), txtCodeMasterRefersTo.text, txtCodeSecondaryRefersTo.text, txtCodeShortDescriptionA.text, txtCodeShortDescriptionB.text, txtCodeDescription.text, txtCodeBatch.text, Val(txtCodeHandID.text), txtCodeCustomers.text, txtCodeSuppliers.text, txtCodeLastNo.text, mskCodeLastDate.text, 1, strCurrentUser) <> 0 Then
         PopulateGrid
         HighlightRow grdCodes, lngSelectedRow, 3, txtCodeDescription.text, True
         lngSelectedRow = 0
@@ -1211,8 +1211,8 @@ Private Function SeekRecord()
     If MainSeekRecord("CommonDB", "Codes", "CodeID", grdCodes.CellValue(grdCodes.CurRow, 1), True, txtCodeID, txtCodeMasterRefersTo, txtCodeSecondaryRefersTo, txtCodeShortDescriptionA, txtCodeShortDescriptionB, txtCodeDescription, txtCodeBatch, txtCodeHandID, txtCodeCustomers, txtCodeSuppliers, txtCodeLastNo, mskCodeLastDate) Then
         'Χειρόγραφο
         Set tmpRecordset = CheckForMatch("CommonDB", "YesOrNo", "YesOrNoID", "Numeric", txtCodeHandID.text)
-        txtCodeHandID.text = tmpRecordset.fields(0)
-        txtCodeHandDescription.text = tmpRecordset.fields(1)
+        txtCodeHandID.text = tmpRecordset.Fields(0)
+        txtCodeHandDescription.text = tmpRecordset.Fields(1)
         '
         blnStatus = False
         lngSelectedRow = grdCodes.CurRow
@@ -1229,7 +1229,7 @@ Private Function ValidateFields()
     
     'ID
     If Len(txtCodeShortDescriptionA.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtCodeShortDescriptionA.SetFocus
         Exit Function
@@ -1237,7 +1237,7 @@ Private Function ValidateFields()
     
     'Συντ. Α'
     If Len(txtCodeShortDescriptionA.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtCodeShortDescriptionA.SetFocus
         Exit Function
@@ -1245,13 +1245,13 @@ Private Function ValidateFields()
     
     'Συντ. Β'
     If Len(txtCodeShortDescriptionB.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtCodeShortDescriptionB.SetFocus
         Exit Function
     End If
     If Len(txtCodeShortDescriptionB.text) <> 3 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         txtCodeShortDescriptionB.SetFocus
         Exit Function
@@ -1259,7 +1259,7 @@ Private Function ValidateFields()
         
     'Περιγραφή
     If Len(txtCodeDescription.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtCodeDescription.SetFocus
         Exit Function
@@ -1267,7 +1267,7 @@ Private Function ValidateFields()
     
     'Πελάτες
     If txtCodeCustomers.text <> "+" And txtCodeCustomers.text <> "-" And txtCodeCustomers.text <> "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         txtCodeCustomers.SetFocus
         Exit Function
@@ -1275,7 +1275,7 @@ Private Function ValidateFields()
     
     'Προμηθευτές
     If txtCodeSuppliers.text <> "+" And txtCodeSuppliers.text <> "-" And txtCodeSuppliers.text <> "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         txtCodeSuppliers.SetFocus
         Exit Function
@@ -1283,7 +1283,7 @@ Private Function ValidateFields()
     
     'Χειρόγραφο
     If txtCodeHandID.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtCodeHandDescription.SetFocus
         Exit Function
@@ -1291,7 +1291,7 @@ Private Function ValidateFields()
     
     'Τελευταίο παραστατικό
     If Not IsNumeric(txtCodeLastNo.text) Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         txtCodeLastNo.SetFocus
         Exit Function
@@ -1299,7 +1299,7 @@ Private Function ValidateFields()
     
     'Τελευταία ημερομηνία
     If Not IsDate(mskCodeLastDate.text) Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskCodeLastDate.SetFocus
         Exit Function
@@ -1309,9 +1309,9 @@ Private Function ValidateFields()
 
 End Function
 
-Private Sub cmdButton_Click(Index As Integer)
+Private Sub cmdButton_Click(index As Integer)
                                                                 
-   Select Case Index
+   Select Case index
         Case 0
             NewRecord
         Case 1
@@ -1326,19 +1326,21 @@ Private Sub cmdButton_Click(Index As Integer)
 
 End Sub
 
-Private Sub cmdIndex_Click(Index As Integer)
+Private Sub cmdIndex_Click(index As Integer)
     
     'Local variables
     Dim tmpTableData As typTableData
     Dim tmpRecordset As Recordset
     
-    Select Case Index
+    Select Case index
         Case 0
             'Χειρόγραφο
             Set tmpRecordset = CheckForMatch("CommonDB", "YesOrNo", "YesOrNoDescription", "String", txtCodeHandDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "CodeID", "Περιγραφή", 0, 40, 1, 0)
-            txtCodeHandID.text = tmpTableData.strCode
-            txtCodeHandDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "CodeID", "Περιγραφή", 0, 40, 1, 0)
+                txtCodeHandID.text = tmpTableData.strCode
+                txtCodeHandDescription.text = tmpTableData.strFirstField
+            End If
     End Select
 
 End Sub
@@ -1347,7 +1349,7 @@ Private Sub Form_Activate()
 
     If Me.Tag = "True" Then
         Me.Tag = "False"
-        AddColumnsToGrid grdCodes, 25, GetSetting(strAppTitle, "Layout Strings", "grdCodes"), "04NCIID,04NCNShortDescription,40NLNDescription,05NCNBatch", "ID,Συντ. Α,Περιγραφή,Σειρά"
+        AddColumnsToGrid grdCodes, 25, GetSetting(strApplicationName, "Layout Strings", "grdCodes"), "04NCIID,04NCNShortDescription,40NLNDescription,05NCNBatch", "ID,Συντ. Α,Περιγραφή,Σειρά"
         Me.Refresh
         PopulateGrid
     End If
@@ -1360,19 +1362,19 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
     
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     Select Case KeyCode
-        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown And cmdButton(0).Enabled
+        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown = 4 And cmdButton(0).Enabled
             cmdButton_Click 0
-        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown And cmdButton(1).Enabled
+        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown = 4 And cmdButton(1).Enabled
             cmdButton_Click 1
-        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown And cmdButton(2).Enabled
+        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown = 4 And cmdButton(2).Enabled
             cmdButton_Click 2
         Case vbKeyEscape
             If cmdButton(3).Enabled Then cmdButton_Click 3: Exit Function
             If cmdButton(4).Enabled Then cmdButton_Click 4
-        Case vbKeyF12 And CtrlDown
+        Case vbKeyF12 And CtrlDown = 4
             ToggleInfoPanel Me
     End Select
 
@@ -1416,7 +1418,7 @@ End Sub
 
 Private Sub mnuΑποθήκευσηΠλάτουςΣτηλών_Click()
 
-    SaveSetting strAppTitle, "Layout Strings", "grdCodes", grdCodes.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", "grdCodes", grdCodes.LayoutCol
 
 End Sub
 

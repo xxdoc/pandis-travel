@@ -518,7 +518,7 @@ Private Function AddRecordsToGrid(rstRecordset As Recordset)
     Dim curTotalGrossAmount As Currency
     
     'Προετοιμάζω τη μπάρα προόδου
-    InitializeProgressBar Me, strAppTitle, rstRecordset
+    InitializeProgressBar Me, strApplicationName, rstRecordset
     
     'Προσωρινά
     UpdateButtons Me, 3, 0, 0, 1, 0
@@ -544,7 +544,7 @@ Private Function AddRecordsToGrid(rstRecordset As Recordset)
                 lngRow = grdSalesExport.RowCount
                 grdSalesExport.CellValue(lngRow, "Line") = intLine
                 grdSalesExport.CellValue(lngRow, "AccountCode") = IIf(IsNull(!BankAccountsCode), strCashAccountsCode, !BankAccountsCode)
-                grdSalesExport.CellValue(lngRow, "InvoiceDateIssue") = Format(!InvoiceDateIssue, "dd/mm/yy")
+                grdSalesExport.CellValue(lngRow, "InvoiceDateIssue") = format(!InvoiceDateIssue, "dd/mm/yy")
                 grdSalesExport.CellValue(lngRow, "ShowInList") = "ΧΡ"
                 grdSalesExport.CellValue(lngRow, "CustomerDescription") = !Description
                 grdSalesExport.CellValue(lngRow, "CodeShortDescriptionB") = strFullInvoice
@@ -562,7 +562,7 @@ Private Function AddRecordsToGrid(rstRecordset As Recordset)
                 lngRow = grdSalesExport.RowCount
                 grdSalesExport.CellValue(lngRow, "Line") = intLine
                 grdSalesExport.CellValue(lngRow, "AccountCode") = !AccountCode
-                grdSalesExport.CellValue(lngRow, "InvoiceDateIssue") = Format(!InvoiceDateIssue, "dd/mm/yy")
+                grdSalesExport.CellValue(lngRow, "InvoiceDateIssue") = format(!InvoiceDateIssue, "dd/mm/yy")
                 grdSalesExport.CellValue(lngRow, "ShowInList") = "ΧΡ"
                 grdSalesExport.CellValue(lngRow, "CustomerDescription") = !Description
                 grdSalesExport.CellValue(lngRow, "CodeShortDescriptionB") = strFullInvoice
@@ -583,7 +583,7 @@ Private Function AddRecordsToGrid(rstRecordset As Recordset)
                 lngRow = grdSalesExport.RowCount
                 grdSalesExport.CellValue(lngRow, "Line") = intLine
                 grdSalesExport.CellValue(lngRow, "AccountCode") = !AccountCode
-                grdSalesExport.CellValue(lngRow, "InvoiceDateIssue") = Format(!InvoiceDateIssue, "dd/mm/yy")
+                grdSalesExport.CellValue(lngRow, "InvoiceDateIssue") = format(!InvoiceDateIssue, "dd/mm/yy")
                 grdSalesExport.CellValue(lngRow, "ShowInList") = "ΠΩ"
                 grdSalesExport.CellValue(lngRow, "CustomerDescription") = !Description
                 grdSalesExport.CellValue(lngRow, "CodeShortDescriptionB") = strFullInvoice
@@ -592,7 +592,7 @@ Private Function AddRecordsToGrid(rstRecordset As Recordset)
                 strGrossAmount = !CodeCustomers + strGrossAmount
                 curGrossAmount = CCur(strGrossAmount)
                 curNetAmount = curGrossAmount
-                grdSalesExport.CellValue(lngRow, "Debit") = Format(curGrossAmount)
+                grdSalesExport.CellValue(lngRow, "Debit") = format(curGrossAmount)
                 grdSalesExport.CellValue(lngRow, "D/C") = "1"
                 grdSalesExport.CellValue(lngRow, "TaxNo") = !TaxNo
                 '54 ΦΠΑ
@@ -602,14 +602,14 @@ Private Function AddRecordsToGrid(rstRecordset As Recordset)
                     lngRow = grdSalesExport.RowCount
                     grdSalesExport.CellValue(lngRow, "Line") = intLine
                     grdSalesExport.CellValue(lngRow, "AccountCode") = strVATAccountsCode
-                    grdSalesExport.CellValue(lngRow, "InvoiceDateIssue") = Format(!InvoiceDateIssue, "dd/mm/yy")
+                    grdSalesExport.CellValue(lngRow, "InvoiceDateIssue") = format(!InvoiceDateIssue, "dd/mm/yy")
                     grdSalesExport.CellValue(lngRow, "ShowInList") = "ΠΩ"
                     grdSalesExport.CellValue(lngRow, "CustomerDescription") = !Description
                     grdSalesExport.CellValue(lngRow, "CodeShortDescriptionB") = strFullInvoice
                     grdSalesExport.CellValue(lngRow, "CodeShortDescriptionBSmaller") = strSmallInvoice
                     strVAT = "1." & intVAT
                     curNetAmount = curGrossAmount / Val(strVAT)
-                    grdSalesExport.CellValue(lngRow, "Debit") = Format(curGrossAmount - curNetAmount, "#,##0.00")
+                    grdSalesExport.CellValue(lngRow, "Debit") = format(curGrossAmount - curNetAmount, "#,##0.00")
                     grdSalesExport.CellValue(lngRow, "D/C") = "0"
                     grdSalesExport.CellValue(lngRow, "TaxNo") = !TaxNo
                 End If
@@ -619,12 +619,12 @@ Private Function AddRecordsToGrid(rstRecordset As Recordset)
                 lngRow = grdSalesExport.RowCount
                 grdSalesExport.CellValue(lngRow, "Line") = intLine
                 grdSalesExport.CellValue(lngRow, "AccountCode") = IIf(!ShipSalesCode <> "", !ShipSalesCode, strSalesAccountsCode)
-                grdSalesExport.CellValue(lngRow, "InvoiceDateIssue") = Format(!InvoiceDateIssue, "dd/mm/yy")
+                grdSalesExport.CellValue(lngRow, "InvoiceDateIssue") = format(!InvoiceDateIssue, "dd/mm/yy")
                 grdSalesExport.CellValue(lngRow, "ShowInList") = "ΠΩ"
                 grdSalesExport.CellValue(lngRow, "CustomerDescription") = !Description
                 grdSalesExport.CellValue(lngRow, "CodeShortDescriptionB") = strFullInvoice
                 grdSalesExport.CellValue(lngRow, "CodeShortDescriptionBSmaller") = strSmallInvoice
-                grdSalesExport.CellValue(lngRow, "Debit") = Format(curNetAmount, "#,##.00")
+                grdSalesExport.CellValue(lngRow, "Debit") = format(curNetAmount, "#,##.00")
                 grdSalesExport.CellValue(lngRow, "D/C") = "0"
                 grdSalesExport.CellValue(lngRow, "TaxNo") = !TaxNo
             End If
@@ -683,7 +683,7 @@ Private Function CreateFile()
     
     'Ελεγχος
     If Not IsGridValid Then
-        If MyMsgBox(4, strAppTitle, strAppMessages(6), 1) Then
+        If MyMsgBox(4, strApplicationName, strAppMessages(6), 1) Then
         End If
         CreateFile = False
         Exit Function
@@ -693,7 +693,7 @@ Private Function CreateFile()
     Open strReportsPathName & strAccountsFileName For Output As #1
     
     'Προετοιμάζω τη μπάρα προόδου
-    InitializeProgressBar Me, strAppTitle, grdSalesExport.RowCount
+    InitializeProgressBar Me, strApplicationName, grdSalesExport.RowCount
     
     'Πλέγμα
     With grdSalesExport
@@ -758,7 +758,7 @@ End Function
 
 Private Function ExportGridToFile()
 
-    If CreateFile Then MyMsgBox 1, strAppTitle, strStandardMessages(8), 1
+    If CreateFile Then MyMsgBox 1, strApplicationName, strStandardMessages(8), 1
 
 End Function
 
@@ -782,13 +782,13 @@ Private Function ValidateFields()
     ValidateFields = False
     
     'Από
-    If Not IsDate(mskFrom.text) Then MyMsgBox 4, strAppTitle, strStandardMessages(1), 1: mskFrom.SetFocus: Exit Function
+    If Not IsDate(mskFrom.text) Then MyMsgBox 4, strApplicationName, strStandardMessages(1), 1: mskFrom.SetFocus: Exit Function
     
     'Εως
-    If Not IsDate(mskTo.text) Then MyMsgBox 4, strAppTitle, strStandardMessages(1), 1: mskTo.SetFocus: Exit Function
+    If Not IsDate(mskTo.text) Then MyMsgBox 4, strApplicationName, strStandardMessages(1), 1: mskTo.SetFocus: Exit Function
     
     'Σωστό διάστημα
-    If CDate(mskFrom.text) > CDate(mskTo.text) Then MyMsgBox 4, strAppTitle, strStandardMessages(10), 1: mskFrom.SetFocus: Exit Function
+    If CDate(mskFrom.text) > CDate(mskTo.text) Then MyMsgBox 4, strApplicationName, strStandardMessages(10), 1: mskFrom.SetFocus: Exit Function
     
     ValidateFields = True
     
@@ -963,17 +963,17 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
 
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     Select Case KeyCode
-        Case vbKeyF10 And cmdButton(0).Enabled, vbKeyC And CtrlDown And cmdButton(0).Enabled
+        Case vbKeyF10 And cmdButton(0).Enabled, vbKeyC And CtrlDown = 4 And cmdButton(0).Enabled
             cmdButton_Click 0
-        Case vbKeyS And CtrlDown And cmdButton(1).Enabled
+        Case vbKeyS And CtrlDown = 4 And cmdButton(1).Enabled
             cmdButton_Click 1
         Case vbKeyEscape
             If cmdButton(2).Enabled Then cmdButton_Click 2: Exit Function
             If cmdButton(3).Enabled Then cmdButton_Click 3
-        Case vbKeyF12 And CtrlDown
+        Case vbKeyF12 And CtrlDown = 4
             ToggleInfoPanel Me
     End Select
 
@@ -1013,7 +1013,7 @@ Private Function DoJobs()
                 cmdButton(2).Caption = "Νέα αναζήτηση"
                 UpdateButtons Me, 3, 0, 1, 1, 0
             Else
-                MyMsgBox 4, strAppTitle, strStandardMessages(27), 1
+                MyMsgBox 4, strApplicationName, strStandardMessages(27), 1
                 frmProgress.Visible = False
                 frmCriteria.Visible = True
                 cmdButton(2).Caption = "Νέα αναζήτηση"
@@ -1022,7 +1022,7 @@ Private Function DoJobs()
             End If
         Else
             UpdateButtons Me, 3, 1, 0, 0, 1
-            MyMsgBox 1, strAppTitle, strStandardMessages(7), 1
+            MyMsgBox 1, strApplicationName, strStandardMessages(7), 1
             frmCriteria.Visible = True
             UpdateButtons Me, 3, 1, 0, 0, 1
             mskFrom.SetFocus
@@ -1054,13 +1054,13 @@ End Sub
 
 Private Sub mnuΑποθήκευσηΠλάτουςΣτηλών_Click()
 
-    SaveSetting strAppTitle, "Layout Strings", "grdSalesExport", grdSalesExport.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", "grdSalesExport", grdSalesExport.LayoutCol
 
 End Sub
 
 Private Function AddColumns()
 
-    AddColumnsToGrid grdSalesExport, 44, GetSetting(strAppTitle, "Layout Strings", "grdSalesExport"), "04NCILine,15NCNXAccountCode,10NCDInvoiceDateIssue,15NCNShowInList,15NLNCustomerDescription,05NLNCodeShortDescriptionB,05NLNCodeShortDescriptionBSmaller,10NRFDebit,10NCND/C,15NLNTaxNo", "Γ,Κωδ. Γεν. Λογιστικής,Ημερομηνία,Τ,Επωνυμία,Παραστατικό,Παραστατικό,Αξία,Χ/Π,Α.Φ.Μ."
+    AddColumnsToGrid grdSalesExport, 44, GetSetting(strApplicationName, "Layout Strings", "grdSalesExport"), "04NCILine,15NCNXAccountCode,10NCDInvoiceDateIssue,15NCNShowInList,15NLNCustomerDescription,05NLNCodeShortDescriptionB,05NLNCodeShortDescriptionBSmaller,10NRFDebit,10NCND/C,15NLNTaxNo", "Γ,Κωδ. Γεν. Λογιστικής,Ημερομηνία,Τ,Επωνυμία,Παραστατικό,Παραστατικό,Αξία,Χ/Π,Α.Φ.Μ."
     
 End Function
 

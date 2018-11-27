@@ -190,7 +190,7 @@ Begin VB.Form CoachesPickupsBrief
       ForeColor       =   0
       BackColor       =   14737632
       Appearance      =   1
-      StartOfWeek     =   25231362
+      StartOfWeek     =   25296898
       CurrentDate     =   43031
    End
    Begin VB.Frame frmInfo 
@@ -1031,7 +1031,7 @@ Private Function AbortProcedure(blnStatus)
     If monthlyCalendar.Visible Then monthlyCalendar.Visible = False: Exit Function
 
     If Not blnStatus Then
-        If MyMsgBox(3, strAppTitle, strStandardMessages(3), 2) Then
+        If MyMsgBox(3, strApplicationName, strStandardMessages(3), 2) Then
             blnStatus = False
             blnCancel = True
             ClearFields txtTransferID, txtCustomerID, txtTransferDestinationID, txtDestinationShortDescription
@@ -1049,7 +1049,7 @@ End Function
 
 Private Function DeleteRecord()
 
-    If MainDeleteRecord("CommonDB", "Transfers", strAppTitle, "ID", txtTransferID.text, "True") Then
+    If MainDeleteRecord("CommonDB", "Transfers", strApplicationName, "ID", txtTransferID.text, "True") Then
         blnCancel = True
         ClearFields txtTransferID, txtCustomerID, txtTransferDestinationID, txtDestinationShortDescription
         ClearFields mskDate, txtCompanyDescription, txtDestinationDescription, txtPickupPointDescription, mskAdults, mskKids, mskFree, txtRemarks
@@ -1063,13 +1063,13 @@ End Function
 
 Private Function DisplayRecordID(myDestinationDescription, myTransferDate, myRecordID)
 
-     MyMsgBox 1, strAppTitle, strAppMessages(8) & " " & CreateReferenceNo(myDestinationDescription, myTransferDate, myRecordID), 1
+     MyMsgBox 1, strApplicationName, strAppMessages(8) & " " & CreateReferenceNo(myDestinationDescription, myTransferDate, myRecordID), 1
 
 End Function
 
-Private Sub cmdButton_Click(Index As Integer)
+Private Sub cmdButton_Click(index As Integer)
                 
-    Select Case Index
+    Select Case index
         Case 0
             NewRecord
         Case 1
@@ -1102,7 +1102,7 @@ Private Function SaveRecord()
     
     If Not ValidateFields Then Exit Function
     
-    txtTransferID.text = MainSaveRecord("CommonDB", "Transfers", blnStatus, strAppTitle, "ID", txtTransferID.text, mskDate.text, txtCustomerID.text, 0, 0, 0, mskAdults.text, mskKids.text, mskFree.text, txtTransferDestinationID.text, txtPickupPointDescription.text, txtRemarks.text, "2", strCurrentUser)
+    txtTransferID.text = MainSaveRecord("CommonDB", "Transfers", blnStatus, strApplicationName, "ID", txtTransferID.text, mskDate.text, txtCustomerID.text, 0, 0, 0, mskAdults.text, mskKids.text, mskFree.text, txtTransferDestinationID.text, txtPickupPointDescription.text, txtRemarks.text, "2", strCurrentUser)
     
     If txtTransferID.text <> 0 Then
         blnCancel = True
@@ -1123,13 +1123,13 @@ Private Function ValidateFields()
     
     'Ημερομηνία
     If mskDate.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskDate.SetFocus
         Exit Function
     End If
     If Not IsDate(mskDate.text) Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskDate.SetFocus
         Exit Function
@@ -1137,7 +1137,7 @@ Private Function ValidateFields()
     
     'Πελάτης
     If txtCustomerID.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtCompanyDescription.SetFocus
         Exit Function
@@ -1145,7 +1145,7 @@ Private Function ValidateFields()
 
     'Προορισμός
     If txtTransferDestinationID.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtDestinationDescription.SetFocus
         Exit Function
@@ -1153,7 +1153,7 @@ Private Function ValidateFields()
     
     'Ενήλικες
     If mskAdults.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskAdults.SetFocus
         Exit Function
@@ -1161,7 +1161,7 @@ Private Function ValidateFields()
     
     'Παιδιά
     If mskKids.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskKids.SetFocus
         Exit Function
@@ -1169,7 +1169,7 @@ Private Function ValidateFields()
     
     'Δωρεάν
     If mskFree.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskFree.SetFocus
         Exit Function
@@ -1195,28 +1195,32 @@ Private Function NewRecord()
         
 End Function
 
-Private Sub cmdIndex_Click(Index As Integer)
+Private Sub cmdIndex_Click(index As Integer)
 
     Dim tmpTableData As typTableData
     Dim tmpRecordset As Recordset
 
-    Select Case Index
+    Select Case index
         Case 0
             'Ημερολόγιο
             ShowMonthlyCalendar Me, monthlyCalendar
         Case 1
             'Πελάτης
             Set tmpRecordset = CheckForMatch("CommonDB", "Customers", "Description", "String", txtCompanyDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 5, 40, 1, 0)
-            txtCustomerID.text = tmpTableData.strCode
-            txtCompanyDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 5, 40, 1, 0)
+                txtCustomerID.text = tmpTableData.strCode
+                txtCompanyDescription.text = tmpTableData.strFirstField
+            End If
         Case 2
             'Προορισμός
             Set tmpRecordset = CheckForMatch("CommonDB", "Destinations", "DestinationDescription", "String", txtDestinationDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 3, 0, 1, 2, "ID", "Συντ.", "Περιγραφή", 0, 5, 40, 1, 1, 0)
-            txtTransferDestinationID.text = tmpTableData.strCode
-            txtDestinationShortDescription.text = tmpTableData.strFirstField
-            txtDestinationDescription.text = tmpTableData.strSecondField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 3, 0, 1, 2, "ID", "Συντ.", "Περιγραφή", 0, 5, 40, 1, 1, 0)
+                txtTransferDestinationID.text = tmpTableData.strCode
+                txtDestinationShortDescription.text = tmpTableData.strFirstField
+                txtDestinationDescription.text = tmpTableData.strSecondField
+            End If
     End Select
 
 End Sub
@@ -1270,21 +1274,21 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
     
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     Select Case KeyCode
-        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown And cmdButton(0).Enabled
+        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown = 4 And cmdButton(0).Enabled
             cmdButton_Click 0
-        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown And cmdButton(1).Enabled
+        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown = 4 And cmdButton(1).Enabled
             cmdButton_Click 1
-        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown And cmdButton(2).Enabled
+        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown = 4 And cmdButton(2).Enabled
             cmdButton_Click 2
-        Case vbKeyF7 And cmdButton(3).Enabled, vbKeyF And CtrlDown And cmdButton(3).Enabled
+        Case vbKeyF7 And cmdButton(3).Enabled, vbKeyF And CtrlDown = 4 And cmdButton(3).Enabled
             cmdButton_Click 3
         Case vbKeyEscape
             If cmdButton(4).Enabled Then cmdButton_Click 4: Exit Function
             If cmdButton(5).Enabled Then cmdButton_Click 5
-        Case vbKeyF12 And CtrlDown
+        Case vbKeyF12 And CtrlDown = 4
             ToggleInfoPanel Me
     End Select
 
@@ -1306,7 +1310,7 @@ End Sub
 
 Private Sub monthlyCalendar_DblClick()
 
-    mskDate.text = Format(monthlyCalendar.Value, "dd/mm/yyyy")
+    mskDate.text = format(monthlyCalendar.Value, "dd/mm/yyyy")
     monthlyCalendar.Visible = False
 
 End Sub
@@ -1314,7 +1318,7 @@ End Sub
 Private Sub monthlyCalendar_KeyPress(KeyAscii As Integer)
 
     If KeyAscii = vbKeyReturn Then
-        mskDate.text = Format(monthlyCalendar.Value, "dd/mm/yyyy")
+        mskDate.text = format(monthlyCalendar.Value, "dd/mm/yyyy")
         monthlyCalendar.Visible = False
     End If
 

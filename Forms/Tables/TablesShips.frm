@@ -2007,7 +2007,7 @@ Private Function DeleteCrew(shipID As Integer)
     
     With grdCrew
         For lngRow = 1 To .RowCount
-            If Not MainDeleteRecord("CommonDB", "ShipsCrew", strAppTitle, "ID", .CellValue(lngRow, "ID"), False) Then
+            If Not MainDeleteRecord("CommonDB", "ShipsCrew", strApplicationName, "ID", .CellValue(lngRow, "ID"), False) Then
                 DeleteCrew = False
                 Exit For
             End If
@@ -2045,7 +2045,7 @@ Private Function ValidateFields()
     
     'Ονομα
     If Len(txtShipDescription.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         btnPanel_Click 0
         txtShipDescription.SetFocus
@@ -2054,7 +2054,7 @@ Private Function ValidateFields()
     
     'Χωρητικότητα
     If Len(mskShipPersons.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         btnPanel_Click 0
         mskShipPersons.SetFocus
@@ -2063,7 +2063,7 @@ Private Function ValidateFields()
     
     'Επαναλαμβανόμενη καταχώρηση
     If txtShipRepeatedEntriesID.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         btnPanel_Click 3
         txtShipRepeatedEntriesDescription.SetFocus
@@ -2072,7 +2072,7 @@ Private Function ValidateFields()
                 
     'Αποθήκευση και δημιουργία με ένα κλικ
     If txtShipSaveAndNewID.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         btnPanel_Click 3
         txtShipSaveAndNewDescription.SetFocus
@@ -2085,7 +2085,7 @@ Private Function ValidateFields()
         If grdCrew.CellIcon(lngRow, "Deleted") <> 2 Then
             'Επίθετο
             If Len(grdCrew.CellValue(lngRow, "LastName")) = 0 Then
-                If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+                If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
                 End If
                 btnPanel_Click 1
                 grdCrew.SetCurCell lngRow, "LastName"
@@ -2094,7 +2094,7 @@ Private Function ValidateFields()
             End If
             'Ιδιότητα
             If IsNull(grdCrew.CellValue(lngRow, "PropertyDescription")) Or IsEmpty(grdCrew.CellValue(lngRow, "PropertyDescription")) Then
-                If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+                If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
                 End If
                 btnPanel_Click 1
                 grdCrew.SetCurCell lngRow, "PropertyDescription"
@@ -2103,7 +2103,7 @@ Private Function ValidateFields()
             End If
             'Φύλο
             If IsNull(grdCrew.CellValue(lngRow, "GenderDescription")) Or IsEmpty(grdCrew.CellValue(lngRow, "GenderDescription")) Then
-                If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+                If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
                 End If
                 btnPanel_Click 1
                 grdCrew.SetCurCell lngRow, "GenderDescription"
@@ -2112,7 +2112,7 @@ Private Function ValidateFields()
             End If
             'Ηλικία
             If IsNull(grdCrew.CellValue(lngRow, "AgeDescription")) Or IsEmpty(grdCrew.CellValue(lngRow, "AgeDescription")) Then
-                If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+                If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
                 End If
                 btnPanel_Click 1
                 grdCrew.SetCurCell lngRow, "AgeDescription"
@@ -2134,7 +2134,7 @@ Private Function AbortProcedure(blnStatus)
     End If
 
     If Not blnStatus Then
-        If MyMsgBox(3, strAppTitle, strStandardMessages(3), 2) Then
+        If MyMsgBox(3, strApplicationName, strStandardMessages(3), 2) Then
             blnStatus = False
             ClearFields txtShipID, txtShipDescription, mskShipPersons, txtShipFlag, txtShipRegistryNo, txtShipIMO, txtShipSalesCode, grdCrew, txtShipManagerID, txtShipManagerName, txtShipManagerNameInGreece, txtShipManagerAgent, txtShipManagerAPersonName, txtShipManagerAPersonPhones, txtShipManagerAPersonEmail, txtShipManagerAPersonFax, txtShipManagerAPersonAddress, txtShipManagerBPersonName, txtShipManagerBPersonPhones, txtShipManagerBPersonEmail, txtShipManagerBPersonFax, txtShipManagerBPersonAddress, txtShipRepeatedEntriesDescription, txtShipRepeatedEntriesID, txtShipSaveAndNewDescription, txtShipSaveAndNewID
             DisableFields txtShipDescription, mskShipPersons, txtShipFlag, txtShipRegistryNo, txtShipIMO, txtShipSalesCode, grdCrew, txtShipManagerName, txtShipManagerNameInGreece, txtShipManagerAgent, txtShipManagerAPersonName, txtShipManagerAPersonPhones, txtShipManagerAPersonEmail, txtShipManagerAPersonFax, txtShipManagerAPersonAddress, txtShipManagerBPersonName, txtShipManagerBPersonPhones, txtShipManagerBPersonEmail, txtShipManagerBPersonFax, txtShipManagerBPersonAddress, txtShipRepeatedEntriesDescription, txtShipSaveAndNewDescription, btnPanel(1), btnPanel(2), btnPanel(3)
@@ -2157,8 +2157,8 @@ Private Function DeleteRecord()
         
         .BeginTrans
     
-        If MainDeleteRecord("CommonDB", "Ships", strAppTitle, "ID", txtShipID.text, "True") Then
-            If MainDeleteRecord("CommonDB", "ShipsManagers", strAppTitle, "ManagerID", txtShipManagerID.text, False) Then
+        If MainDeleteRecord("CommonDB", "Ships", strApplicationName, "ID", txtShipID.text, "True") Then
+            If MainDeleteRecord("CommonDB", "ShipsManagers", strApplicationName, "ManagerID", txtShipManagerID.text, False) Then
                 If DeleteCrew(txtShipID.text) Then
                     btnPanel_Click 0
                     PopulateGrid
@@ -2205,10 +2205,10 @@ Private Function SaveRecord()
         
         .BeginTrans
         
-        txtShipID.text = MainSaveRecord("CommonDB", "Ships", blnStatus, strAppTitle, "ShipID", txtShipID.text, txtShipDescription.text, mskShipPersons.text, txtShipFlag.text, txtShipRegistryNo.text, txtShipIMO.text, txtShipSalesCode.text, txtShipRepeatedEntriesID.text, txtShipSaveAndNewID.text, 1, strCurrentUser)
+        txtShipID.text = MainSaveRecord("CommonDB", "Ships", blnStatus, strApplicationName, "ShipID", txtShipID.text, txtShipDescription.text, mskShipPersons.text, txtShipFlag.text, txtShipRegistryNo.text, txtShipIMO.text, txtShipSalesCode.text, txtShipRepeatedEntriesID.text, txtShipSaveAndNewID.text, 1, strCurrentUser)
         
         If txtShipID.text <> "0" Then
-            txtShipManagerID.text = MainSaveRecord("CommonDB", "ShipsManagers", blnStatus, strAppTitle, "ShipManagerID", txtShipManagerID.text, txtShipID.text, txtShipManagerName.text, txtShipManagerNameInGreece.text, txtShipManagerAgent.text, txtShipManagerAPersonName.text, txtShipManagerAPersonPhones.text, txtShipManagerAPersonEmail.text, txtShipManagerAPersonFax.text, txtShipManagerAPersonAddress.text, txtShipManagerBPersonName.text, txtShipManagerBPersonPhones.text, txtShipManagerBPersonEmail.text, txtShipManagerBPersonFax.text, txtShipManagerBPersonAddress.text)
+            txtShipManagerID.text = MainSaveRecord("CommonDB", "ShipsManagers", blnStatus, strApplicationName, "ShipManagerID", txtShipManagerID.text, txtShipID.text, txtShipManagerName.text, txtShipManagerNameInGreece.text, txtShipManagerAgent.text, txtShipManagerAPersonName.text, txtShipManagerAPersonPhones.text, txtShipManagerAPersonEmail.text, txtShipManagerAPersonFax.text, txtShipManagerAPersonAddress.text, txtShipManagerBPersonName.text, txtShipManagerBPersonPhones.text, txtShipManagerBPersonEmail.text, txtShipManagerBPersonFax.text, txtShipManagerBPersonAddress.text)
             If txtShipManagerID.text <> "0" Then
                 If SaveCrew(txtShipID.text) Then
                     btnPanel_Click 0
@@ -2339,15 +2339,19 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 0
             'Επαναλαμβανόμενη καταχώρηση (Εύρεση τελευταίας εγγραφής)
             Set tmpRecordset = CheckForMatch("CommonDB", "YesOrNo", "YesOrNoDescription", "String", txtShipRepeatedEntriesDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtShipRepeatedEntriesID.text = tmpTableData.strCode
-            txtShipRepeatedEntriesDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtShipRepeatedEntriesID.text = tmpTableData.strCode
+                txtShipRepeatedEntriesDescription.text = tmpTableData.strFirstField
+            End If
         Case 1
             'Αποθήκευση και δημιουργία με ένα κλικ
             Set tmpRecordset = CheckForMatch("CommonDB", "YesOrNo", "YesOrNoDescription", "String", txtShipSaveAndNewDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtShipSaveAndNewID.text = tmpTableData.strCode
-            txtShipSaveAndNewDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtShipSaveAndNewID.text = tmpTableData.strCode
+                txtShipSaveAndNewDescription.text = tmpTableData.strFirstField
+            End If
     End Select
 
 End Sub
@@ -2356,7 +2360,7 @@ Private Sub Form_Activate()
 
     If Me.Tag = "True" Then
         Me.Tag = "False"
-        AddColumnsToGrid grdShips, 25, GetSetting(strAppTitle, "Layout Strings", "grdShips"), "04LNID,40LNDescription", "ID,Ονομασία"
+        AddColumnsToGrid grdShips, 25, GetSetting(strApplicationName, "Layout Strings", "grdShips"), "04LNID,40LNDescription", "ID,Ονομασία"
         AddColumnsAndCombosToCrewGrid
         Me.Refresh
         PopulateGrid
@@ -2378,18 +2382,18 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
     
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     Select Case KeyCode
-        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown And cmdButton(0).Enabled
+        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown = 4 And cmdButton(0).Enabled
             cmdButton_Click 0
-        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown And cmdButton(1).Enabled
+        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown = 4 And cmdButton(1).Enabled
             cmdButton_Click 1
-        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown And cmdButton(2).Enabled And Not btnPanel(0).Enabled 'Διαγραφή πλοίου, πληρώματος, διαχειριστών
+        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown = 4 And cmdButton(2).Enabled And Not btnPanel(0).Enabled 'Διαγραφή πλοίου, πληρώματος, διαχειριστών
             cmdButton_Click 2
-        Case vbKeyInsert And cmdButton(5).Enabled, vbKeyN And CtrlDown And cmdButton(5).Enabled
+        Case vbKeyInsert And cmdButton(5).Enabled, vbKeyN And CtrlDown = 4 And cmdButton(5).Enabled
             cmdButton_Click 5
-        Case vbKeyF3 And cmdButton(6).Enabled, vbKeyD And CtrlDown And cmdButton(6).Enabled And Not btnPanel(1).Enabled 'Διαγραφή μέλους πληρώματος
+        Case vbKeyF3 And cmdButton(6).Enabled, vbKeyD And CtrlDown = 4 And cmdButton(6).Enabled And Not btnPanel(1).Enabled 'Διαγραφή μέλους πληρώματος
             cmdButton_Click 6
         Case vbKeyEscape
             If cmdButton(3).Enabled Then cmdButton_Click 3: Exit Function
@@ -2398,7 +2402,7 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
             GotoPreviousPanel Me, btnPanel.Count
         Case vbKeyPageDown
             GotoNextPanel Me, btnPanel.Count
-        Case vbKeyF12 And CtrlDown
+        Case vbKeyF12 And CtrlDown = 4
             ToggleInfoPanel Me
     End Select
 
@@ -2530,8 +2534,8 @@ End Sub
 
 Private Sub mnuΑποθήκευσηΠλάτουςΣτηλών_Click()
 
-    SaveSetting strAppTitle, "Layout Strings", "grdShips", grdShips.LayoutCol
-    SaveSetting strAppTitle, "Layout Strings", "grdCrew", grdCrew.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", "grdShips", grdShips.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", "grdCrew", grdCrew.LayoutCol
 
 End Sub
 
@@ -2617,7 +2621,7 @@ Private Function AddColumnsAndCombosToCrewGrid()
         
     End With
     
-    strSavedLayout = GetSetting(strAppTitle, "Layout Strings", "grdCrew"): If strSavedLayout <> "" Then grdCrew.LayoutCol = strSavedLayout
+    strSavedLayout = GetSetting(strApplicationName, "Layout Strings", "grdCrew"): If strSavedLayout <> "" Then grdCrew.LayoutCol = strSavedLayout
 
 End Function
 
@@ -2642,15 +2646,15 @@ Private Function SaveCrew(shipID As Integer)
         For lngRow = 1 To .RowCount
         '    'Add Record when Status = Blue and Deleted = Blank
             If (.CellIcon(lngRow, "Status") = 1) And (.CellIcon(lngRow, "Deleted") = -1) Then
-                lngID = MainSaveRecord("CommonDB", "ShipsCrew", True, strAppTitle, "ID", 0, Trim(Left(.CellValue(lngRow, "LastName"), 30)), Trim(Left(.CellValue(lngRow, "FirstName"), 10)), .CellValue(lngRow, "PropertyDescription"), .CellValue(lngRow, "GenderDescription"), .CellValue(lngRow, "AgeDescription"), txtShipID.text, txtShipID.text, strCurrentUser)
+                lngID = MainSaveRecord("CommonDB", "ShipsCrew", True, strApplicationName, "ID", 0, Trim(Left(.CellValue(lngRow, "LastName"), 30)), Trim(Left(.CellValue(lngRow, "FirstName"), 10)), .CellValue(lngRow, "PropertyDescription"), .CellValue(lngRow, "GenderDescription"), .CellValue(lngRow, "AgeDescription"), txtShipID.text, txtShipID.text, strCurrentUser)
             End If
         '    'Delete Existing Record when Status = Blank and Deleted = Red
             If (.CellIcon(lngRow, "Status") = -1) And (.CellIcon(lngRow, "Deleted") = 2) Then
-                lngID = MainDeleteRecord("CommonDB", "ShipsCrew", strAppTitle, "ID", .CellValue(lngRow, "ID"), False)
+                lngID = MainDeleteRecord("CommonDB", "ShipsCrew", strApplicationName, "ID", .CellValue(lngRow, "ID"), False)
             End If
         '    'Update Existing Record when Status = Blank and Deleted = Blank
             If (.CellIcon(lngRow, "Status") = -1) And (.CellIcon(lngRow, "Deleted") = -1) Then
-                lngID = MainSaveRecord("CommonDB", "ShipsCrew", False, strAppTitle, "ID", .CellValue(lngRow, "ID"), Trim(Left(.CellValue(lngRow, "LastName"), 30)), Trim(Left(.CellValue(lngRow, "FirstName"), 10)), .CellValue(lngRow, "PropertyDescription"), .CellValue(lngRow, "GenderDescription"), .CellValue(lngRow, "AgeDescription"), txtShipID.text, txtShipID.text, strCurrentUser)
+                lngID = MainSaveRecord("CommonDB", "ShipsCrew", False, strApplicationName, "ID", .CellValue(lngRow, "ID"), Trim(Left(.CellValue(lngRow, "LastName"), 30)), Trim(Left(.CellValue(lngRow, "FirstName"), 10)), .CellValue(lngRow, "PropertyDescription"), .CellValue(lngRow, "GenderDescription"), .CellValue(lngRow, "AgeDescription"), txtShipID.text, txtShipID.text, strCurrentUser)
             End If
         Next lngRow
     End With

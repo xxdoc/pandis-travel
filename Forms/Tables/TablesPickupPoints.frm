@@ -800,10 +800,10 @@ Private Function FindRecordsAndPopulateGrid()
             UpdateButtons Me, 8, 0, 1, 1, 1, 1, 0, 1, 1, 1
             If Not blnError Then
                 If blnProcessing Then
-                    If MyMsgBox(4, strAppTitle, strStandardMessages(27), 1) Then
+                    If MyMsgBox(4, strApplicationName, strStandardMessages(27), 1) Then
                     End If
                 Else
-                    If MyMsgBox(1, strAppTitle, strStandardMessages(7), 1) Then
+                    If MyMsgBox(1, strApplicationName, strStandardMessages(7), 1) Then
                     End If
                 End If
             End If
@@ -900,7 +900,7 @@ Private Function RefreshList()
     If rstRecordset.RecordCount = 0 Then blnError = False: RefreshList = False: Exit Function
     
     'Προετοιμάζω τη μπάρα προόδου
-    InitializeProgressBar Me, strAppTitle, rstRecordset
+    InitializeProgressBar Me, strApplicationName, rstRecordset
     
     'Προσωρινά
     UpdateButtons Me, 8, 0, 0, 0, 0, 1, 0, 0, 0, 0
@@ -974,7 +974,7 @@ Private Function ValidateFields()
     
     'Δρομολόγιο
     If Len(txtPickupRouteID.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtRouteShortDescription.SetFocus
         Exit Function
@@ -989,7 +989,7 @@ Private Function AbortProcedure(blnStatus)
     If blnProcessing Then blnProcessing = False: Exit Function
     
     If Not blnStatus Then
-        If MyMsgBox(3, strAppTitle, strStandardMessages(3), 2) Then
+        If MyMsgBox(3, strApplicationName, strStandardMessages(3), 2) Then
             blnStatus = False
             ClearFields grdPickupPoints
             EnableFields txtRouteShortDescription, txtRouteDescription, cmdIndex(0), cmdIndex(1)
@@ -1017,20 +1017,20 @@ Private Function SaveRecord()
         For lngRow = 1 To .RowCount
             'Add Record when Status = Blue and Deleted = Blank
             If (.CellIcon(lngRow, "Status") = 1) And (.CellIcon(lngRow, "Deleted") = -1 Or .CellIcon(lngRow, "Deleted") = 0) Then
-                lngID = MainSaveRecord("CommonDB", "PickupPoints", True, strAppTitle, "PickupPointID", lngID, txtPickupRouteID.text, .CellValue(lngRow, "HotelDescription"), .CellValue(lngRow, "ExactPoint"), .CellValue(lngRow, "Time"), txtPickupRouteID.text, strCurrentUser)
+                lngID = MainSaveRecord("CommonDB", "PickupPoints", True, strApplicationName, "PickupPointID", lngID, txtPickupRouteID.text, .CellValue(lngRow, "HotelDescription"), .CellValue(lngRow, "ExactPoint"), .CellValue(lngRow, "Time"), txtPickupRouteID.text, strCurrentUser)
             End If
             'Delete Existing Record when Status = Blank and Deleted = Red
             If (.CellIcon(lngRow, "Status") = -1) And (.CellIcon(lngRow, "Deleted") = 2) Then
-                lngID = MainDeleteRecord("CommonDB", "PickupPoints", strAppTitle, "PickupPointID", .CellValue(lngRow, "ID"), False)
+                lngID = MainDeleteRecord("CommonDB", "PickupPoints", strApplicationName, "PickupPointID", .CellValue(lngRow, "ID"), False)
             End If
             'Update Existing Record when Status = Blank and Deleted = Blank
             If (.CellIcon(lngRow, "Status") = -1) And (.CellIcon(lngRow, "Deleted") = -1 Or .CellIcon(lngRow, "Deleted") = 0) Then
-                lngID = MainSaveRecord("CommonDB", "PickupPoints", False, strAppTitle, "PickupPointID", .CellValue(lngRow, "ID"), .CellValue(lngRow, "RouteID"), .CellValue(lngRow, "HotelDescription"), .CellValue(lngRow, "ExactPoint"), .CellValue(lngRow, "Time"), .CellValue(lngRow, "RouteID"), strCurrentUser)
+                lngID = MainSaveRecord("CommonDB", "PickupPoints", False, strApplicationName, "PickupPointID", .CellValue(lngRow, "ID"), .CellValue(lngRow, "RouteID"), .CellValue(lngRow, "HotelDescription"), .CellValue(lngRow, "ExactPoint"), .CellValue(lngRow, "Time"), .CellValue(lngRow, "RouteID"), strCurrentUser)
             End If
         Next lngRow
     End With
     
-    If MyMsgBox(1, strAppTitle, strStandardMessages(8), 1) Then
+    If MyMsgBox(1, strApplicationName, strStandardMessages(8), 1) Then
     End If
     
     ClearFields grdPickupPoints
@@ -1052,21 +1052,21 @@ Private Function ValidateGrid()
         For lngRow = 1 To .RowCount
             If grdPickupPoints.CellIcon(lngRow, "Deleted") <> 2 Then
                 If .CellValue(lngRow, "HotelDescription") = "" Then
-                    If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+                    If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
                     End If
                     .SetFocus
                     .SetCurCell lngRow, "HotelDescription"
                     Exit Function
                 End If
                 If .CellValue(lngRow, "Time") = "" Then
-                    If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+                    If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
                     End If
                     .SetFocus
                     .SetCurCell lngRow, "Time"
                     Exit Function
                 End If
                 If Not IsDate(.CellValue(lngRow, "Time")) Or Len(.CellValue(lngRow, "Time")) <> 5 Then
-                    If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+                    If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
                     End If
                     .SetFocus
                     .SetCurCell lngRow, "Time"
@@ -1114,17 +1114,21 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 0
             'Συντ. δρομολογίου
             Set tmpRecordset = CheckForMatch("CommonDB", "PickupRoutes", "PickupRouteShortDescription", "String", txtRouteShortDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 3, True, 3, 0, 1, 2, "ID", "Συντ.", "Περιγραφή", 0, 5, 60, 1, 1, 0)
-            txtPickupRouteID.text = tmpTableData.strCode
-            txtRouteShortDescription.text = tmpTableData.strFirstField
-            txtRouteDescription.text = tmpTableData.strSecondField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 3, True, 3, 0, 1, 2, "ID", "Συντ.", "Περιγραφή", 0, 5, 60, 1, 1, 0)
+                txtPickupRouteID.text = tmpTableData.strCode
+                txtRouteShortDescription.text = tmpTableData.strFirstField
+                txtRouteDescription.text = tmpTableData.strSecondField
+            End If
         Case 1
             'Περιγραφή δρομολογίου
             Set tmpRecordset = CheckForMatch("CommonDB", "PickupRoutes", "PickupRouteDescription", "String", txtRouteDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 3, True, 3, 0, 1, 2, "ID", "Συντ.", "Περιγραφή", 0, 5, 60, 1, 1, 0)
-            txtPickupRouteID.text = tmpTableData.strCode
-            txtRouteShortDescription.text = tmpTableData.strFirstField
-            txtRouteDescription.text = tmpTableData.strSecondField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 3, True, 3, 0, 1, 2, "ID", "Συντ.", "Περιγραφή", 0, 5, 60, 1, 1, 0)
+                txtPickupRouteID.text = tmpTableData.strCode
+                txtRouteShortDescription.text = tmpTableData.strFirstField
+                txtRouteDescription.text = tmpTableData.strSecondField
+            End If
     End Select
 
 End Sub
@@ -1133,7 +1137,7 @@ Private Sub Form_Activate()
 
     If Me.Tag = "True" Then
         Me.Tag = "False"
-        AddColumnsToGrid grdPickupPoints, 44, GetSetting(strAppTitle, "Layout Strings", "grdPickupPoints"), _
+        AddColumnsToGrid grdPickupPoints, 44, GetSetting(strApplicationName, "Layout Strings", "grdPickupPoints"), _
             "04NCIID,04NCIRouteID,04NCIDestinationID,50NLNHotelDescription,50NLNExactPoint,07NCTTime,05NCNStatus,05NCNDeleted", _
             "ID,RouteID,DestinationID,Περιγραφή,Σημείο,Ώρα,Ν,Δ"
         Me.Refresh
@@ -1157,23 +1161,23 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
     
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     Select Case KeyCode
-        Case vbKeyInsert And cmdButton(6).Enabled, vbKeyN And CtrlDown And cmdButton(6).Enabled
+        Case vbKeyInsert And cmdButton(6).Enabled, vbKeyN And CtrlDown = 4 And cmdButton(6).Enabled
             cmdButton_Click 6
-        Case vbKeyF10 And cmdButton(0).Enabled, vbKeyC And CtrlDown And cmdButton(0).Enabled
+        Case vbKeyF10 And cmdButton(0).Enabled, vbKeyC And CtrlDown = 4 And cmdButton(0).Enabled
             cmdButton_Click 0
-        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown And cmdButton(1).Enabled
+        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown = 4 And cmdButton(1).Enabled
             cmdButton_Click 1
-        Case vbKeyF3 And cmdButton(8).Enabled, vbKeyD And CtrlDown And cmdButton(8).Enabled
+        Case vbKeyF3 And cmdButton(8).Enabled, vbKeyD And CtrlDown = 4 And cmdButton(8).Enabled
             cmdButton_Click 8
-        Case vbKeyP And CtrlDown And cmdButton(2).Enabled
+        Case vbKeyP And CtrlDown = 4 And cmdButton(2).Enabled
             cmdButton_Click 2
         Case vbKeyEscape
             If cmdButton(4).Enabled Then cmdButton_Click 4: Exit Function
             If cmdButton(5).Enabled Then cmdButton_Click 5
-        Case vbKeyF12 And CtrlDown
+        Case vbKeyF12 And CtrlDown = 4
             ToggleInfoPanel Me
     End Select
 
@@ -1211,7 +1215,7 @@ Private Sub grdPickupPoints_CurCellChange(ByVal lRow As Long, ByVal lCol As Long
     Dim lngColCount As Long
     Dim lngRowCount As Long
     
-    lngColCount = grdPickupPoints.ColCount
+    lngColCount = grdPickupPoints.colCount
     lngRowCount = grdPickupPoints.RowCount
     
     If grdPickupPoints.RowCount = 0 Then Exit Sub
@@ -1244,7 +1248,7 @@ End Sub
 
 Private Sub mnuΑποθήκευσηΠλάτουςΣτηλών_Click()
 
-    SaveSetting strAppTitle, "Layout Strings", "grdPickupPoints", grdPickupPoints.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", "grdPickupPoints", grdPickupPoints.LayoutCol
 
 End Sub
 
@@ -1368,7 +1372,7 @@ Private Function ExportRecords()
 
     Dim pdf As New ARExportPDF
     
-    CreateUnicodeFile "ΣΗΜΕΙΑ ΠΑΡΑΛΑΒΗΣ ΔΡΟΜΟΛΟΓΙΟΥ", txtRouteDescription.text, "", GetSetting(strAppTitle, "Settings", "Export Report Height")
+    CreateUnicodeFile "ΣΗΜΕΙΑ ΠΑΡΑΛΑΒΗΣ ΔΡΟΜΟΛΟΓΙΟΥ", txtRouteDescription.text, "", GetSetting(strApplicationName, "Settings", "Export Report Height")
     
     With rptOneLiner
         .Restart
@@ -1377,7 +1381,7 @@ Private Function ExportRecords()
         pdf.SemiDelimitedNeverEmbedFonts = ""
         pdf.fileName = strReportsPathName & "ΣΗΜΕΙΑ ΠΑΡΑΛΑΒΗΣ ΔΡΟΜΟΛΟΓΙΟΥ " & txtPickupRouteID.text & ".pdf"
         pdf.Export .Pages
-        If MyMsgBox(1, strAppTitle, strStandardMessages(8), 1) Then
+        If MyMsgBox(1, strApplicationName, strStandardMessages(8), 1) Then
         End If
     End With
     

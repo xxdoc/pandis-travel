@@ -1425,11 +1425,11 @@ Begin VB.Form PersonsTransactions
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00800080&
-      Height          =   315
+      Height          =   255
       Left            =   3825
       TabIndex        =   15
-      Top             =   1725
-      Width           =   4215
+      Top             =   1650
+      Width           =   4200
    End
    Begin VB.Label lblCodeBatch 
       AutoSize        =   -1  'True
@@ -1446,17 +1446,17 @@ Begin VB.Form PersonsTransactions
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00800080&
-      Height          =   315
-      Left            =   8100
+      Height          =   255
+      Left            =   5250
       TabIndex        =   14
-      Top             =   1725
-      Width           =   615
+      Top             =   1875
+      Width           =   585
    End
    Begin VB.Label lblCodeHand 
       AutoSize        =   -1  'True
       BackColor       =   &H00E0E0E0&
       BackStyle       =   0  'Transparent
-      Caption         =   "ΧΕΙΡΟΓΡΑΦΟ"
+      Caption         =   "ΜΗΧΑΝΟΓΡΑΦΙΚΟ"
       BeginProperty Font 
          Name            =   "Ubuntu Condensed"
          Size            =   9.75
@@ -1467,11 +1467,11 @@ Begin VB.Form PersonsTransactions
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00800080&
-      Height          =   315
-      Left            =   8775
+      Height          =   255
+      Left            =   3825
       TabIndex        =   13
-      Top             =   1725
-      Width           =   990
+      Top             =   1875
+      Width           =   1350
    End
    Begin VB.Shape shpBottomEdge 
       BackColor       =   &H00800080&
@@ -1650,7 +1650,7 @@ Dim IsError As Boolean
 Private Function AbortProcedure(blnStatus)
 
     If Not blnStatus Then
-        If MyMsgBox(3, strAppTitle, strStandardMessages(3), 2) Then
+        If MyMsgBox(3, strApplicationName, strStandardMessages(3), 2) Then
             blnStatus = False
             ClearFields txtInvoiceID, txtInvoiceTrnID, txtInvoiceCodeID, txtInvoicePersonID, txtInvoiceDateIn, txtPaymentPaymentWayID, txtPaymentBankID, txtCodeLastNo, txtCodeLastDate, txtCodePersonsPlusOrMinus, chkCodeHandID
             ClearFields lblCodeDescription, lblCodeBatch, lblCodeHand
@@ -1670,7 +1670,7 @@ End Function
 
 Private Function DeleteRecord()
 
-    If MainDeleteRecord("CommonDB", "Invoices", strAppTitle, "InvoiceID", Val(txtInvoiceID.text), "True") Then
+    If MainDeleteRecord("CommonDB", "Invoices", strApplicationName, "InvoiceID", Val(txtInvoiceID.text), "True") Then
         ClearFields txtInvoiceID, txtInvoiceTrnID, txtInvoiceCodeID, txtInvoicePersonID, txtInvoiceDateIn, txtPaymentPaymentWayID, txtPaymentBankID, txtCodeLastNo, txtCodeLastDate, txtCodePersonsPlusOrMinus, chkCodeHandID
         ClearFields lblCodeDescription, lblCodeBatch, lblCodeHand
         ClearFields mskDateIssue, txtCodeShortDescriptionA, txtInvoiceNo, txtPersonDescription, txtReason, txtPaymentWayDescription, txtBankDescription, mskAmount
@@ -1723,7 +1723,7 @@ Private Function SavePayment()
 
     If IsError Then Exit Function
     
-    If MainSaveRecord("CommonDB", txtPaymentInOrPaymentOut.text, blnStatus, strAppTitle, "TrnID", txtInvoiceTrnID.text, txtInvoiceTrnID.text, _
+    If MainSaveRecord("CommonDB", txtPaymentInOrPaymentOut.text, blnStatus, strApplicationName, "TrnID", txtInvoiceTrnID.text, txtInvoiceTrnID.text, _
         txtReason.text, _
         txtPaymentPaymentWayID.text, _
         txtPaymentBankID.text, _
@@ -1771,7 +1771,7 @@ Private Function AskToPrintReceipt()
     
     'Ερώτηση για εκτύπωση αν τυπώνεται και αν είμαι σε νέα εγγραφή
     If chkCodeHandID.Value = 0 And blnStatus Then
-        If MyMsgBox(2, strAppTitle, strAppMessages(7), 2) Then
+        If MyMsgBox(2, strApplicationName, strAppMessages(7), 2) Then
             ProcessSelectedReceiptsForPrinting txtInvoiceTrnID.text, arrDummy
         End If
     End If
@@ -1782,7 +1782,7 @@ Private Function SaveInvoice()
 
     If blnStatus Then txtInvoiceTrnID.text = AddOneToTheLastRecord("Invoices")
     
-    If MainSaveRecord("CommonDB", "Invoices", blnStatus, strAppTitle, "InvoiceID", txtInvoiceID.text, txtInvoiceTrnID.text, txtInvoiceMasterRefersTo.text, txtInvoiceSecondaryRefersTo.text, mskDateIssue.text, txtInvoiceDateIn.text, txtInvoiceCodeID.text, txtInvoiceNo.text, txtInvoicePersonID.text, strCurrentUser) <> 0 Then
+    If MainSaveRecord("CommonDB", "Invoices", blnStatus, strApplicationName, "InvoiceID", txtInvoiceID.text, txtInvoiceTrnID.text, txtInvoiceMasterRefersTo.text, txtInvoiceSecondaryRefersTo.text, mskDateIssue.text, txtInvoiceDateIn.text, txtInvoiceCodeID.text, txtInvoiceNo.text, txtInvoicePersonID.text, strCurrentUser) <> 0 Then
         IsError = False
     Else
         IsError = True
@@ -1886,14 +1886,14 @@ Private Function ValidateFields()
     ValidateFields = False
     
     'Ημερομηνία
-    If Not CheckDate(mskDateIssue.text, strAppTitle) Then
+    If Not CheckDate(mskDateIssue.text, strApplicationName) Then
         mskDateIssue.SetFocus
         Exit Function
     End If
     
     'Καταχώρηση σε ημερομηνία μεγαλύτερη από σήμερα
     If CDate(mskDateIssue.text) > Date Then
-        If MyMsgBox(4, strAppTitle, strAppMessages(5), 1) Then
+        If MyMsgBox(4, strApplicationName, strAppMessages(5), 1) Then
         End If
         mskDateIssue.SetFocus
         Exit Function
@@ -1901,7 +1901,7 @@ Private Function ValidateFields()
     
     'Παραστατικό
     If txtInvoiceCodeID.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtCodeShortDescriptionA.SetFocus
         Exit Function
@@ -1909,7 +1909,7 @@ Private Function ValidateFields()
     
     'Νο παραστατικού
     If txtInvoiceNo.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtInvoiceNo.SetFocus
         Exit Function
@@ -1917,7 +1917,7 @@ Private Function ValidateFields()
     
     'Νο παραστατικού = αριθμός
     If Not IsNumeric(txtInvoiceNo.text) Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         txtInvoiceNo.SetFocus
         Exit Function
@@ -1926,7 +1926,7 @@ Private Function ValidateFields()
     'Μηχανογραφικό στοιχείο ήδη καταχωρημένο: Ελέγχω αν το νούμερο του στοιχείου υπάρχει ήδη στην χρήση
     If chkCodeHandID.Value = 0 Then
         If CheckForDuplicateInvoice(mskDateIssue.text, txtInvoiceCodeID.text, txtInvoiceNo.text) Then
-            If MyMsgBox(4, strAppTitle, strStandardMessages(22), 1) Then
+            If MyMsgBox(4, strApplicationName, strStandardMessages(22), 1) Then
             End If
             txtCodeShortDescriptionA.SetFocus
             Exit Function
@@ -1935,7 +1935,7 @@ Private Function ValidateFields()
     
     'Πελάτης
     If txtInvoicePersonID.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtPersonDescription.SetFocus
         Exit Function
@@ -1943,7 +1943,7 @@ Private Function ValidateFields()
     
     'Τρόπος είσπραξης
     If txtPaymentPaymentWayID.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtPaymentWayDescription.SetFocus
         Exit Function
@@ -1956,7 +1956,7 @@ Private Function ValidateFields()
     
     'Ποσό
     If mskAmount.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskAmount.SetFocus
         Exit Function
@@ -1964,7 +1964,7 @@ Private Function ValidateFields()
     
     'Πολύ μεγάλο ποσό
     If Val(mskAmount.text) > 9999999.99 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskAmount.SetFocus
         Exit Function
@@ -2013,7 +2013,7 @@ Public Function ProcessSelectedReceiptsForPrinting(strInvoiceTrnID, arrInvoicesT
     
     For intLoop = 0 To UBound(arrInvoicesTrnID)
         Set rstRecordset = SeekRecord(arrInvoicesTrnID(intLoop), txtPaymentInOrPaymentOut.text, txtCustomersOrSuppliers.text)
-        If rstRecordset.RecordCount = 0 Then MyMsgBox 4, strAppTitle, strStandardMessages(9), 1: Exit Function
+        If rstRecordset.RecordCount = 0 Then MyMsgBox 4, strApplicationName, strStandardMessages(9), 1: Exit Function
         PrintThisReceipt blnPreviewInvoices, False, rstRecordset!InvoiceNo 'False = Do not preview, True = Create PDF instead of print
     Next intLoop
 
@@ -2059,18 +2059,19 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 0
             'Παραστατικό - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "Codes", "CodeShortDescriptionA, CodeMasterRefersTo", "String, String", txtCodeShortDescriptionA.text, txtInvoiceMasterRefersTo.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 3, True, 8, 0, 3, 5, 6, 7, 8, 10, 11, "ID", "Συντ. Α'", "Περιγραφή", "Σειρά", "Χειρόγραφο", "Πελάτες", "Τελευταίο Νο", "Ημερομηνία", 0, 6, 40, 6, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1)
-            txtInvoiceCodeID.text = tmpTableData.strCode
-            txtCodeShortDescriptionA.text = tmpTableData.strFirstField
-            lblCodeDescription.Caption = tmpTableData.strSecondField
-            lblCodeBatch.Caption = IIf(txtInvoiceCodeID.text <> "" And tmpTableData.strThirdField <> "", " ΣΕΙΡΑ " & tmpTableData.strThirdField, "")
-            chkCodeHandID.Value = IIf(tmpTableData.strFourthField = "1", 1, 0)
-            lblCodeHand.Caption = IIf(tmpTableData.strFourthField = "1", "ΧΕΙΡΟΓΡΑΦΟ", "")
-            'txtCodePersonsPlusOrMinus.text = tmpTableData.strFifthField
-            txtInvoiceNo.Locked = IIf(chkCodeHandID.Value = 1, False, True)
-            txtCodeLastNo.text = tmpTableData.strSixthField
-            txtCodeLastDate.text = Format(tmpTableData.strSeventhField, "dd/mm/yyyy")
-            If txtInvoiceCodeID.text <> "" And chkCodeHandID.Value = 0 Then txtInvoiceNo.text = txtCodeLastNo.text + 1
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 3, True, 8, 0, 3, 5, 6, 7, 8, 10, 11, "ID", "Συντ. Α'", "Περιγραφή", "Σειρά", "Χειρόγραφο", "Πελάτες", "Τελευταίο Νο", "Ημερομηνία", 0, 6, 40, 6, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1)
+                txtInvoiceCodeID.text = tmpTableData.strCode
+                txtCodeShortDescriptionA.text = tmpTableData.strFirstField
+                lblCodeDescription.Caption = tmpTableData.strSecondField
+                lblCodeBatch.Caption = IIf(txtInvoiceCodeID.text <> "" And tmpTableData.strThirdField <> "", " ΣΕΙΡΑ " & tmpTableData.strThirdField, "")
+                chkCodeHandID.Value = IIf(tmpTableData.strFourthField = "1", 1, 0)
+                lblCodeHand.Caption = IIf(tmpTableData.strFourthField = "1", "ΧΕΙΡΟΓΡΑΦΟ", "ΜΗΧΑΝΟΓΡΑΦΙΚΟ")
+                txtInvoiceNo.Locked = IIf(chkCodeHandID.Value = 1, False, True)
+                txtCodeLastNo.text = tmpTableData.strSixthField
+                txtCodeLastDate.text = format(tmpTableData.strSeventhField, "dd/mm/yyyy")
+                If txtInvoiceCodeID.text <> "" And chkCodeHandID.Value = 0 Then txtInvoiceNo.text = txtCodeLastNo.text + 1
+            End If
         Case 1
             'Παραστατικό - F5
             With TablesCodes
@@ -2082,9 +2083,11 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 2
             'Πελάτης - F2
             Set tmpRecordset = CheckForMatch("CommonDB", txtCustomersOrSuppliers.text, "Description", "String", txtPersonDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 3, 0, 1, 7, "ID", "Επωνυμία", "Α.Φ.Μ.", 0, 40, 15, 1, 0, 1)
-            txtInvoicePersonID.text = tmpTableData.strCode
-            txtPersonDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 3, 0, 1, 7, "ID", "Επωνυμία", "Α.Φ.Μ.", 0, 40, 15, 1, 0, 1)
+                txtInvoicePersonID.text = tmpTableData.strCode
+                txtPersonDescription.text = tmpTableData.strFirstField
+            End If
         Case 3
             'Πελάτης - F5
             With persons
@@ -2094,9 +2097,11 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 4
             'Τρόπος είσπραξης / πληρωμής - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "PaymentWays", "PaymentWayDescription", "String", txtPaymentWayDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtPaymentPaymentWayID.text = tmpTableData.strCode
-            txtPaymentWayDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtPaymentPaymentWayID.text = tmpTableData.strCode
+                txtPaymentWayDescription.text = tmpTableData.strFirstField
+            End If
         Case 5
             'Τρόπος είσπραξης / πληρωμής - F5
             With TablesPaymentWays
@@ -2106,9 +2111,11 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 6
             'Τράπεζα
             Set tmpRecordset = CheckForMatch("CommonDB", "Banks", "BankDescription", "String", txtBankDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtPaymentBankID.text = tmpTableData.strCode
-            txtBankDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtPaymentBankID.text = tmpTableData.strCode
+                txtBankDescription.text = tmpTableData.strFirstField
+            End If
         Case 7
             'Τράπεζα - F5
             With TablesBanks
@@ -2315,17 +2322,17 @@ Private Function PopulateFields(rstRecordset As Recordset)
         txtCodeLastDate.text = !CodeLastDate
         chkCodeHandID.Value = !CodeHandID
         
-        mskDateIssue.text = Format(!InvoiceDateIssue, "dd/mm/yyyy")
+        mskDateIssue.text = format(!InvoiceDateIssue, "dd/mm/yyyy")
         txtCodeShortDescriptionA.text = !CodeShortDescriptionA
         lblCodeDescription.Caption = !CodeDescription
         lblCodeBatch.Caption = IIf(!CodeBatch <> "", "ΣΕΙΡΑ " & !CodeBatch, "")
-        lblCodeHand.Caption = IIf(!CodeHandID, "ΧΕΙΡΟΓΡΑΦΟ", "")
+        lblCodeHand.Caption = IIf(!CodeHandID, "ΧΕΙΡΟΓΡΑΦΟ", "ΜΗΧΑΝΟΓΡΑΦΙΚΟ")
         txtInvoiceNo.text = !InvoiceNo
         txtPersonDescription.text = !Description
         txtReason.text = !Reason
         txtPaymentWayDescription.text = !PaymentWayDescription
         txtBankDescription.text = IIf(IsNull(!BankDescription), "", !BankDescription)
-        mskAmount.text = Format(!Amount, "#,##0.00")
+        mskAmount.text = format(!Amount, "#,##0.00")
         
     End With
 

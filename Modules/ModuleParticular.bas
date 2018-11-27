@@ -19,6 +19,106 @@ Global intInvoiceCopies As Byte
 'Αναφορές
 Global intPreviewReports As Integer
 
+Function AddCompanyData(sheet As Object, colCount As Long)
+
+    'Excel
+    With sheet
+        .Range("A1:" & Chr(colCount + 64) & "1").MergeCells = True
+        .Range("A2:" & Chr(colCount + 64) & "2").MergeCells = True
+        .Range("A3:" & Chr(colCount + 64) & "3").MergeCells = True
+        .Range("A4:" & Chr(colCount + 64) & "4").MergeCells = True
+        .Range("A1").Value = arrCompanyData(7)
+        .Range("A2").Value = arrCompanyData(8)
+        .Range("A3").Value = arrCompanyData(9)
+        .Range("A4").Value = arrCompanyData(10)
+    End With
+
+End Function
+
+Function AddCriteria(sheet As Object, criteria As String, colCount As Long)
+
+    'Excel
+    With sheet
+        .Range("A7:" & Chr(colCount + 64) & "7").MergeCells = True
+        .Range("A7").Value = criteria
+        .Range("A7").HorizontalAlignment = xlCenter
+        .Range("A7").VerticalAlignment = xlCenter
+        .rows("7").RowHeight = 24
+    End With
+
+End Function
+Function AddHeaders(sheet As Object, grid As iGrid, colCount As Long, ParamArray columns() As Variant)
+
+    Dim X As Integer
+    
+    'Excel
+    With sheet
+        .Range("A9:" & Chr(colCount + 64) & "9").WrapText = True
+        .Range("A9:" & Chr(colCount + 64) & "9").HorizontalAlignment = xlCenter
+        .Range("A9:" & Chr(colCount + 64) & "9").VerticalAlignment = xlCenter
+        For X = 0 To UBound(columns) - 1 / 2 Step 2
+            .Range("" & columns(X) & "9").Value = grid.ColHeaderText(columns(X + 1))
+        Next X
+        .rows("9").RowHeight = 30
+    End With
+
+End Function
+
+Function AddNumberFormats(sheet As Object, grid As iGrid, format As String, rowOffsetFromTop As Long, ParamArray columns() As Variant)
+
+    Dim column As Long
+    Dim row As Long
+    
+    'Excel
+    With sheet
+        For column = 0 To UBound(columns)
+            Select Case format
+                Case "Floats"
+                    For row = 1 To grid.RowCount
+                        .Range(columns(column) & row + rowOffsetFromTop).NumberFormat = "#,##0.00_);[Red]#,##0.00 "
+                    Next row
+                Case "Integers"
+                    For row = 1 To grid.RowCount
+                        .Range(columns(column) & row + rowOffsetFromTop).NumberFormat = "#,##0_);[Red]#,##0 "
+                    Next row
+                Case "Dates"
+                    For row = 1 To grid.RowCount
+                        .Range(columns(column) & row + rowOffsetFromTop).NumberFormat = "dd-mm-yyyy"
+                    Next row
+            End Select
+        Next column
+    End With
+
+End Function
+
+Function AddTitle(sheet As Object, title As String, colCount As Long)
+
+    'Excel
+    With sheet
+        .Range("A6:" & Chr(colCount + 64) & "6").MergeCells = True
+        .Range("A6").Value = title
+        .Range("A6").HorizontalAlignment = xlCenter
+        .Range("A6").VerticalAlignment = xlCenter
+        .rows("6").RowHeight = 24
+    End With
+
+End Function
+
+
+
+Function AdjustColumnWidths(sheet As Object, ParamArray columns() As Variant)
+
+    Dim X As Integer
+    
+    'Excel
+    With sheet
+        For X = 0 To UBound(columns) - 1 / 2 Step 2
+            .columns(columns(X)).columnWidth = columns(X + 1)
+        Next X
+    End With
+
+End Function
+
 Function CreateSELECTStatement(InvoiceMasterRefersTo As String)
 
     Dim strSQL As String
@@ -483,5 +583,16 @@ Function CalculateExcursionCharges(lngCustomerID, lngDestinationID, mskDate, msk
     
 End Function
 
+
+
+Function SetFontNameAndSize(sheet As Object, fontName As String, fontSize As Integer)
+
+    'Excel
+    With sheet
+        .Range("A1:Z9999").Font.Name = fontName
+        .Range("A1:Z9999").Font.Size = fontSize
+    End With
+
+End Function
 
 

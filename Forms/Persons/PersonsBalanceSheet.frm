@@ -91,7 +91,7 @@ Begin VB.Form PersonsBalanceSheet
          Left            =   75
          TabIndex        =   17
          Top             =   8850
-         Width           =   8940
+         Width           =   10290
          Begin Dacara_dcButton.dcButton cmdButton 
             Height          =   690
             Index           =   0
@@ -119,8 +119,8 @@ Begin VB.Form PersonsBalanceSheet
          End
          Begin Dacara_dcButton.dcButton cmdButton 
             Height          =   690
-            Index           =   5
-            Left            =   7350
+            Index           =   6
+            Left            =   8775
             TabIndex        =   19
             TabStop         =   0   'False
             Top             =   0
@@ -170,8 +170,8 @@ Begin VB.Form PersonsBalanceSheet
          End
          Begin Dacara_dcButton.dcButton cmdButton 
             Height          =   690
-            Index           =   4
-            Left            =   5925
+            Index           =   5
+            Left            =   7350
             TabIndex        =   21
             TabStop         =   0   'False
             Top             =   0
@@ -231,6 +231,31 @@ Begin VB.Form PersonsBalanceSheet
             ButtonShape     =   3
             ButtonStyle     =   4
             Caption         =   "Δημιουργία αρχείου PDF"
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "Ubuntu Condensed"
+               Size            =   9.75
+               Charset         =   161
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   8388736
+            PicOpacity      =   0
+         End
+         Begin Dacara_dcButton.dcButton cmdButton 
+            Height          =   690
+            Index           =   4
+            Left            =   5925
+            TabIndex        =   37
+            TabStop         =   0   'False
+            Top             =   0
+            Width           =   1365
+            _ExtentX        =   2408
+            _ExtentY        =   1217
+            ButtonShape     =   3
+            ButtonStyle     =   4
+            Caption         =   "Δημιουργία αρχείου XLS"
             BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
                Name            =   "Ubuntu Condensed"
                Size            =   9.75
@@ -1104,7 +1129,74 @@ Private Function CalculateSoFarTotalsForCustomers(rstTransactions As Recordset)
     End With
 
 End Function
+Private Function ExportToExcel()
 
+    On Error GoTo ErrTrap
+    
+    Dim lngRow As Long
+    Dim lngCol As Long
+    Dim xlsRowOffsetFromTop As Long
+    Dim xlsColCount As Long
+    
+    Dim oExcel As Object
+    Dim oBook As Object
+    Dim oSheet As Object
+
+    Set oExcel = CreateObject("Excel.Application")
+    Set oBook = oExcel.Workbooks.Add
+    Set oSheet = oBook.Worksheets(1)
+    
+    xlsRowOffsetFromTop = 10
+    xlsColCount = 7
+    
+    With oSheet
+    
+        SetFontNameAndSize oSheet, "Ubuntu Condensed", 11
+        AddCompanyData oSheet, xlsColCount
+        AddTitle oSheet, lblTitle.Caption, xlsColCount
+        AddCriteria oSheet, lblCriteria.Caption, xlsColCount
+        AddHeaders oSheet, grdPersonsBalanceSheet, xlsColCount, "A", "Description", "B", "DebitSoFar", "C", "CreditSoFar", "D", "BalanceSoFar", "E", "DebitPeriod", "F", "CreditPeriod", "G", "Balance"
+        AdjustColumnWidths oSheet, "A", 60, "B", 15, "C", 15, "D", 15, "E", 15, "F", 15, "G", 15
+                
+        For lngRow = 1 To grdPersonsBalanceSheet.RowCount
+            .Range("A" & lngRow + xlsRowOffsetFromTop) = grdPersonsBalanceSheet.CellValue(lngRow, "Description")
+            .Range("B" & lngRow + xlsRowOffsetFromTop) = grdPersonsBalanceSheet.CellValue(lngRow, "DebitSoFar")
+            .Range("C" & lngRow + xlsRowOffsetFromTop) = grdPersonsBalanceSheet.CellValue(lngRow, "CreditSoFar")
+            .Range("D" & lngRow + xlsRowOffsetFromTop) = grdPersonsBalanceSheet.CellValue(lngRow, "BalanceSoFar")
+            .Range("E" & lngRow + xlsRowOffsetFromTop) = grdPersonsBalanceSheet.CellValue(lngRow, "DebitPeriod")
+            .Range("F" & lngRow + xlsRowOffsetFromTop) = grdPersonsBalanceSheet.CellValue(lngRow, "CreditPeriod")
+            .Range("G" & lngRow + xlsRowOffsetFromTop) = grdPersonsBalanceSheet.CellValue(lngRow, "Balance")
+        Next lngRow
+        
+        AddNumberFormats oSheet, grdPersonsBalanceSheet, "Floats", 10, "B", "C", "D", "E", "F", "G"
+    
+    End With
+    
+    oBook.SaveAs strReportsPathName & lblTitle.Caption & ".xls"
+    
+    oExcel.Quit
+    
+    grdPersonsBalanceSheet.SetFocus
+    
+    MyMsgBox 1, strApplicationName, strStandardMessages(8), 1
+    
+    Exit Function
+    
+ErrTrap:
+    oBook.Close False
+    oExcel.Quit
+
+    grdPersonsBalanceSheet.SetFocus
+    
+    If Err.Number = 1004 Then
+        MyMsgBox 4, strApplicationName, strStandardMessages(27), 1
+    Else
+        DisplayErrorMessage True, Err.Description
+    End If
+    
+    Exit Function
+    
+End Function
 
 Private Function FindRecordsAndPopulateGrid()
 
@@ -1114,16 +1206,16 @@ Private Function FindRecordsAndPopulateGrid()
             UpdateCriteriaLabels mskInvoiceDateIssueFrom.text, mskInvoiceDateIssueTo.text, txtFilterDescription.text
             EnableGrid grdPersonsBalanceSheet, False
             HighlightRow grdPersonsBalanceSheet, 1, 1, "", True
-            UpdateButtons Me, 5, 0, 0, 1, 1, 1, 0
+            UpdateButtons Me, 6, 0, 0, 1, 1, 1, 1, 0
             Exit Function
         Else
-            UpdateButtons Me, 5, 1, 0, 0, 0, 0, 1
+            UpdateButtons Me, 6, 1, 0, 0, 0, 0, 0, 1
             If Not blnError Then
                 If blnProcessing Then
-                    If MyMsgBox(4, strAppTitle, strStandardMessages(27), 1) Then
+                    If MyMsgBox(4, strApplicationName, strStandardMessages(27), 1) Then
                     End If
                 Else
-                    If MyMsgBox(1, strAppTitle, strStandardMessages(7), 1) Then
+                    If MyMsgBox(1, strApplicationName, strStandardMessages(7), 1) Then
                     End If
                 End If
             End If
@@ -1132,6 +1224,21 @@ Private Function FindRecordsAndPopulateGrid()
             frmCriteria(0).Visible = True
             mskInvoiceDateIssueFrom.SetFocus
         End If
+    End If
+
+End Function
+
+Private Function GetProcessID(programName)
+
+    Dim sTemp As String
+    
+    sTemp = UCase(Trim$(programName))
+    If sTemp = "" Then Exit Function
+    
+    glPid = Shell(sTemp, vbNormalFocus)
+    
+    If glPid = 0 Then
+        MsgBox "Could not start process", vbExclamation, "Error"
     End If
 
 End Function
@@ -1160,8 +1267,10 @@ Private Sub cmdButton_Click(index As Integer)
         Case 3
             DoReport "CreatePDF"
         Case 4
-            AbortProcedure False
+            ExportToExcel
         Case 5
+            AbortProcedure False
+        Case 6
             AbortProcedure True
     End Select
    
@@ -1173,7 +1282,7 @@ Private Function DoReport(action As String)
     
     If action = "Print" Then
         If SelectPrinter("PrinterPrintsReports") Then
-            CreateUnicodeFile "ΙΣΟΖΥΓΙΟ ΠΕΛΑΤΩΝ", "ΑΠΟ " & mskInvoiceDateIssueFrom.text & " ΕΩΣ " & mskInvoiceDateIssueTo.text, "", intPrinterReportDetailLines
+            CreateUnicodeFile lblTitle.Caption, " από " & mskInvoiceDateIssueFrom.text & " έως " & mskInvoiceDateIssueTo.text, "", intPrinterReportDetailLines
             With rptOneLiner
                 If intPreviewReports = 1 Then
                     .Restart
@@ -1189,9 +1298,9 @@ Private Function DoReport(action As String)
     End If
     
     If action = "CreatePDF" Then
-        CreateUnicodeFile "ΙΣΟΖΥΓΙΟ ΠΕΛΑΤΩΝ", "ΑΠΟ " & mskInvoiceDateIssueFrom.text & " ΕΩΣ " & mskInvoiceDateIssueTo.text, "", GetSetting(strAppTitle, "Settings", "Export Report Height")
-        CreateUnisexPDF "ΙΣΟΖΥΓΙΟ ΠΕΛΑΤΩΝ ΑΠΟ " & mskInvoiceDateIssueFrom.text & " ΕΩΣ " & mskInvoiceDateIssueTo.text
-        If MyMsgBox(1, strAppTitle, strStandardMessages(8), 1) Then
+        CreateUnicodeFile lblTitle.Caption, " από " & mskInvoiceDateIssueFrom.text & " έως " & mskInvoiceDateIssueTo.text, "", GetSetting(strApplicationName, "Settings", "Export Report Height")
+        CreateUnisexPDF lblTitle.Caption & " από " & mskInvoiceDateIssueFrom.text & " έως " & mskInvoiceDateIssueTo.text
+        If MyMsgBox(1, strApplicationName, strStandardMessages(8), 1) Then
         End If
     End If
     
@@ -1239,12 +1348,12 @@ Private Function CreateUnicodeFile(strReportTitle, strReportSubTitle1, strReport
             
             'Εκτυπώνω τη γραμμή
             Print #1, .CellText(lngRow, "Description"); _
-                Tab(55 - Len((Format(.CellText(lngRow, "DebitSoFar"), "#,##0.00")))); Format(.CellText(lngRow, "DebitSoFar"), "#,##0.00"); _
-                Tab(69 - Len((Format(.CellText(lngRow, "CreditSoFar"), "#,##0.00")))); Format(.CellText(lngRow, "CreditSoFar"), "#,##0.00"); _
-                Tab(83 - Len((Format(.CellText(lngRow, "BalanceSoFar"), "#,##0.00")))); Format(.CellText(lngRow, "BalanceSoFar"), "#,##0.00"); _
-                Tab(97 - Len((Format(.CellText(lngRow, "DebitPeriod"), "#,##0.00")))); Format(.CellText(lngRow, "DebitPeriod"), "#,##0.00"); _
-                Tab(111 - Len((Format(.CellText(lngRow, "CreditPeriod"), "#,##0.00")))); Format(.CellText(lngRow, "CreditPeriod"), "#,##0.00"); _
-                Tab(125 - Len((Format(.CellText(lngRow, "Balance"), "#,##0.00")))); Format(.CellText(lngRow, "Balance"), "#,##0.00")
+                Tab(55 - Len((format(.CellText(lngRow, "DebitSoFar"), "#,##0.00")))); format(.CellText(lngRow, "DebitSoFar"), "#,##0.00"); _
+                Tab(69 - Len((format(.CellText(lngRow, "CreditSoFar"), "#,##0.00")))); format(.CellText(lngRow, "CreditSoFar"), "#,##0.00"); _
+                Tab(83 - Len((format(.CellText(lngRow, "BalanceSoFar"), "#,##0.00")))); format(.CellText(lngRow, "BalanceSoFar"), "#,##0.00"); _
+                Tab(97 - Len((format(.CellText(lngRow, "DebitPeriod"), "#,##0.00")))); format(.CellText(lngRow, "DebitPeriod"), "#,##0.00"); _
+                Tab(111 - Len((format(.CellText(lngRow, "CreditPeriod"), "#,##0.00")))); format(.CellText(lngRow, "CreditPeriod"), "#,##0.00"); _
+                Tab(125 - Len((format(.CellText(lngRow, "Balance"), "#,##0.00")))); format(.CellText(lngRow, "Balance"), "#,##0.00")
             
             intProcessedDetailLines = intProcessedDetailLines + 1
             
@@ -1252,22 +1361,22 @@ Private Function CreateUnicodeFile(strReportTitle, strReportSubTitle1, strReport
             If intProcessedDetailLines > Val(intReportDetailLines) Then
                 Print #1, ""
                 Print #1, "ΣΕ ΜΕΤΑΦΟΡΑ"; _
-                    Tab(55 - Len(Format(curDebitSoFar, "#,##0.00"))); Format(curDebitSoFar, "#,##0.00"); _
-                    Tab(69 - Len(Format(curCreditSoFar, "#,##0.00"))); Format(curCreditSoFar, "#,##0.00"); _
-                    Tab(83 - Len(Format(curBalanceSoFar, "#,##0.00"))); Format(curBalanceSoFar, "#,##0.00"); _
-                    Tab(97 - Len(Format(curDebitPeriod, "#,##0.00"))); Format(curDebitPeriod, "#,##0.00"); _
-                    Tab(111 - Len(Format(curCreditPeriod, "#,##0.00"))); Format(curCreditPeriod, "#,##0.00"); _
-                    Tab(125 - Len(Format(curBalance, "#,##0.00"))); Format(curBalance, "#,##0.00")
+                    Tab(55 - Len(format(curDebitSoFar, "#,##0.00"))); format(curDebitSoFar, "#,##0.00"); _
+                    Tab(69 - Len(format(curCreditSoFar, "#,##0.00"))); format(curCreditSoFar, "#,##0.00"); _
+                    Tab(83 - Len(format(curBalanceSoFar, "#,##0.00"))); format(curBalanceSoFar, "#,##0.00"); _
+                    Tab(97 - Len(format(curDebitPeriod, "#,##0.00"))); format(curDebitPeriod, "#,##0.00"); _
+                    Tab(111 - Len(format(curCreditPeriod, "#,##0.00"))); format(curCreditPeriod, "#,##0.00"); _
+                    Tab(125 - Len(format(curBalance, "#,##0.00"))); format(curBalance, "#,##0.00")
                     
                 GoSub Headers
 
                 Print #1, "ΑΠΟ ΜΕΤΑΦΟΡΑ"; _
-                    Tab(55 - Len(Format(curDebitSoFar, "#,##0.00"))); Format(curDebitSoFar, "#,##0.00"); _
-                    Tab(69 - Len(Format(curCreditSoFar, "#,##0.00"))); Format(curCreditSoFar, "#,##0.00"); _
-                    Tab(83 - Len(Format(curBalanceSoFar, "#,##0.00"))); Format(curBalanceSoFar, "#,##0.00"); _
-                    Tab(97 - Len(Format(curDebitPeriod, "#,##0.00"))); Format(curDebitPeriod, "#,##0.00"); _
-                    Tab(111 - Len(Format(curCreditPeriod, "#,##0.00"))); Format(curCreditPeriod, "#,##0.00"); _
-                    Tab(125 - Len(Format(curBalance, "#,##0.00"))); Format(curBalance, "#,##0.00")
+                    Tab(55 - Len(format(curDebitSoFar, "#,##0.00"))); format(curDebitSoFar, "#,##0.00"); _
+                    Tab(69 - Len(format(curCreditSoFar, "#,##0.00"))); format(curCreditSoFar, "#,##0.00"); _
+                    Tab(83 - Len(format(curBalanceSoFar, "#,##0.00"))); format(curBalanceSoFar, "#,##0.00"); _
+                    Tab(97 - Len(format(curDebitPeriod, "#,##0.00"))); format(curDebitPeriod, "#,##0.00"); _
+                    Tab(111 - Len(format(curCreditPeriod, "#,##0.00"))); format(curCreditPeriod, "#,##0.00"); _
+                    Tab(125 - Len(format(curBalance, "#,##0.00"))); format(curBalance, "#,##0.00")
                 Print #1, ""
                 intProcessedDetailLines = intProcessedDetailLines + 2
             End If
@@ -1308,7 +1417,7 @@ Private Function ValidateFields()
     
     'Από
     If mskInvoiceDateIssueFrom.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskInvoiceDateIssueFrom.SetFocus
         Exit Function
@@ -1316,7 +1425,7 @@ Private Function ValidateFields()
     
     'Εως
     If mskInvoiceDateIssueTo.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskInvoiceDateIssueTo.SetFocus
         Exit Function
@@ -1325,7 +1434,7 @@ Private Function ValidateFields()
     'Σωστό διάστημα
     If IsDate(mskInvoiceDateIssueFrom.text) And IsDate(mskInvoiceDateIssueTo.text) Then
         If CDate(mskInvoiceDateIssueFrom.text) > CDate(mskInvoiceDateIssueTo.text) Then
-            If MyMsgBox(4, strAppTitle, strStandardMessages(10), 1) Then
+            If MyMsgBox(4, strApplicationName, strStandardMessages(10), 1) Then
             End If
             mskInvoiceDateIssueFrom.SetFocus
             Exit Function
@@ -1334,7 +1443,7 @@ Private Function ValidateFields()
 
     'Εγγραφές
     If txtFilterID.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtFilterDescription.SetFocus
         Exit Function
@@ -1353,7 +1462,7 @@ Private Function AbortProcedure(blnStatus)
         ClearFields grdPersonsBalanceSheet
         frmCriteria(0).Visible = True
         mskInvoiceDateIssueFrom.SetFocus
-        UpdateButtons Me, 5, 1, 0, 0, 0, 0, 1
+        UpdateButtons Me, 6, 1, 0, 0, 0, 0, 0, 1
     End If
     
     If blnStatus Then
@@ -1401,8 +1510,8 @@ Private Function RefreshList()
     With grdPersonsBalanceSheet
         .Clear
         .TabStop = False
-        .ColHeaderText("BalanceSoFar") = "Υπόλοιπο" & Chr(13) & "έως" & Chr(13) & CDate(mskInvoiceDateIssueFrom.text) - 1
-        .ColHeaderText("Balance") = "Υπόλοιπο" & Chr(13) & "έως" & Chr(13) & CDate(mskInvoiceDateIssueTo.text)
+        .ColHeaderText("BalanceSoFar") = "Υπόλοιπο " & Chr(13) & " έως " & CDate(mskInvoiceDateIssueFrom.text) - 1
+        .ColHeaderText("Balance") = "Υπόλοιπο " & Chr(13) & " έως " & CDate(mskInvoiceDateIssueTo.text)
         .ColHeaderTextFlags(8) = 32789
         .Redraw = False
     End With
@@ -1417,11 +1526,11 @@ Private Function RefreshList()
     If rstPersons.RecordCount = 0 Then blnError = False: RefreshList = False: Exit Function
     
     'Προετοιμάζω τη μπάρα προόδου
-    InitializeProgressBar Me, strAppTitle, rstPersons
+    InitializeProgressBar Me, strApplicationName, rstPersons
     
     'Προσωρινά
-    UpdateButtons Me, 5, 0, 0, 0, 0, 1, 0
-    cmdButton(4).Caption = "Διακοπή επεξεργασίας"
+    UpdateButtons Me, 6, 0, 0, 0, 0, 0, 1, 0
+    cmdButton(5).Caption = "Διακοπή επεξεργασίας"
     blnProcessing = True
     
     'Επεξεργασία για κάθε πελάτη
@@ -1501,7 +1610,7 @@ Private Function RefreshList()
     End If
     
     'Τελικές ενέργειες
-    cmdButton(4).Caption = "Νέα αναζήτηση"
+    cmdButton(5).Caption = "Νέα αναζήτηση"
     frmProgress.Visible = False
     
     Exit Function
@@ -1534,9 +1643,11 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 0
             'Εγγραφές - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "Options", "OptionDescription", "String", txtFilterDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 0, 0)
-            txtFilterID.text = tmpTableData.strCode
-            txtFilterDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 0, 0)
+                txtFilterID.text = tmpTableData.strCode
+                txtFilterDescription.text = tmpTableData.strFirstField
+            End If
     End Select
 
 End Sub
@@ -1545,7 +1656,7 @@ Private Sub Form_Activate()
                 
     If Me.Tag = "True" Then
         Me.Tag = "False"
-        AddColumnsToGrid grdPersonsBalanceSheet, 62, GetSetting(strAppTitle, "Layout Strings", "grdPersonsBalanceSheet"), _
+        AddColumnsToGrid grdPersonsBalanceSheet, 62, GetSetting(strApplicationName, "Layout Strings", "grdPersonsBalanceSheet"), _
             "05NCNID,40NLNDescription,10NRFXDebitSoFar,10NRFXCreditSoFar,10NRFXBalanceSoFar,10NRFXDebitPeriod,10NRFXCreditPeriod,10NRFBalance,04NCNSelected", _
             "ID, Επωνυμία,Χρέωση προηγούμενης περιόδου,Πίστωση προηγούμενης περιόδου,Υπόλοιπο προηγούμενης περιόδου,Χρέωση ζητούμενης περιόδου,Πίστωση ζητούμενης περιόδου,Υπόλοιπο,E"
         Me.Refresh
@@ -1580,9 +1691,11 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
             cmdButton_Click 2
         Case vbKeyP And CtrlDown = 5 And cmdButton(3).Enabled
             cmdButton_Click 3
+        Case vbKeyX And CtrlDown = 5 And cmdButton(4).Enabled
+            cmdButton_Click 4
         Case vbKeyEscape
-            If cmdButton(4).Enabled Then cmdButton_Click 4: Exit Function
-            If cmdButton(5).Enabled Then cmdButton_Click 5
+            If cmdButton(5).Enabled Then cmdButton_Click 5: Exit Function
+            If cmdButton(6).Enabled Then cmdButton_Click 6
         Case vbKeyF12 And CtrlDown = 4
             ToggleInfoPanel Me
     End Select
@@ -1599,7 +1712,12 @@ Private Sub Form_Load()
     ClearFields mskInvoiceDateIssueFrom, mskInvoiceDateIssueTo, txtFilterDescription
     ClearFields grdPersonsBalanceSheet
     EnableFields mskInvoiceDateIssueFrom, mskInvoiceDateIssueTo, txtFilterDescription
-    UpdateButtons Me, 5, 1, 0, 0, 0, 0, 1
+    UpdateButtons Me, 6, 1, 0, 0, 0, 0, 0, 1
+    
+    mskInvoiceDateIssueFrom.text = "01/01/2015"
+    mskInvoiceDateIssueTo.text = "31/12/2017"
+    txtFilterID.text = "1"
+    txtFilterDescription.text = "ΟΛΕΣ ΟΙ ΕΓΓΡΑΦΕΣ"
 
 End Sub
 
@@ -1627,7 +1745,7 @@ End Sub
 
 Private Sub mnuΑποθήκευσηΠλάτουςΣτηλών_Click()
 
-    SaveSetting strAppTitle, "Layout Strings", "grdPersonsBalanceSheet", grdPersonsBalanceSheet.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", "grdPersonsBalanceSheet", grdPersonsBalanceSheet.LayoutCol
 
 End Sub
 

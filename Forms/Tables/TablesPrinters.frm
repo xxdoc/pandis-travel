@@ -1458,7 +1458,7 @@ Dim lngSelectedRow  As Long
 Private Function AbortProcedure(blnStatus)
     
     If Not blnStatus Then
-        If MyMsgBox(3, strAppTitle, strStandardMessages(3), 2) Then
+        If MyMsgBox(3, strApplicationName, strStandardMessages(3), 2) Then
             blnStatus = False
             ClearFields txtPrinterID, txtPrinterName, txtPrinterTypeID, txtPrinterTypeDescription, txtPrinterFontName, mskPrinterFontSize, txtPrinterPrintsInvoicesID, txtPrintsInvoicesDescription, txtPrinterEAFDSSID, txtEafdssDescription, txtPrinterEAFDSSString, mskPrinterInvoiceHeight, mskPrinterInvoiceDetailLines, mskPrinterInvoiceTopMargin, txtPrinterPrintsReportsID, txtPrintsReportsDescription, mskPrinterReportDetailLines, mskPrinterReportTopMargin, mskPrinterReportLeftMargin
             DisableFields txtPrinterName, txtPrinterTypeDescription, txtPrinterFontName, mskPrinterFontSize, txtPrintsInvoicesDescription, txtEafdssDescription, txtPrinterEAFDSSString, mskPrinterInvoiceHeight, mskPrinterInvoiceDetailLines, mskPrinterInvoiceTopMargin, txtPrintsReportsDescription, mskPrinterReportDetailLines, mskPrinterReportTopMargin, mskPrinterReportLeftMargin, cmdIndex(0), cmdIndex(1), cmdIndex(2), cmdIndex(3)
@@ -1475,7 +1475,7 @@ End Function
 
 Private Function DeleteRecord()
     
-    If MainDeleteRecord("PrintersDB", "Printers", strAppTitle, "ID", txtPrinterID.text, "True") Then
+    If MainDeleteRecord("PrintersDB", "Printers", strApplicationName, "ID", txtPrinterID.text, "True") Then
         PopulateGrid
         HighlightRow grdAppPrinters, lngSelectedRow, 1, "", True
         ClearFields txtPrinterID, txtPrinterName, txtPrinterTypeID, txtPrinterTypeDescription, txtPrinterFontName, mskPrinterFontSize, txtPrinterPrintsInvoicesID, txtPrintsInvoicesDescription, txtPrinterEAFDSSID, txtEafdssDescription, txtPrinterEAFDSSString, mskPrinterInvoiceHeight, mskPrinterInvoiceDetailLines, mskPrinterInvoiceTopMargin, txtPrinterPrintsReportsID, txtPrintsReportsDescription, mskPrinterReportDetailLines, mskPrinterReportTopMargin, mskPrinterReportLeftMargin
@@ -1504,7 +1504,7 @@ Private Function FindPrinters()
         grdAvailablePrinters.CellValue(grdAvailablePrinters.RowCount, "PrinterName") = prt.DeviceName
     Next
     
-    strSavedLayout = GetSetting(strAppTitle, "Layout Strings", "grdPrinters"): grdAvailablePrinters.LayoutCol = strSavedLayout
+    strSavedLayout = GetSetting(strApplicationName, "Layout Strings", "grdPrinters"): grdAvailablePrinters.LayoutCol = strSavedLayout
 
 End Function
 
@@ -1532,7 +1532,7 @@ Private Function SaveRecord()
     
     If Not ValidateFields Then Exit Function
     
-    If MainSaveRecord("PrintersDB", "Printers", blnStatus, strAppTitle, "ID", txtPrinterID.text, txtPrinterName.text, txtPrinterTypeID.text, txtPrinterPrintsInvoicesID.text, txtPrinterEAFDSSID.text, txtPrinterEAFDSSString.text, mskPrinterInvoiceHeight.text, mskPrinterInvoiceDetailLines.text, mskPrinterInvoiceTopMargin.text, txtPrinterPrintsReportsID.text, mskPrinterReportDetailLines.text, mskPrinterReportTopMargin.text, mskPrinterReportLeftMargin.text, txtPrinterFontName.text, mskPrinterFontSize.text, 1, strCurrentUser) <> 0 Then
+    If MainSaveRecord("PrintersDB", "Printers", blnStatus, strApplicationName, "ID", txtPrinterID.text, txtPrinterName.text, txtPrinterTypeID.text, txtPrinterPrintsInvoicesID.text, txtPrinterEAFDSSID.text, txtPrinterEAFDSSString.text, mskPrinterInvoiceHeight.text, mskPrinterInvoiceDetailLines.text, mskPrinterInvoiceTopMargin.text, txtPrinterPrintsReportsID.text, mskPrinterReportDetailLines.text, mskPrinterReportTopMargin.text, mskPrinterReportLeftMargin.text, txtPrinterFontName.text, mskPrinterFontSize.text, 1, strCurrentUser) <> 0 Then
         PopulateGrid
         HighlightRow grdAppPrinters, lngSelectedRow, 2, txtPrinterName.text, True
         lngSelectedRow = 0
@@ -1588,7 +1588,7 @@ Private Function ValidateFields()
     
     'Περιγραφή
     If txtPrinterName.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtPrinterName.SetFocus
         Exit Function
@@ -1596,7 +1596,7 @@ Private Function ValidateFields()
     
     'Τύπος
     If txtPrinterTypeID.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtPrinterTypeDescription.SetFocus
         Exit Function
@@ -1604,7 +1604,7 @@ Private Function ValidateFields()
     
     'Εκτυπώνει παραστατικά
     If txtPrinterPrintsInvoicesID.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtPrintsInvoicesDescription.SetFocus
         Exit Function
@@ -1612,7 +1612,7 @@ Private Function ValidateFields()
     
     'Εκτυπώνει παραστατικά με σήμανση
     If txtPrinterEAFDSSID.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtEafdssDescription.SetFocus
         Exit Function
@@ -1620,7 +1620,7 @@ Private Function ValidateFields()
     
     'Υψος παραστατικού
     If mskPrinterInvoiceHeight.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskPrinterInvoiceHeight.SetFocus
         Exit Function
@@ -1628,7 +1628,7 @@ Private Function ValidateFields()
     
     'Αναλυτικές γραμμές παραστατικού
     If mskPrinterInvoiceDetailLines.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskPrinterInvoiceDetailLines.SetFocus
         Exit Function
@@ -1636,7 +1636,7 @@ Private Function ValidateFields()
     
     'Επάνω περιθώριο παραστατικού
     If mskPrinterInvoiceTopMargin.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskPrinterInvoiceTopMargin.SetFocus
         Exit Function
@@ -1644,7 +1644,7 @@ Private Function ValidateFields()
     
     'Εκτυπώνει αναφορές
     If txtPrinterPrintsReportsID.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtPrintsReportsDescription.SetFocus
         Exit Function
@@ -1652,7 +1652,7 @@ Private Function ValidateFields()
     
     'Αναλυτικές γραμμές αναφορών
     If mskPrinterReportDetailLines.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskPrinterReportDetailLines.SetFocus
         Exit Function
@@ -1660,7 +1660,7 @@ Private Function ValidateFields()
     
     'Επάνω περιθώριο αναφορών
     If mskPrinterReportTopMargin.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskPrinterReportTopMargin.SetFocus
         Exit Function
@@ -1668,7 +1668,7 @@ Private Function ValidateFields()
     
     'Αριστερό περιθώριο αναφορών
     If mskPrinterReportLeftMargin.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskPrinterReportLeftMargin.SetFocus
         Exit Function
@@ -1704,37 +1704,46 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 0
             'Τύπος εκτυπωτή
             Set tmpRecordset = CheckForMatch("PrintersDB", "PrinterTypes", "PrinterTypeDescription", "String", txtPrinterTypeDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtPrinterTypeID.text = tmpTableData.strCode
-            txtPrinterTypeDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtPrinterTypeID.text = tmpTableData.strCode
+                txtPrinterTypeDescription.text = tmpTableData.strFirstField
+            End If
         Case 1
             'Εκτυπώνει παραστατικά;
             Set tmpRecordset = CheckForMatch("CommonDB", "YesOrNo", "YesOrNoDescription", "String", txtPrintsInvoicesDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtPrinterPrintsInvoicesID.text = tmpTableData.strCode
-            txtPrintsInvoicesDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtPrinterPrintsInvoicesID.text = tmpTableData.strCode
+                txtPrintsInvoicesDescription.text = tmpTableData.strFirstField
+            End If
         Case 2
             'Με σήμανση;
             Set tmpRecordset = CheckForMatch("CommonDB", "YesOrNo", "YesOrNoDescription", "String", txtEafdssDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtPrinterEAFDSSID.text = tmpTableData.strCode
-            txtEafdssDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtPrinterEAFDSSID.text = tmpTableData.strCode
+                txtEafdssDescription.text = tmpTableData.strFirstField
+            End If
         Case 3
             'Εκτυπώνει αναφορές;
             Set tmpRecordset = CheckForMatch("CommonDB", "YesOrNo", "YesOrNoDescription", "String", txtPrintsReportsDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtPrinterPrintsReportsID.text = tmpTableData.strCode
-            txtPrintsReportsDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtPrinterPrintsReportsID.text = tmpTableData.strCode
+                txtPrintsReportsDescription.text = tmpTableData.strFirstField
+            End If
     End Select
 
 End Sub
+
 
 Private Sub Form_Activate()
 
     If Me.Tag = "True" Then
         FindPrinters
         Me.Tag = "False"
-        AddColumnsToGrid grdAppPrinters, 25, GetSetting(strAppTitle, "Layout Strings", "grdPrinters"), "04NCIID,40NLNDescription", "ID,Όνομα"
+        AddColumnsToGrid grdAppPrinters, 25, GetSetting(strApplicationName, "Layout Strings", "grdPrinters"), "04NCIID,40NLNDescription", "ID,Όνομα"
         Me.Refresh
         PopulateGrid
     End If
@@ -1747,19 +1756,19 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
     
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     Select Case KeyCode
-        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown And cmdButton(0).Enabled
+        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown = 4 And cmdButton(0).Enabled
             cmdButton_Click 0
-        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown And cmdButton(1).Enabled
+        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown = 4 And cmdButton(1).Enabled
             cmdButton_Click 1
-        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown And cmdButton(2).Enabled
+        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown = 4 And cmdButton(2).Enabled
             cmdButton_Click 2
         Case vbKeyEscape
             If cmdButton(3).Enabled Then cmdButton_Click 3: Exit Function
             If cmdButton(4).Enabled Then cmdButton_Click 4
-        Case vbKeyF12 And CtrlDown
+        Case vbKeyF12 And CtrlDown = 4
             ToggleInfoPanel Me
     End Select
 
@@ -1798,7 +1807,7 @@ Private Sub grdAppPrinters_DblClick(ByVal lRow As Long, ByVal lCol As Long, bReq
 
 End Sub
 
-Private Sub grdAppPrinters_HeaderRightClick(ByVal lCol As Long, ByVal Shift As Integer, ByVal x As Long, ByVal y As Long)
+Private Sub grdAppPrinters_HeaderRightClick(ByVal lCol As Long, ByVal Shift As Integer, ByVal X As Long, ByVal Y As Long)
 
     PopupMenu mnuHdrPopUp
 
@@ -1812,7 +1821,7 @@ End Sub
 
 Private Sub mnuΑποθήκευσηΠλάτουςΣτηλών_Click()
     
-    SaveSetting strAppTitle, "Layout Strings", "grdPrinters", grdAppPrinters.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", "grdPrinters", grdAppPrinters.LayoutCol
 
 End Sub
 

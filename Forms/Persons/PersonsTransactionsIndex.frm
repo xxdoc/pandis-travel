@@ -880,10 +880,10 @@ Private Function FindRecordsAndPopulateGrid()
             UpdateButtons Me, 3, 1, 0, 0, 1
             If Not blnError Then
                 If blnProcessing Then
-                    If MyMsgBox(4, strAppTitle, strStandardMessages(27), 1) Then
+                    If MyMsgBox(4, strApplicationName, strStandardMessages(27), 1) Then
                     End If
                 Else
-                    If MyMsgBox(1, strAppTitle, strStandardMessages(7), 1) Then
+                    If MyMsgBox(1, strApplicationName, strStandardMessages(7), 1) Then
                     End If
                 End If
             End If
@@ -1023,7 +1023,7 @@ Private Function RefreshList()
     If rstRecordset.RecordCount = 0 Then blnErrors = False: RefreshList = False: Exit Function
     
     'Προετοιμάζω τη μπάρα προόδου
-    InitializeProgressBar Me, strAppTitle, rstRecordset
+    InitializeProgressBar Me, strApplicationName, rstRecordset
     
     'Προσωρινά
     UpdateButtons Me, 3, 0, 0, 1, 0
@@ -1088,9 +1088,9 @@ ErrTrap:
 
 End Function
 
-Private Sub cmdButton_Click(Index As Integer)
+Private Sub cmdButton_Click(index As Integer)
 
-    Select Case Index
+    Select Case index
         Case 0
             FindRecordsAndPopulateGrid
         Case 1
@@ -1103,25 +1103,27 @@ Private Sub cmdButton_Click(Index As Integer)
     
 End Sub
 
-Private Sub cmdButton_KeyDown(Index As Integer, KeyCode As Integer, Shift As Integer)
+Private Sub cmdButton_KeyDown(index As Integer, KeyCode As Integer, Shift As Integer)
 
     CheckForArrows (KeyCode)
 
 End Sub
 
-Private Sub cmdIndex_Click(Index As Integer)
+Private Sub cmdIndex_Click(index As Integer)
 
     'Local variables
     Dim tmpTableData As typTableData
     Dim tmpRecordset As Recordset
     
-    Select Case Index
+    Select Case index
         Case 0
         'Πελάτης - F2
         Set tmpRecordset = CheckForMatch("CommonDB", txtCustomersOrSuppliers.text, "Description", "String", txtPersonDescription.text)
-        tmpTableData = DisplayIndex(tmpRecordset, 2, True, 3, 0, 1, 7, "ID", "Επωνυμία", "Α.Φ.Μ.", 0, 40, 15, 1, 0, 1)
-        txtPersonID.text = tmpTableData.strCode
-        txtPersonDescription.text = tmpTableData.strFirstField
+        If tmpRecordset.RecordCount > 0 Then
+            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 3, 0, 1, 7, "ID", "Επωνυμία", "Α.Φ.Μ.", 0, 40, 15, 1, 0, 1)
+            txtPersonID.text = tmpTableData.strCode
+            txtPersonDescription.text = tmpTableData.strFirstField
+        End If
     End Select
 
 End Sub
@@ -1130,7 +1132,7 @@ Private Sub Form_Activate()
 
     If Me.Tag = "True" Then
         Me.Tag = "False"
-        AddColumnsToGrid grdPersonsTransactionsIndex, 44, GetSetting(strAppTitle, "Layout Strings", "grdPersonsTransactionsIndex"), _
+        AddColumnsToGrid grdPersonsTransactionsIndex, 44, GetSetting(strApplicationName, "Layout Strings", "grdPersonsTransactionsIndex"), _
             "05NCNTrnID,12NCDDateIssue,40NCNFullInvoice,40NLNCodeDescription,40NLNPersonDescription,10NRFAmount,04NCNMasterRefersTo,04NCNSecondaryRefersTo", _
             "TrnID,Εκδοση,Παραστατικό,Περιγραφή παραστατικού,Επωνυμία,Ποσό,A,B"
         Me.Refresh
@@ -1215,7 +1217,7 @@ Private Function EditRecord()
     Set rstRecordset = PersonsTransactions.SeekRecord(grdPersonsTransactionsIndex.CellValue(grdPersonsTransactionsIndex.CurRow, "TrnID"), txtPaymentInOrPaymentOut.text, txtCustomersOrSuppliers.text)
                 
     If rstRecordset.RecordCount = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(9), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(9), 1) Then
         End If
         Exit Function
     End If
@@ -1237,7 +1239,7 @@ Private Function ValidateFields()
     'Σωστό διάστημα
     If IsDate(mskInvoiceDateIssueFrom.text) And IsDate(mskInvoiceDateIssueTo.text) Then
         If CDate(mskInvoiceDateIssueFrom.text) > CDate(mskInvoiceDateIssueTo.text) Then
-            If MyMsgBox(4, strAppTitle, strStandardMessages(10), 1) Then
+            If MyMsgBox(4, strApplicationName, strStandardMessages(10), 1) Then
             End If
             mskInvoiceDateIssueFrom.SetFocus
             Exit Function
@@ -1256,7 +1258,7 @@ End Sub
 
 Private Sub mnuΑποθήκευσηΠλάτουςΣτηλών_Click()
 
-    SaveSetting strAppTitle, "Layout Strings", "grdPersonsTransactionsIndex", grdPersonsTransactionsIndex.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", "grdPersonsTransactionsIndex", grdPersonsTransactionsIndex.LayoutCol
 
 End Sub
 

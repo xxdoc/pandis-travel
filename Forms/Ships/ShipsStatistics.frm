@@ -843,10 +843,10 @@ Private Function FindRecordsAndPopulateGrid()
             UpdateButtons Me, 2, 1, 0, 1
             If Not blnError Then
                 If blnProcessing Then
-                    If MyMsgBox(4, strAppTitle, strStandardMessages(27), 1) Then
+                    If MyMsgBox(4, strApplicationName, strStandardMessages(27), 1) Then
                     End If
                 Else
-                    If MyMsgBox(1, strAppTitle, strStandardMessages(7), 1) Then
+                    If MyMsgBox(1, strApplicationName, strStandardMessages(7), 1) Then
                     End If
                 End If
             End If
@@ -964,7 +964,7 @@ Private Function RefreshListFromManifest()
     If rstTransactions.RecordCount = 0 Then blnErrors = False: RefreshListFromManifest = False: Exit Function
     
     'Προετοιμάζω τη μπάρα προόδου
-    InitializeProgressBar Me, strAppTitle, rstTransactions
+    InitializeProgressBar Me, strApplicationName, rstTransactions
     
     'Προσωρινά
     UpdateButtons Me, 2, 0, 1, 0
@@ -1151,7 +1151,7 @@ Private Function RefreshListFromSales()
     If rstTransactions.RecordCount = 0 Then blnErrors = False: RefreshListFromSales = False: Exit Function
     
     'Προετοιμάζω τη μπάρα προόδου
-    InitializeProgressBar Me, strAppTitle, rstTransactions
+    InitializeProgressBar Me, strApplicationName, rstTransactions
     
     'Προσωρινά
     UpdateButtons Me, 2, 0, 1, 0
@@ -1244,9 +1244,9 @@ Private Function UpdateCriteriaLabels(fromDate, toDate, ship, destination)
     
 End Function
 
-Private Sub cmdButton_Click(Index As Integer)
+Private Sub cmdButton_Click(index As Integer)
 
-    Select Case Index
+    Select Case index
         Case 0
             FindRecordsAndPopulateGrid
         Case 1
@@ -1264,7 +1264,7 @@ Private Function ValidateFields()
     'Σωστό διάστημα
     If IsDate(mskInvoiceDateIssueFrom.text) And IsDate(mskInvoiceDateIssueTo.text) Then
         If CDate(mskInvoiceDateIssueFrom.text) > CDate(mskInvoiceDateIssueTo.text) Then
-            If MyMsgBox(4, strAppTitle, strStandardMessages(10), 1) Then
+            If MyMsgBox(4, strApplicationName, strStandardMessages(10), 1) Then
             End If
             mskInvoiceDateIssueFrom.SetFocus
             Exit Function
@@ -1293,25 +1293,29 @@ Private Function AbortProcedure(blnStatus)
 
 End Function
 
-Private Sub cmdIndex_Click(Index As Integer)
+Private Sub cmdIndex_Click(index As Integer)
 
     'Local variables
     Dim tmpTableData As typTableData
     Dim tmpRecordset As Recordset
     
-    Select Case Index
+    Select Case index
         Case 0
             'Πλοίο - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "Ships", "ShipDescription", "String", txtShipDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtShipID.text = tmpTableData.strCode
-            txtShipDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtShipID.text = tmpTableData.strCode
+                txtShipDescription.text = tmpTableData.strFirstField
+            End If
         Case 1
             'Προορισμός - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "Destinations", "DestinationDescription", "String", txtDestinationDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 2, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtDestinationID.text = tmpTableData.strCode
-            txtDestinationDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 2, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtDestinationID.text = tmpTableData.strCode
+                txtDestinationDescription.text = tmpTableData.strFirstField
+            End If
     End Select
 
 End Sub
@@ -1320,7 +1324,7 @@ Private Sub Form_Activate()
         
     If Me.Tag = "True" Then
         Me.Tag = "False"
-        AddColumnsToGrid grdShipsStatistics, 44, GetSetting(strAppTitle, "Layout Strings", "grdShipsStatisticsFrom" & txtTable.text), _
+        AddColumnsToGrid grdShipsStatistics, 44, GetSetting(strApplicationName, "Layout Strings", "grdShipsStatisticsFrom" & txtTable.text), _
             "05NCNTrnID,10NCDDate,40NLNShipDescription,40NLNDestinationDescription,40NLNCompanyDescription,10NRIXPersons,10NRFXAmount,04NCNSelected", _
             "TrnID,Ημερομηνία,Πλοίο,Προορισμός,Πελάτης,Σύνολο ατόμων,Σύνολο χρέωσης,Ε"
         Me.Refresh
@@ -1344,15 +1348,15 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
 
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     Select Case KeyCode
-        Case vbKeyF10 And cmdButton(0).Enabled, vbKeyC And CtrlDown And cmdButton(0).Enabled
+        Case vbKeyF10 And cmdButton(0).Enabled, vbKeyC And CtrlDown = 4 And cmdButton(0).Enabled
             cmdButton_Click 0
         Case vbKeyEscape
             If cmdButton(1).Enabled Then cmdButton_Click 1: Exit Function
             If cmdButton(2).Enabled Then cmdButton_Click 2
-        Case vbKeyF12 And CtrlDown
+        Case vbKeyF12 And CtrlDown = 4
             ToggleInfoPanel Me
     End Select
 
@@ -1375,13 +1379,13 @@ Private Sub Form_Load()
 
 End Sub
 
-Private Sub grdShipsStatistics_ColHeaderClick(ByVal lCol As Long, bDoDefault As Boolean, ByVal Shift As Integer, ByVal x As Long, ByVal y As Long)
+Private Sub grdShipsStatistics_ColHeaderClick(ByVal lCol As Long, bDoDefault As Boolean, ByVal Shift As Integer, ByVal X As Long, ByVal Y As Long)
 
     bDoDefault = False
 
 End Sub
 
-Private Sub grdShipsStatistics_HeaderRightClick(ByVal lCol As Long, ByVal Shift As Integer, ByVal x As Long, ByVal y As Long)
+Private Sub grdShipsStatistics_HeaderRightClick(ByVal lCol As Long, ByVal Shift As Integer, ByVal X As Long, ByVal Y As Long)
 
     PopupMenu mnuHdrPopUp
 
@@ -1401,7 +1405,7 @@ End Sub
 
 Private Sub mnuΑποθήκευσηΠλάτουςΣτηλών_Click()
 
-    SaveSetting strAppTitle, "Layout Strings", "grdShipsStatisticsFrom" & txtTable.text, grdShipsStatistics.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", "grdShipsStatisticsFrom" & txtTable.text, grdShipsStatistics.LayoutCol
 
 End Sub
 

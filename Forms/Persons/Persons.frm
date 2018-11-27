@@ -1055,7 +1055,7 @@ Dim blnStatus As Boolean
 Private Function AbortProcedure(blnStatus)
     
     If Not blnStatus Then
-        If MyMsgBox(3, strAppTitle, strStandardMessages(3), 2) Then
+        If MyMsgBox(3, strApplicationName, strStandardMessages(3), 2) Then
             blnStatus = False
             ClearFields txtPersonID, txtDescription, txtProfession, txtAddress, txtPhones, txtPersonInCharge, txtEmail, txtTaxNo, txtPersonTaxOfficeID, txtTaxOfficeDescription, txtPersonVATStateID, txtVATStateDescription, txtAccountCode
             DisableFields txtDescription, txtProfession, txtAddress, txtPhones, txtPersonInCharge, txtEmail, txtTaxNo, txtPersonTaxOfficeID, txtTaxOfficeDescription, txtPersonVATStateID, txtVATStateDescription, txtAccountCode, cmdIndex(0), cmdIndex(1), cmdIndex(2)
@@ -1104,7 +1104,7 @@ End Function
 
 Private Function DeleteRecord()
     
-    If MainDeleteRecord("CommonDB", txtCustomersOrSuppliers.text, strAppTitle, "ID", txtPersonID.text, "True") Then
+    If MainDeleteRecord("CommonDB", txtCustomersOrSuppliers.text, strApplicationName, "ID", txtPersonID.text, "True") Then
         ClearFields txtPersonID, txtDescription, txtProfession, txtAddress, txtPhones, txtPersonInCharge, txtEmail, txtTaxNo, txtPersonTaxOfficeID, txtTaxOfficeDescription, txtPersonVATStateID, txtVATStateDescription, txtAccountCode
         DisableFields txtDescription, txtProfession, txtAddress, txtPhones, txtPersonInCharge, txtEmail, txtTaxNo, txtPersonTaxOfficeID, txtTaxOfficeDescription, txtPersonVATStateID, txtVATStateDescription, txtAccountCode, cmdIndex(0), cmdIndex(1), cmdIndex(2)
         UpdateButtons Me, 5, 1, 0, 0, 1, 0, 1
@@ -1126,7 +1126,7 @@ Private Function SaveRecord()
     
     If Not ValidateFields Then Exit Function
     
-    If MainSaveRecord("CommonDB", txtCustomersOrSuppliers.text, blnStatus, strAppTitle, "ID", txtPersonID.text, txtDescription.text, txtProfession.text, txtAddress.text, txtPhones.text, txtPersonInCharge.text, txtEmail.text, txtTaxNo.text, txtPersonTaxOfficeID.text, txtPersonVATStateID.text, txtAccountCode.text, 1, strCurrentUser) <> 0 Then
+    If MainSaveRecord("CommonDB", txtCustomersOrSuppliers.text, blnStatus, strApplicationName, "ID", txtPersonID.text, txtDescription.text, txtProfession.text, txtAddress.text, txtPhones.text, txtPersonInCharge.text, txtEmail.text, txtTaxNo.text, txtPersonTaxOfficeID.text, txtPersonVATStateID.text, txtAccountCode.text, 1, strCurrentUser) <> 0 Then
         ClearFields txtPersonID, txtDescription, txtProfession, txtAddress, txtPhones, txtPersonInCharge, txtEmail, txtTaxNo, txtPersonTaxOfficeID, txtTaxOfficeDescription, txtPersonVATStateID, txtVATStateDescription, txtAccountCode
         DisableFields txtDescription, txtProfession, txtAddress, txtPhones, txtPersonInCharge, txtEmail, txtTaxNo, txtPersonTaxOfficeID, txtTaxOfficeDescription, txtPersonVATStateID, txtVATStateDescription, txtAccountCode, cmdIndex(0), cmdIndex(1), cmdIndex(2)
         UpdateButtons Me, 5, 1, 0, 0, 1, 0, 1
@@ -1142,7 +1142,7 @@ Private Function ValidateFields()
     
     'Επωνυμία
     If Len(Trim(txtDescription.text)) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtDescription.SetFocus
         Exit Function
@@ -1151,7 +1151,7 @@ Private Function ValidateFields()
     'Ελεγχος Α.Φ.Μ.
     If blnCustomerCheckTaxNo Then
         If Len(txtTaxNo.text) = 0 Then
-            If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+            If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
             End If
             txtTaxNo.SetFocus
             Exit Function
@@ -1160,7 +1160,7 @@ Private Function ValidateFields()
     
     'Δ.Ο.Υ.
     If Len(txtPersonTaxOfficeID.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtTaxOfficeDescription.SetFocus
         Exit Function
@@ -1169,7 +1169,7 @@ Private Function ValidateFields()
     'Κωδ. Γεν. Λογιστικής
     If Len(txtAccountCode.text) <> 0 Then
         If Len(txtAccountCode.text) <> intAccountsCodeLength Then
-            If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+            If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
             End If
             txtAccountCode.SetFocus
             Exit Function
@@ -1208,9 +1208,11 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 0
             'Οικονομική Υπηρεσία
             Set tmpRecordset = CheckForMatch("CommonDB", "TaxOffices", "TaxOfficeDescription", "String", txtTaxOfficeDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Ονομασία", 0, 40, 1, 0)
-            txtPersonTaxOfficeID.text = tmpTableData.strCode
-            txtTaxOfficeDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Ονομασία", 0, 40, 1, 0)
+                txtPersonTaxOfficeID.text = tmpTableData.strCode
+                txtTaxOfficeDescription.text = tmpTableData.strFirstField
+            End If
         Case 1
             'Οικονομική Υπηρεσία
             With TablesTaxOffices
@@ -1220,9 +1222,11 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 2
             'Καθεστώς Φ.Π.Α.
             Set tmpRecordset = CheckForMatch("CommonDB", "VATStates", "VATStateDescription", "String", txtVATStateDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Ονομασία", 0, 40, 1, 0)
-            txtPersonVATStateID.text = tmpTableData.strCode
-            txtVATStateDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Ονομασία", 0, 40, 1, 0)
+                txtPersonVATStateID.text = tmpTableData.strCode
+                txtVATStateDescription.text = tmpTableData.strFirstField
+            End If
     End Select
 
 End Sub
@@ -1247,21 +1251,21 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
     
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     Select Case KeyCode
-        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown And cmdButton(0).Enabled
+        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown = 4 And cmdButton(0).Enabled
             cmdButton_Click 0
-        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown And cmdButton(1).Enabled
+        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown = 4 And cmdButton(1).Enabled
             cmdButton_Click 1
-        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown And cmdButton(2).Enabled
+        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown = 4 And cmdButton(2).Enabled
             cmdButton_Click 2
-        Case vbKeyF7 And cmdButton(3).Enabled, vbKeyF And CtrlDown And cmdButton(3).Enabled
+        Case vbKeyF7 And cmdButton(3).Enabled, vbKeyF And CtrlDown = 4 And cmdButton(3).Enabled
             cmdButton_Click 3
         Case vbKeyEscape
             If cmdButton(4).Enabled Then cmdButton_Click 4: Exit Function
             If cmdButton(5).Enabled Then cmdButton_Click 5
-        Case vbKeyF12 And CtrlDown
+        Case vbKeyF12 And CtrlDown = 4
             ToggleInfoPanel Me
     End Select
 

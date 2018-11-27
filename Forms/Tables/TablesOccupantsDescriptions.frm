@@ -539,7 +539,7 @@ Dim lngSelectedRow As Long
 Private Function AbortProcedure(blnStatus)
     
     If Not blnStatus Then
-        If MyMsgBox(3, strAppTitle, strStandardMessages(3), 2) Then
+        If MyMsgBox(3, strApplicationName, strStandardMessages(3), 2) Then
             blnStatus = False
             ClearFields txtOccupantDescriptionID, txtOccupantDescriptionDescription, txtOccupantDescriptionStatisticID, txtOccupantDescriptionStatisticDescription
             DisableFields txtOccupantDescriptionDescription, txtOccupantDescriptionStatisticDescription
@@ -557,7 +557,7 @@ End Function
 
 Private Function DeleteRecord()
     
-    If MainDeleteRecord("CommonDB", "OccupantsDescriptions", strAppTitle, "OccupantDescriptionID", txtOccupantDescriptionID.text, "True") Then
+    If MainDeleteRecord("CommonDB", "OccupantsDescriptions", strApplicationName, "OccupantDescriptionID", txtOccupantDescriptionID.text, "True") Then
         PopulateGrid
         HighlightRow grdOccupantsDescriptions, lngSelectedRow, 1, "", True
         ClearFields txtOccupantDescriptionID, txtOccupantDescriptionDescription, txtOccupantDescriptionStatisticID, txtOccupantDescriptionStatisticDescription
@@ -590,7 +590,7 @@ Private Function SaveRecord()
     
     If Not ValidateFields Then Exit Function
     
-    If MainSaveRecord("CommonDB", "OccupantsDescriptions", blnStatus, strAppTitle, "OccupantDescriptionID", txtOccupantDescriptionID.text, txtOccupantDescriptionDescription.text, txtOccupantDescriptionStatisticID.text, 1, strCurrentUser) <> 0 Then
+    If MainSaveRecord("CommonDB", "OccupantsDescriptions", blnStatus, strApplicationName, "OccupantDescriptionID", txtOccupantDescriptionID.text, txtOccupantDescriptionDescription.text, txtOccupantDescriptionStatisticID.text, 1, strCurrentUser) <> 0 Then
         PopulateGrid
         HighlightRow grdOccupantsDescriptions, lngSelectedRow, 2, txtOccupantDescriptionDescription.text, True
         lngSelectedRow = 0
@@ -609,7 +609,7 @@ Private Function ValidateFields()
     
     'Περιγραφή
     If Len(Trim(txtOccupantDescriptionDescription.text)) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtOccupantDescriptionDescription.SetFocus
         Exit Function
@@ -617,7 +617,7 @@ Private Function ValidateFields()
     
     'Ενημερώνει στατιστικά στοιχεία
     If txtOccupantDescriptionStatisticID.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtOccupantDescriptionStatisticDescription.SetFocus
         Exit Function
@@ -683,9 +683,11 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 0
             'Ενημερώνει στατιστικά στοιχεία
             Set tmpRecordset = CheckForMatch("CommonDB", "YesOrNo", "YesOrNoDescription", "String", txtOccupantDescriptionStatisticDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtOccupantDescriptionStatisticID.text = tmpTableData.strCode
-            txtOccupantDescriptionStatisticDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtOccupantDescriptionStatisticID.text = tmpTableData.strCode
+                txtOccupantDescriptionStatisticDescription.text = tmpTableData.strFirstField
+            End If
     End Select
 
 End Sub
@@ -694,7 +696,7 @@ Private Sub Form_Activate()
 
     If Me.Tag = "True" Then
         Me.Tag = "False"
-        AddColumnsToGrid grdOccupantsDescriptions, 25, GetSetting(strAppTitle, "Layout Strings", "grdOccupantsDescriptions"), "04LNID,40LNName", "ID,Περιγραφή"
+        AddColumnsToGrid grdOccupantsDescriptions, 25, GetSetting(strApplicationName, "Layout Strings", "grdOccupantsDescriptions"), "04LNID,40LNName", "ID,Περιγραφή"
         Me.Refresh
         PopulateGrid
     End If
@@ -715,19 +717,19 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
     
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     Select Case KeyCode
-        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown And cmdButton(0).Enabled
+        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown = 4 And cmdButton(0).Enabled
             cmdButton_Click 0
-        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown And cmdButton(1).Enabled
+        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown = 4 And cmdButton(1).Enabled
             cmdButton_Click 1
-        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown And cmdButton(2).Enabled
+        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown = 4 And cmdButton(2).Enabled
             cmdButton_Click 2
         Case vbKeyEscape
             If cmdButton(3).Enabled Then cmdButton_Click 3: Exit Function
             If cmdButton(4).Enabled Then cmdButton_Click 4
-        Case vbKeyF12 And CtrlDown
+        Case vbKeyF12 And CtrlDown = 4
             ToggleInfoPanel Me
     End Select
 
@@ -749,7 +751,7 @@ Private Sub grdOccupantsDescriptions_DblClick(ByVal lRow As Long, ByVal lCol As 
 
 End Sub
 
-Private Sub grdOccupantsDescriptions_HeaderRightClick(ByVal lCol As Long, ByVal Shift As Integer, ByVal x As Long, ByVal y As Long)
+Private Sub grdOccupantsDescriptions_HeaderRightClick(ByVal lCol As Long, ByVal Shift As Integer, ByVal X As Long, ByVal Y As Long)
 
     PopupMenu mnuHdrPopUp
 
@@ -763,7 +765,7 @@ End Sub
 
 Private Sub mnuΑποθήκευσηΠλάτουςΣτηλών_Click()
     
-    SaveSetting strAppTitle, "Layout Strings", "grdOccupantsDescriptions", grdOccupantsDescriptions.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", "grdOccupantsDescriptions", grdOccupantsDescriptions.LayoutCol
 
 End Sub
 

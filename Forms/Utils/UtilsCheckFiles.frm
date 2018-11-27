@@ -276,11 +276,11 @@ Private Function StartProcess()
     
     If CheckTables Then
         frmProgress.Visible = False
-        If MyMsgBox(1, strAppTitle, strAppMessages(13), 1) Then
+        If MyMsgBox(1, strApplicationName, strAppMessages(13), 1) Then
         End If
     Else
         frmProgress.Visible = False
-        If MyMsgBox(4, strAppTitle, strAppMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strAppMessages(2), 1) Then
         End If
     End If
     
@@ -327,10 +327,10 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
 
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     Select Case KeyCode
-        Case vbKeyF10 And cmdButton(0).Enabled, vbKeyC And CtrlDown And cmdButton(0).Enabled
+        Case vbKeyF10 And cmdButton(0).Enabled, vbKeyC And CtrlDown = 4 And cmdButton(0).Enabled
             cmdButton_Click 0
         Case vbKeyEscape
             cmdButton_Click 1

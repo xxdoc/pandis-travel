@@ -3,7 +3,9 @@ Option Explicit
 Option Base 1
 
 'Standard variables
-Global Const strAppTitle = "Pandis Travel v5"
+Global strApplicationName As String
+Global strApplicationEXEName As String
+
 Global arrCompanyData(10) As String
 Global arrData(13) As String
 Global arrMenu() As Integer
@@ -53,6 +55,48 @@ Public Type typTableData
     strEighthField As String
 End Type
 
+'Processes
+Public glPid As Long
+Public glHandle As Long
+Public colHandle As New Collection
+Public Const WM_CLOSE = &H10
+Public Const WM_DESTROY = &H2
+
+Declare Function SendMessage Lib "user32" Alias "SendMessageA" (ByVal hwnd As Long, ByVal wMsg As Long, ByVal wParam As Long, lParam As Any) As Long
+Declare Function GetParent Lib "user32" (ByVal hwnd As Long) As Long
+Declare Function GetWindowThreadProcessId Lib "user32" (ByVal hwnd As Long, lpdwProcessId As Long) As Long
+Declare Function EnumWindows Lib "user32" (ByVal lpEnumFunc As Long, ByVal lParam As Long) As Long
+Public Function CheckForSpecialCharacter(strCharacter)
+
+    Select Case strCharacter
+        Case "ά": CheckForSpecialCharacter = "α"
+        Case "έ": CheckForSpecialCharacter = "ε"
+        Case "ή": CheckForSpecialCharacter = "η"
+        Case "ί": CheckForSpecialCharacter = "ι"
+        Case "ϊ": CheckForSpecialCharacter = "ι"
+        Case "ό": CheckForSpecialCharacter = "ο"
+        Case "ύ": CheckForSpecialCharacter = "υ"
+        Case "ϋ": CheckForSpecialCharacter = "υ"
+        Case "ώ": CheckForSpecialCharacter = "ω"
+        Case Else
+            CheckForSpecialCharacter = strCharacter
+    End Select
+
+End Function
+
+Public Function ConvertToSpecialUpperCase(someString)
+
+    Dim intLoop As Integer
+    Dim strConvertedString As String
+    
+    For intLoop = 1 To Len(someString)
+        strConvertedString = strConvertedString & CheckForSpecialCharacter(Mid(someString, intLoop, 1))
+    Next intLoop
+    
+    ConvertToSpecialUpperCase = UCase(strConvertedString)
+
+End Function
+
 Function HideObjects(ParamArray tmpObjects())
 
     Dim intLoop As Integer
@@ -67,7 +111,7 @@ Function InvertColorForNegativeNumbers(grdGrid As iGrid, lngCurrentRow As Long)
 
     Dim lngCol As Long
     
-    For lngCol = 1 To grdGrid.ColCount
+    For lngCol = 1 To grdGrid.colCount
         grdGrid.CellForeColor(lngCurrentRow, lngCol) = IIf(grdGrid.CellValue(lngCurrentRow, lngCol) < 0, &H8080FF, vbWhite)
     Next lngCol
 
@@ -453,6 +497,7 @@ ErrTrap:
 
 End Function
 
+
 Public Function CreateAndShowPDF()
 
     With rptOneLiner
@@ -476,7 +521,7 @@ End Function
 
 Function DisplayMessageRecordsNotFound()
 
-    If MyMsgBox(1, strAppTitle, strStandardMessages(7), 1) Then
+    If MyMsgBox(1, strApplicationName, strStandardMessages(7), 1) Then
     End If
 
 End Function
@@ -691,7 +736,7 @@ Function UpdateColors(thisForm As Form, formFullScreen As Boolean, Optional grdG
 
     'Σημερινή ημερομηνία
     For Each ctl In thisForm.Controls
-        If ctl.Name = "lblToday" Then thisForm.lblToday.Caption = Format(Date, "dddd dd/mm/yyyy")
+        If ctl.Name = "lblToday" Then thisForm.lblToday.Caption = format(Date, "dddd dd/mm/yyyy")
     Next ctl
     
     'Πληροφορίες
@@ -715,7 +760,7 @@ Function UpdateColors(thisForm As Form, formFullScreen As Boolean, Optional grdG
     If formFullScreen Then
         'Φόρμα
         With thisForm
-            .BackColor = GetSetting(strAppTitle, "Colors", "Background Full Screen Forms")
+            .BackColor = GetSetting(strApplicationName, "Colors", "Background Full Screen Forms")
             .Top = 350
             .Height = CommonMain.Height - (.Top * 1.2)
             .Width = CommonMain.Width
@@ -723,20 +768,20 @@ Function UpdateColors(thisForm As Form, formFullScreen As Boolean, Optional grdG
         End With
         'Container
         With thisForm.frmContainer
-            .BackColor = GetSetting(strAppTitle, "Colors", "Background Full Screen Forms")
+            .BackColor = GetSetting(strApplicationName, "Colors", "Background Full Screen Forms")
             .Height = thisForm.Height - 510
             .Top = (thisForm.Height / 2) - (.Height / 2)
             .Left = (thisForm.Width / 2) - (.Width / 2)
         End With
         'Κουμπιά
         With thisForm.frmButtonFrame
-            .BackColor = GetSetting(strAppTitle, "Colors", "Background Full Screen Forms")
+            .BackColor = GetSetting(strApplicationName, "Colors", "Background Full Screen Forms")
             .Top = thisForm.frmContainer.Height - 750
             .Left = (thisForm.frmContainer.Width / 2) - (.Width / 2)
         End With
         'Τετράγωνο πλαίσιο
         With thisForm.shpBackground
-            .BackColor = GetSetting(strAppTitle, "Colors", "Background Containers")
+            .BackColor = GetSetting(strApplicationName, "Colors", "Background Containers")
             .Top = 975
             .Left = 0
             .Width = thisForm.Width
@@ -750,7 +795,7 @@ Function UpdateColors(thisForm As Form, formFullScreen As Boolean, Optional grdG
                 With thisForm.frmFrameForGridButtons
                     .Top = thisForm.shpBackground.Height + 300
                     .Left = (thisForm.frmContainer.Width / 2) - (.Width / 2)
-                    .BackColor = GetSetting(strAppTitle, "Colors", "Background Containers")
+                    .BackColor = GetSetting(strApplicationName, "Colors", "Background Containers")
                 End With
                 grdGrid.Height = thisForm.Height - 3150 - thisForm.frmFrameForGridButtons.Height
             End If
@@ -778,16 +823,16 @@ Function UpdateColors(thisForm As Form, formFullScreen As Boolean, Optional grdG
     
     'Οχι πλήρης οθόνη - χρώματα
     If Not formFullScreen And Not customColours Then
-        thisForm.BackColor = GetSetting(strAppTitle, "Colors", "Forms Centered Background")
-        thisForm.shpBackground.BackColor = GetSetting(strAppTitle, "Colors", "Background Containers")
-        thisForm.frmButtonFrame.BackColor = GetSetting(strAppTitle, "Colors", "Forms Centered Background")
+        thisForm.BackColor = GetSetting(strApplicationName, "Colors", "Forms Centered Background")
+        thisForm.shpBackground.BackColor = GetSetting(strApplicationName, "Colors", "Background Containers")
+        thisForm.frmButtonFrame.BackColor = GetSetting(strApplicationName, "Colors", "Forms Centered Background")
     End If
         
     'Κριτήρια
     For Each ctl In thisForm.Controls
         If ctl.Name = "frmCriteria" Then
             With thisForm.frmCriteria
-                .BackColor = GetSetting(strAppTitle, "Colors", "Background Criteria")
+                .BackColor = GetSetting(strApplicationName, "Colors", "Background Criteria")
                 .Visible = True
                 .ZOrder 0
                 .Top = ((grdGrid.Height) / 2) - (.Height / 2) + grdGrid.Top
@@ -803,12 +848,12 @@ Function UpdateColors(thisForm As Form, formFullScreen As Boolean, Optional grdG
             Select Case ctl.Name
                 'Ετικέτα σε φόρμα
                 Case "lblLabel"
-                    ctl.ForeColor = GetSetting(strAppTitle, "Colors", "Labels Normal Foreground")
+                    ctl.ForeColor = GetSetting(strApplicationName, "Colors", "Labels Normal Foreground")
                     ctl.BackStyle = 0
                 'Ετικέτα σε πλαίσιο κριτηρίων
                 Case "lblCriteriaLabel"
-                    ctl.ForeColor = GetSetting(strAppTitle, "Colors", "Labels Criteria Foreground")
-                    'ctl.BackColor = GetSetting(strAppTitle, "Colors", "Labels Criteria Background")
+                    ctl.ForeColor = GetSetting(strApplicationName, "Colors", "Labels Criteria Foreground")
+                    'ctl.BackColor = GetSetting(strApplicationName, "Colors", "Labels Criteria Background")
                     ctl.BackStyle = 0
             End Select
         End If
@@ -818,9 +863,9 @@ Function UpdateColors(thisForm As Form, formFullScreen As Boolean, Optional grdG
                 Case "lblTitle"
                     'Ετικέτες τίτλου
                     Dim objFont As StdFont
-                    ctl.ForeColor = GetSetting(strAppTitle, "Colors", "Labels Title Foreground")
+                    ctl.ForeColor = GetSetting(strApplicationName, "Colors", "Labels Title Foreground")
                     Set objFont = New StdFont
-                    objFont.Name = GetSetting(strAppTitle, "Colors", "Labels Title Font")
+                    objFont.Name = GetSetting(strApplicationName, "Colors", "Labels Title Font")
                     objFont.Size = 30
                     objFont.Bold = True
                     objFont.Charset = 161
@@ -832,33 +877,33 @@ Function UpdateColors(thisForm As Form, formFullScreen As Boolean, Optional grdG
         If TypeOf ctl Is CheckBox And Not customColours Then
             'Checkbox σε φόρμα
             If Left(ctl.Name, 11) <> "chkCriteria" Then
-                ctl.ForeColor = GetSetting(strAppTitle, "Colors", "Checkbox Normal Foreground")
-                ctl.BackColor = GetSetting(strAppTitle, "Colors", "Checkbox Normal Background")
+                ctl.ForeColor = GetSetting(strApplicationName, "Colors", "Checkbox Normal Foreground")
+                ctl.BackColor = GetSetting(strApplicationName, "Colors", "Checkbox Normal Background")
             End If
             'Checkbox σε πλαίσιο κριτηρίων
             If Left(ctl.Name, 11) = "chkCriteria" Then
-                ctl.ForeColor = GetSetting(strAppTitle, "Colors", "Labels Criteria Foreground")
-                ctl.BackColor = GetSetting(strAppTitle, "Colors", "Labels Criteria Background")
+                ctl.ForeColor = GetSetting(strApplicationName, "Colors", "Labels Criteria Foreground")
+                ctl.BackColor = GetSetting(strApplicationName, "Colors", "Labels Criteria Background")
             End If
         End If
         'Radios
         If TypeOf ctl Is OptionButton And Not customColours Then
             'Radios σε φόρμα
             If Left(ctl.Name, 11) <> "optCriteria" Then
-                ctl.ForeColor = GetSetting(strAppTitle, "Colors", "OptionButton Normal Foreground")
-                ctl.BackColor = GetSetting(strAppTitle, "Colors", "OptionButton Normal Background")
+                ctl.ForeColor = GetSetting(strApplicationName, "Colors", "OptionButton Normal Foreground")
+                ctl.BackColor = GetSetting(strApplicationName, "Colors", "OptionButton Normal Background")
             End If
             'Radios σε πλαίσιο κριτηρίων
             If Left(ctl.Name, 11) = "optCriteria" Then
-                ctl.ForeColor = GetSetting(strAppTitle, "Colors", "Labels Criteria Foreground")
-                ctl.BackColor = GetSetting(strAppTitle, "Colors", "Labels Criteria Background")
+                ctl.ForeColor = GetSetting(strApplicationName, "Colors", "Labels Criteria Foreground")
+                ctl.BackColor = GetSetting(strApplicationName, "Colors", "Labels Criteria Background")
             End If
         End If
         'Frames
         If TypeOf ctl Is Frame And Not customColours Then
             If ctl.Tag = "SameColorAsBackground" Then
-                ctl.ForeColor = GetSetting(strAppTitle, "Colors", "Frames Foreground")
-                ctl.BackColor = GetSetting(strAppTitle, "Colors", "Frames Background")
+                ctl.ForeColor = GetSetting(strApplicationName, "Colors", "Frames Foreground")
+                ctl.BackColor = GetSetting(strApplicationName, "Colors", "Frames Background")
             End If
         End If
         'Κείμενο κουμπιών
@@ -906,7 +951,7 @@ Function PrinterExists(strPrinterName)
     Next
     
     If Not blnPrinterExists Then
-        MyMsgBox 4, strAppTitle, strStandardMessages(18), 1
+        MyMsgBox 4, strApplicationName, strStandardMessages(18), 1
         Exit Function
     Else
         PrinterExists = True
@@ -914,6 +959,18 @@ Function PrinterExists(strPrinterName)
 
 End Function
 
+
+Function KillProcess(appName)
+
+    Dim process As Object
+
+    For Each process In GetObject("winmgmts:").ExecQuery("Select * from Win32_Process")
+        If process.Caption = appName Then
+            process.Terminate (0)
+        End If
+    Next
+
+End Function
 
 Function SelectPrinter(whatPrinterPrints)
 
@@ -928,13 +985,13 @@ Function SelectPrinter(whatPrinterPrints)
 End Function
 
 
-Sub PrintColumnHeadings(ParamArray Columns() As Variant)
+Sub PrintColumnHeadings(ParamArray columns() As Variant)
 
     'Local variables
     Dim bytLoop As Byte
     
-    For bytLoop = 0 To UBound(Columns) - 1 Step 2
-        Print #1, Tab(Columns(bytLoop)); Columns(bytLoop + 1);
+    For bytLoop = 0 To UBound(columns) - 1 Step 2
+        Print #1, Tab(columns(bytLoop)); columns(bytLoop + 1);
     Next bytLoop
     
     Print #1, ""
@@ -956,11 +1013,11 @@ Function PrintHeadings(tmpColumns, tmpPageNo, tmpReportTitle, tmpReportSubTitle1
     Print #1, ""
     
     bytLeft = (tmpColumns / 2) - (Len(tmpReportTitle) / 2)
-    Print #1, Space(bytLeft) & tmpReportTitle
+    Print #1, Space(bytLeft) & ConvertToSpecialUpperCase(tmpReportTitle)
     bytLeft = (tmpColumns / 2) - (Len(tmpReportSubTitle1) / 2)
-    If tmpReportSubTitle1 <> "" Then Print #1, Space(bytLeft) & tmpReportSubTitle1
+    If tmpReportSubTitle1 <> "" Then Print #1, Space(bytLeft) & ConvertToSpecialUpperCase(tmpReportSubTitle1)
     bytLeft = (tmpColumns / 2) - (Len(tmpReportSubTitle2) / 2)
-    If tmpReportSubTitle2 <> "" Then Print #1, Space(bytLeft); tmpReportSubTitle2
+    If tmpReportSubTitle2 <> "" Then Print #1, Space(bytLeft); ConvertToSpecialUpperCase(tmpReportSubTitle2)
     
     Print #1, ""
     
@@ -1037,8 +1094,8 @@ Function SetUpGrid(myIconList As vbalImageList, ParamArray myGrid() As Variant)
             With .Header
                 .Flat = True
                 .Buttons = False
-                .BackColor = GetSetting(AppName:=strAppTitle, Section:="Colors", Key:="Grid Header BackColor")
-                .ForeColor = GetSetting(AppName:=strAppTitle, Section:="Colors", Key:="Grid Header ForeColor")
+                .BackColor = GetSetting(appName:=strApplicationName, Section:="Colors", Key:="Grid Header BackColor")
+                .ForeColor = GetSetting(appName:=strApplicationName, Section:="Colors", Key:="Grid Header ForeColor")
                 .SortInfoStyle = igSortInfoNone
                 With .Font
                     .Name = "Ubuntu Condensed"
@@ -1088,7 +1145,7 @@ Sub InitializeFields(ParamArray tmpFields())
     
     For bytLoop = 0 To UBound(tmpFields)
         If TypeOf tmpFields(bytLoop) Is newDate Then
-            tmpFields(bytLoop).text = Format(Date, "dd/mm/yyyy")
+            tmpFields(bytLoop).text = format(Date, "dd/mm/yyyy")
         End If
         If TypeOf tmpFields(bytLoop) Is newFloat Then
             tmpFields(bytLoop).text = "0,00"
@@ -1227,10 +1284,10 @@ Function MainSeekRecord(SelectedDB, Table, IndexField, CodeToSeek, DisplayNotFou
                     Fields(bytLoop).text = IIf(Not IsNull(rsTable.Fields(bytLoop)), rsTable.Fields(bytLoop), "")
                 End If
                 If TypeOf Fields(bytLoop) Is newFloat Then
-                    Fields(bytLoop).text = Format(rsTable.Fields(bytLoop), "#,##0.00")
+                    Fields(bytLoop).text = format(rsTable.Fields(bytLoop), "#,##0.00")
                 End If
                 If TypeOf Fields(bytLoop) Is newInteger Then
-                    Fields(bytLoop).text = Format(rsTable.Fields(bytLoop), "#,##0")
+                    Fields(bytLoop).text = format(rsTable.Fields(bytLoop), "#,##0")
                 End If
                 If TypeOf Fields(bytLoop) Is Label Then
                     Fields(bytLoop).Caption = rsTable.Fields(bytLoop)
@@ -1242,12 +1299,12 @@ Function MainSeekRecord(SelectedDB, Table, IndexField, CodeToSeek, DisplayNotFou
                     Fields(bytLoop).Value = IIf(rsTable.Fields(bytLoop), 1, 0)
                 End If
                 If TypeOf Fields(bytLoop) Is newDate Then
-                    Fields(bytLoop).text = Format(rsTable.Fields(bytLoop), "dd/mm/yyyy")
+                    Fields(bytLoop).text = format(rsTable.Fields(bytLoop), "dd/mm/yyyy")
                 End If
             Next bytLoop
         Else
             If DisplayNotFoundMessage Then
-                If MyMsgBox(4, strAppTitle, strStandardMessages(9), 1) Then
+                If MyMsgBox(4, strApplicationName, strStandardMessages(9), 1) Then
                 End If
                 MainSeekRecord = False
             End If
@@ -1279,7 +1336,7 @@ Function DisplayErrorMessage(displayMessage, errorDescription, Optional progress
     If displayMessage Then
         If Not progress Is Nothing Then progress.Visible = False
         If Not grid Is Nothing Then grid.Redraw = True
-        If MyMsgBox(4, strAppTitle, strStandardMessages(13), 1, errorDescription) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(13), 1, errorDescription) Then
         End If
     End If
     
@@ -1292,10 +1349,10 @@ Function UpdateLogFile(errorDescription)
 
     On Error GoTo ErrTrap
     
-    strPathName = GetSetting(AppName:=strAppTitle, Section:="Path Names", Key:="Reports Path Name")
+    strPathName = GetSetting(appName:=strApplicationName, Section:="Path Names", Key:="Reports Path Name")
     
     Open strPathName & "Errors.txt" For Append As #2
-        Print #2, Format(Date, "dd/mm/yyyy") & " " & Format(Time, "hh:mm") & " " & errorDescription; ""
+        Print #2, format(Date, "dd/mm/yyyy") & " " & format(Time, "hh:mm") & " " & errorDescription; ""
     Close #2
     
     Exit Function
@@ -1425,7 +1482,7 @@ Function MoveToNextColumn(grdGrid As iGrid, lngRow, lngCol)
     On Error GoTo ErrTrap
     
     Do While True
-        If lngCol + 1 <= grdGrid.ColCount Then
+        If lngCol + 1 <= grdGrid.colCount Then
             If grdGrid.ColTag(lngCol + 1) = "Y" Then
                 grdGrid.SetCurCell lngRow, lngCol + 1
                 Exit Function
@@ -1604,7 +1661,7 @@ Function SumSelectedGridRows(myGrid As iGrid, myLastColumnIsSpecial, ParamArray 
     
     If blnSelected Then
         For intLoop = 1 To UBound(myColumns) + 1
-            strDummy = strDummy & myGrid.ColHeaderText(myColumns(intLoop - 1)) & " " & Format(curGridColumnTotals(intLoop), "#,##0.00") & " "
+            strDummy = strDummy & myGrid.ColHeaderText(myColumns(intLoop - 1)) & " " & format(curGridColumnTotals(intLoop), "#,##0.00") & " "
         Next intLoop
         SumSelectedGridRows = Replace(Left(strDummy, Len(strDummy) - 1), Chr(13), " ")
     End If
@@ -1732,7 +1789,7 @@ Function IsCorrectPassword(strUsername, strPassword As String)
     Dim rstUsers As Recordset
     Dim strUserInput As String
     
-    strPathName = GetSetting(AppName:=strAppTitle, Section:="Path Names", Key:="Database Path Name")
+    strPathName = GetSetting(appName:=strApplicationName, Section:="Path Names", Key:="Database Path Name")
     Set UsersDB = DBEngine.OpenDataBase(strPathName + "Users.mdb", False, False)
     
     Set TempQuery = UsersDB.CreateQueryDef("")
@@ -1930,7 +1987,7 @@ ResizeForm:
 
 End Function
 
-Sub AddDummyLines(grdGrid, ParamArray Columns() As Variant)
+Sub AddDummyLines(grdGrid, ParamArray columns() As Variant)
 
     Dim lngRow As Long
     Dim lngCol As Long
@@ -1939,8 +1996,8 @@ Sub AddDummyLines(grdGrid, ParamArray Columns() As Variant)
     For lngRow = 1 To 50
         With grdGrid
             .AddRow
-            For lngCol = 1 To (UBound(Columns) + 1)
-                .CellValue(lngRow, lngCol) = Columns(lngCol - 1)
+            For lngCol = 1 To (UBound(columns) + 1)
+                .CellValue(lngRow, lngCol) = columns(lngCol - 1)
             Next lngCol
         End With
     Next lngRow
@@ -1951,12 +2008,10 @@ Function ResetKeyCode(KeyCode As Integer, Shift As Integer)
 
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     If _
         (KeyCode = vbKeyEscape) Or _
-        (KeyCode = vbKeyPageUp) Or _
-        (KeyCode = vbKeyPageDown) Or _
         (KeyCode = vbKeyN And CtrlDown) Or _
         (KeyCode = vbKeyS And CtrlDown) Or _
         (KeyCode = vbKeyD And CtrlDown) Or _
@@ -2041,7 +2096,7 @@ Function PositionControls(thisForm As Form, formFullScreen As Boolean, Optional 
     
     'Σημερινή ημερομηνία
     For Each ctl In thisForm.Controls
-        If ctl.Name = "lblToday" Then thisForm.lblToday.Caption = Format(Date, "dddd dd/mm/yyyy")
+        If ctl.Name = "lblToday" Then thisForm.lblToday.Caption = format(Date, "dddd dd/mm/yyyy")
     Next ctl
     
     'Κριτήρια
@@ -2162,7 +2217,7 @@ Function ColorizeControls(thisForm As Form, Optional fullScreen As Boolean, Opti
     Dim objFont As StdFont
     
     If Not customColours Then
-        thisForm.BackColor = IIf(fullScreen, GetSetting(strAppTitle, "Colors", "Background Full Screen Forms"), GetSetting(strAppTitle, "Colors", "Forms Centered Background"))
+        thisForm.BackColor = IIf(fullScreen, GetSetting(strApplicationName, "Colors", "Background Full Screen Forms"), GetSetting(strApplicationName, "Colors", "Forms Centered Background"))
     End If
     
     For Each ctl In thisForm.Controls
@@ -2172,15 +2227,15 @@ Function ColorizeControls(thisForm As Form, Optional fullScreen As Boolean, Opti
         End If
         'Κριτήρια
         If ctl.Name = "frmCriteria" Then
-            ctl.BackColor = GetSetting(strAppTitle, "Colors", "Background Criteria")
+            ctl.BackColor = GetSetting(strApplicationName, "Colors", "Background Criteria")
         End If
         'Container
         If ctl.Name = "frmContainer" Then
-            ctl.BackColor = IIf(fullScreen, GetSetting(strAppTitle, "Colors", "Forms FullScreen Background"), GetSetting(strAppTitle, "Colors", "Background Containers"))
+            ctl.BackColor = IIf(fullScreen, GetSetting(strApplicationName, "Colors", "Forms FullScreen Background"), GetSetting(strApplicationName, "Colors", "Background Containers"))
         End If
         'Φόντο
         If ctl.Name = "shpBackground" Then
-            ctl.BackColor = IIf(fullScreen, GetSetting(strAppTitle, "Colors", "Forms FullScreen Background"), GetSetting(strAppTitle, "Colors", "Frames Background"))
+            ctl.BackColor = IIf(fullScreen, GetSetting(strApplicationName, "Colors", "Forms FullScreen Background"), GetSetting(strApplicationName, "Colors", "Frames Background"))
         End If
         'Πλαίσιο κουμπιών
         If ctl.Name = "frmButtonFrame" Or ctl.Name = "frmFrameForGridButtons" Or ctl.Name = "frmTotals" Or ctl.Name = "frmDetails" Then
@@ -2188,28 +2243,28 @@ Function ColorizeControls(thisForm As Form, Optional fullScreen As Boolean, Opti
         End If
         'Πλέγμα
         If TypeOf ctl Is iGrid And Not customColours Then
-            ctl.BackColor = IIf(fullScreen, GetSetting(AppName:=strAppTitle, Section:="Colors", Key:="Grid FullScreen BackColor"), GetSetting(AppName:=strAppTitle, Section:="Colors", Key:="Grid BackColor"))
-            ctl.GridLines = IIf(fullScreen, GetSetting(AppName:=strAppTitle, Section:="Colors", Key:="Grid FullScreen GridLines"), GetSetting(AppName:=strAppTitle, Section:="Colors", Key:="Grid GridLines"))
-            ctl.ForeColor = IIf(fullScreen, GetSetting(AppName:=strAppTitle, Section:="Colors", Key:="Grid FullScreen ForeColor"), GetSetting(AppName:=strAppTitle, Section:="Colors", Key:="Grid ForeColor"))
-            ctl.HighlightForeColor = IIf(fullScreen, GetSetting(AppName:=strAppTitle, Section:="Colors", Key:="Grid FullScreen Highlight ForeColor"), GetSetting(AppName:=strAppTitle, Section:="Colors", Key:="Grid Highlight ForeColor"))
-            ctl.HighlightBackColor = IIf(fullScreen, GetSetting(AppName:=strAppTitle, Section:="Colors", Key:="Grid FullScreen Highlight BackColor"), GetSetting(AppName:=strAppTitle, Section:="Colors", Key:="Grid Highlight BackColor"))
+            ctl.BackColor = IIf(fullScreen, GetSetting(appName:=strApplicationName, Section:="Colors", Key:="Grid FullScreen BackColor"), GetSetting(appName:=strApplicationName, Section:="Colors", Key:="Grid BackColor"))
+            ctl.GridLines = IIf(fullScreen, GetSetting(appName:=strApplicationName, Section:="Colors", Key:="Grid FullScreen GridLines"), GetSetting(appName:=strApplicationName, Section:="Colors", Key:="Grid GridLines"))
+            ctl.ForeColor = IIf(fullScreen, GetSetting(appName:=strApplicationName, Section:="Colors", Key:="Grid FullScreen ForeColor"), GetSetting(appName:=strApplicationName, Section:="Colors", Key:="Grid ForeColor"))
+            ctl.HighlightForeColor = IIf(fullScreen, GetSetting(appName:=strApplicationName, Section:="Colors", Key:="Grid FullScreen Highlight ForeColor"), GetSetting(appName:=strApplicationName, Section:="Colors", Key:="Grid Highlight ForeColor"))
+            ctl.HighlightBackColor = IIf(fullScreen, GetSetting(appName:=strApplicationName, Section:="Colors", Key:="Grid FullScreen Highlight BackColor"), GetSetting(appName:=strApplicationName, Section:="Colors", Key:="Grid Highlight BackColor"))
         End If
         'Ετικέτες
         If TypeOf ctl Is Label Then
             Select Case ctl.Name
                 'Ετικέτα σε φόρμα όχι πλήρους οθόνης
                 Case "lblLabel"
-                    ctl.ForeColor = GetSetting(strAppTitle, "Colors", "Labels Normal Foreground")
+                    ctl.ForeColor = GetSetting(strApplicationName, "Colors", "Labels Normal Foreground")
                     ctl.BackStyle = 0
                 'Ετικέτα σε πλαίσιο κριτηρίων
                 Case "lblCriteriaLabel"
-                    ctl.ForeColor = GetSetting(strAppTitle, "Colors", "Labels Criteria Foreground")
+                    ctl.ForeColor = GetSetting(strApplicationName, "Colors", "Labels Criteria Foreground")
                     ctl.BackStyle = 0
                 Case "lblSimple"
                     ctl.ForeColor = vbWhite
                     ctl.BackStyle = 0
                     Set objFont = New StdFont
-                    objFont.Name = GetSetting(strAppTitle, "Colors", "Labels Title Font")
+                    objFont.Name = GetSetting(strApplicationName, "Colors", "Labels Title Font")
                     objFont.Size = 10
                     objFont.Bold = False
                     Set ctl.Font = objFont
@@ -2221,17 +2276,17 @@ Function ColorizeControls(thisForm As Form, Optional fullScreen As Boolean, Opti
                 'Ετικέτες τίτλου
                 Case "lblTitle"
                     If Not customColours Then
-                        ctl.ForeColor = GetSetting(strAppTitle, "Colors", "Labels Title Foreground")
+                        ctl.ForeColor = GetSetting(strApplicationName, "Colors", "Labels Title Foreground")
                     End If
                     Set objFont = New StdFont
-                    objFont.Name = GetSetting(strAppTitle, "Colors", "Labels Title Font")
+                    objFont.Name = GetSetting(strApplicationName, "Colors", "Labels Title Font")
                     objFont.Size = 30
                     objFont.Bold = True
                     objFont.Charset = 161
                     Set ctl.Font = objFont
                     Set objFont = Nothing
                 Case "lblCriteria"
-                    ctl.ForeColor = GetSetting(strAppTitle, "Colors", "Labels Totals Criteria")
+                    ctl.ForeColor = GetSetting(strApplicationName, "Colors", "Labels Totals Criteria")
             End Select
         End If
         
@@ -2239,13 +2294,13 @@ Function ColorizeControls(thisForm As Form, Optional fullScreen As Boolean, Opti
         If TypeOf ctl Is CheckBox And Not customColours Then
             'Checkbox σε φόρμα
             If Left(ctl.Name, 11) <> "chkCriteria" Then
-                ctl.ForeColor = GetSetting(strAppTitle, "Colors", "Checkbox Normal Foreground")
-                ctl.BackColor = GetSetting(strAppTitle, "Colors", "Checkbox Normal Background")
+                ctl.ForeColor = GetSetting(strApplicationName, "Colors", "Checkbox Normal Foreground")
+                ctl.BackColor = GetSetting(strApplicationName, "Colors", "Checkbox Normal Background")
             End If
             'Checkbox σε πλαίσιο κριτηρίων
             If Left(ctl.Name, 11) = "chkCriteria" Then
-                ctl.ForeColor = GetSetting(strAppTitle, "Colors", "Labels Criteria Foreground")
-                ctl.BackColor = GetSetting(strAppTitle, "Colors", "Background Criteria")
+                ctl.ForeColor = GetSetting(strApplicationName, "Colors", "Labels Criteria Foreground")
+                ctl.BackColor = GetSetting(strApplicationName, "Colors", "Background Criteria")
             End If
         End If
         
@@ -2253,21 +2308,21 @@ Function ColorizeControls(thisForm As Form, Optional fullScreen As Boolean, Opti
         If TypeOf ctl Is OptionButton And Not customColours Then
             'Radios σε φόρμα
             If Left(ctl.Name, 11) <> "optCriteria" Then
-                ctl.ForeColor = GetSetting(strAppTitle, "Colors", "OptionButton Normal Foreground")
-                ctl.BackColor = GetSetting(strAppTitle, "Colors", "OptionButton Normal Background")
+                ctl.ForeColor = GetSetting(strApplicationName, "Colors", "OptionButton Normal Foreground")
+                ctl.BackColor = GetSetting(strApplicationName, "Colors", "OptionButton Normal Background")
             End If
             'Radios σε πλαίσιο κριτηρίων
             If Left(ctl.Name, 11) = "optCriteria" Then
-                ctl.ForeColor = GetSetting(strAppTitle, "Colors", "Labels Criteria Foreground")
-                ctl.BackColor = GetSetting(strAppTitle, "Colors", "Labels Criteria Background")
+                ctl.ForeColor = GetSetting(strApplicationName, "Colors", "Labels Criteria Foreground")
+                ctl.BackColor = GetSetting(strApplicationName, "Colors", "Labels Criteria Background")
             End If
         End If
         
         'Frames
         If TypeOf ctl Is Frame And Not customColours Then
             If ctl.Tag = "SameColorAsBackground" Then
-                ctl.ForeColor = GetSetting(strAppTitle, "Colors", "Frames Foreground")
-                ctl.BackColor = GetSetting(strAppTitle, "Colors", "Frames Background")
+                ctl.ForeColor = GetSetting(strApplicationName, "Colors", "Frames Foreground")
+                ctl.BackColor = GetSetting(strApplicationName, "Colors", "Frames Background")
             End If
         End If
         

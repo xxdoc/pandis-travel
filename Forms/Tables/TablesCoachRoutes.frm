@@ -471,13 +471,13 @@ Private Function ValidateFields()
     
     'Συντ.
     If Len(txtPickupRouteShortDescription.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtPickupRouteShortDescription.SetFocus
         Exit Function
     End If
     If Len(Trim(txtPickupRouteShortDescription.text)) = 0 Or Left(txtPickupRouteShortDescription.text, 1) = " " Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         txtPickupRouteShortDescription.SetFocus
         Exit Function
@@ -485,13 +485,13 @@ Private Function ValidateFields()
     
     'Περιγραφή
     If Len(txtPickupRouteDescription.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtPickupRouteDescription.SetFocus
         Exit Function
     End If
     If Len(Trim(txtPickupRouteDescription.text)) = 0 Or Left(txtPickupRouteDescription.text, 1) = " " Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         txtPickupRouteDescription.SetFocus
         Exit Function
@@ -504,7 +504,7 @@ End Function
 Private Function AbortProcedure(blnStatus)
     
     If Not blnStatus Then
-        If MyMsgBox(3, strAppTitle, strStandardMessages(3), 2) Then
+        If MyMsgBox(3, strApplicationName, strStandardMessages(3), 2) Then
             blnStatus = False
             ClearFields txtPickupRouteID, txtPickupRouteShortDescription, txtPickupRouteDescription
             DisableFields txtPickupRouteShortDescription, txtPickupRouteDescription
@@ -522,7 +522,7 @@ End Function
 
 Private Function DeleteRecord()
     
-    If MainDeleteRecord("CommonDB", "PickupRoutes", strAppTitle, "PickupRouteID", txtPickupRouteID.text, "True") Then
+    If MainDeleteRecord("CommonDB", "PickupRoutes", strApplicationName, "PickupRouteID", txtPickupRouteID.text, "True") Then
         PopulateGrid
         HighlightRow grdPickupRoutes, lngSelectedRow, 1, "", True
         ClearFields txtPickupRouteID, txtPickupRouteShortDescription, txtPickupRouteDescription
@@ -546,7 +546,7 @@ Private Function SaveRecord()
     
     If Not ValidateFields Then Exit Function
     
-    If MainSaveRecord("CommonDB", "PickupRoutes", blnStatus, strAppTitle, "PickupRouteID", txtPickupRouteID.text, txtPickupRouteShortDescription.text, txtPickupRouteDescription.text, 1, strCurrentUser) <> 0 Then
+    If MainSaveRecord("CommonDB", "PickupRoutes", blnStatus, strApplicationName, "PickupRouteID", txtPickupRouteID.text, txtPickupRouteShortDescription.text, txtPickupRouteDescription.text, 1, strCurrentUser) <> 0 Then
         PopulateGrid
         HighlightRow grdPickupRoutes, lngSelectedRow, 2, txtPickupRouteShortDescription.text, True
         lngSelectedRow = 0
@@ -601,7 +601,7 @@ Private Sub Form_Activate()
 
     If Me.Tag = "True" Then
         Me.Tag = "False"
-        AddColumnsToGrid grdPickupRoutes, 25, GetSetting(strAppTitle, "Layout Strings", "grdPickupRoutes"), "04NCIID,04NCNShortDescription,40NLNDescription", "ID,Συντ.,Περιγραφή"
+        AddColumnsToGrid grdPickupRoutes, 25, GetSetting(strApplicationName, "Layout Strings", "grdPickupRoutes"), "04NCIID,04NCNShortDescription,40NLNDescription", "ID,Συντ.,Περιγραφή"
         Me.Refresh
         PopulateGrid
     End If
@@ -622,19 +622,19 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
     
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     Select Case KeyCode
-        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown And cmdButton(0).Enabled
+        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown = 4 And cmdButton(0).Enabled
             cmdButton_Click 0
-        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown And cmdButton(1).Enabled
+        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown = 4 And cmdButton(1).Enabled
             cmdButton_Click 1
-        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown And cmdButton(2).Enabled
+        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown = 4 And cmdButton(2).Enabled
             cmdButton_Click 2
         Case vbKeyEscape
             If cmdButton(3).Enabled Then cmdButton_Click 3: Exit Function
             If cmdButton(4).Enabled Then cmdButton_Click 4
-        Case vbKeyF12 And CtrlDown
+        Case vbKeyF12 And CtrlDown = 4
             ToggleInfoPanel Me
     End Select
 
@@ -670,7 +670,7 @@ End Sub
 
 Private Sub mnuΑποθήκευσηΠλάτουςΣτηλών_Click()
 
-    SaveSetting strAppTitle, "Layout Strings", "grdPickupRoutes", grdPickupRoutes.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", "grdPickupRoutes", grdPickupRoutes.LayoutCol
 
 End Sub
 

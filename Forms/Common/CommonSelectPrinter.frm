@@ -279,9 +279,9 @@ Private Function UpdateVariables()
 
 End Function
 
-Private Sub cmdButton_Click(Index As Integer)
+Private Sub cmdButton_Click(index As Integer)
 
-    Select Case Index
+    Select Case index
         Case 0
             UpdateVariables
             AbortProcedure True
@@ -303,7 +303,7 @@ Private Sub Form_Activate()
                 
     If Me.Tag = "True" Then
         Me.Tag = "False"
-        AddColumnsToGrid grdPrinterSelect, 25, GetSetting(strAppTitle, "Layout Strings", "grdPrinterSelect"), "40NLNName,04NLNDetailLines,04NLNTopMargin,04NLNLeftMargin,40NLNFontName,04NLNFontSize,40NLNType", "Ονομα,ΑΓ,ΕΠ,ΑΠ,Γραμματοσειρά,Μ,Τύπος"
+        AddColumnsToGrid grdPrinterSelect, 25, GetSetting(strApplicationName, "Layout Strings", "grdPrinterSelect"), "40NLNName,04NLNDetailLines,04NLNTopMargin,04NLNLeftMargin,40NLNFontName,04NLNFontSize,40NLNType", "Ονομα,ΑΓ,ΕΠ,ΑΠ,Γραμματοσειρά,Μ,Τύπος"
         Me.Refresh
         PopulateGrid
     End If
@@ -324,14 +324,14 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
 
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     Select Case KeyCode
-        Case vbKeyE And CtrlDown And cmdButton(0).Enabled
+        Case vbKeyE And CtrlDown = 4 And cmdButton(0).Enabled
             cmdButton_Click 0
         Case vbKeyEscape
             cmdButton_Click 1
-        Case vbKeyF12 And CtrlDown
+        Case vbKeyF12 And CtrlDown = 4
             ToggleInfoPanel Me
     End Select
 
@@ -365,7 +365,7 @@ End Sub
 
 Private Sub mnuΑποθήκευσηΠλάτουςΣτηλών_Click()
 
-    SaveSetting strAppTitle, "Layout Strings", "grdPrinterSelect", grdPrinterSelect.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", "grdPrinterSelect", grdPrinterSelect.LayoutCol
 
 End Sub
 

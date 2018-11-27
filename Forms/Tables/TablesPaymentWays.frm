@@ -544,7 +544,7 @@ Private Function ValidateFields()
     
     'Περιγραφή
     If Len(txtPaymentWayDescription.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtPaymentWayDescription.SetFocus
         Exit Function
@@ -552,7 +552,7 @@ Private Function ValidateFields()
     
     'Ταμείο
     If txtPaymentWayCashID.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtPaymentWayCashDescription.SetFocus
         Exit Function
@@ -565,7 +565,7 @@ End Function
 Private Function AbortProcedure(blnStatus)
     
     If Not blnStatus Then
-        If MyMsgBox(3, strAppTitle, strStandardMessages(3), 2) Then
+        If MyMsgBox(3, strApplicationName, strStandardMessages(3), 2) Then
             blnStatus = False
             ClearFields txtPaymentWayID, txtPaymentWayCashID, txtPaymentWayDescription, txtPaymentWayCashDescription
             DisableFields txtPaymentWayDescription, txtPaymentWayCashDescription, cmdIndex(0)
@@ -583,7 +583,7 @@ End Function
 
 Private Function DeleteRecord()
     
-    If MainDeleteRecord("CommonDB", "PaymentWays", strAppTitle, "PaymentWayID", txtPaymentWayID.text, "True") Then
+    If MainDeleteRecord("CommonDB", "PaymentWays", strApplicationName, "PaymentWayID", txtPaymentWayID.text, "True") Then
         PopulateGrid
         HighlightRow grdPaymentWays, lngSelectedRow, 1, "", True
         ClearFields txtPaymentWayID, txtPaymentWayCashID, txtPaymentWayDescription, txtPaymentWayCashDescription
@@ -607,7 +607,7 @@ Private Function SaveRecord()
     
     If Not ValidateFields Then Exit Function
     
-    If MainSaveRecord("CommonDB", "PaymentWays", blnStatus, strAppTitle, "PaymentWayID", txtPaymentWayID.text, txtPaymentWayDescription.text, txtPaymentWayCashID.text, 1, strCurrentUser) <> 0 Then
+    If MainSaveRecord("CommonDB", "PaymentWays", blnStatus, strApplicationName, "PaymentWayID", txtPaymentWayID.text, txtPaymentWayDescription.text, txtPaymentWayCashID.text, 1, strCurrentUser) <> 0 Then
         PopulateGrid
         HighlightRow grdPaymentWays, lngSelectedRow, 2, txtPaymentWayDescription.text, True
         lngSelectedRow = 0
@@ -676,9 +676,11 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 0
             'Ταμείο
             Set tmpRecordset = CheckForMatch("CommonDB", "YesOrNo", "YesOrNoDescription", "String", txtPaymentWayCashDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "PaymentTermID", "Περιγραφή", 0, 40, 1, 0)
-            txtPaymentWayCashID.text = tmpTableData.strCode
-            txtPaymentWayCashDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "PaymentTermID", "Περιγραφή", 0, 40, 1, 0)
+                txtPaymentWayCashID.text = tmpTableData.strCode
+                txtPaymentWayCashDescription.text = tmpTableData.strFirstField
+            End If
     End Select
 
 End Sub
@@ -687,7 +689,7 @@ Private Sub Form_Activate()
 
     If Me.Tag = "True" Then
         Me.Tag = "False"
-        AddColumnsToGrid grdPaymentWays, 25, GetSetting(strAppTitle, "Layout Strings", "grdPaymentWays"), "04NCNID,40NLNDescription", "ID,Περιγραφή"
+        AddColumnsToGrid grdPaymentWays, 25, GetSetting(strApplicationName, "Layout Strings", "grdPaymentWays"), "04NCNID,40NLNDescription", "ID,Περιγραφή"
         Me.Refresh
         PopulateGrid
     End If
@@ -717,19 +719,19 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
     
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     Select Case KeyCode
-        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown And cmdButton(0).Enabled
+        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown = 4 And cmdButton(0).Enabled
             cmdButton_Click 0
-        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown And cmdButton(1).Enabled
+        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown = 4 And cmdButton(1).Enabled
             cmdButton_Click 1
-        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown And cmdButton(2).Enabled
+        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown = 4 And cmdButton(2).Enabled
             cmdButton_Click 2
         Case vbKeyEscape
             If cmdButton(3).Enabled Then cmdButton_Click 3: Exit Function
             If cmdButton(4).Enabled Then cmdButton_Click 4
-        Case vbKeyF12 And CtrlDown
+        Case vbKeyF12 And CtrlDown = 4
             ToggleInfoPanel Me
 End Select
 
@@ -765,7 +767,7 @@ End Sub
 
 Private Sub mnuΑποθήκευσηΠλάτουςΣτηλών_Click()
 
-    SaveSetting strAppTitle, "Layout Strings", "grdPaymentWays", grdPaymentWays.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", "grdPaymentWays", grdPaymentWays.LayoutCol
 
 End Sub
 

@@ -1911,7 +1911,7 @@ Private Function ValidateFields()
     
     'Ονομα αρχείου πωλήσεων
     If Len(txtFileName.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         btnPanel_Click 2
         txtFileName.SetFocus
@@ -1920,7 +1920,7 @@ Private Function ValidateFields()
     
     '% Φ.Π.Α.
     If mskVAT.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         btnPanel_Click 3
         mskVAT.SetFocus
@@ -1928,7 +1928,7 @@ Private Function ValidateFields()
     End If
     
     If mskVAT.text = "0" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         btnPanel_Click 3
         mskVAT.SetFocus
@@ -1937,7 +1937,7 @@ Private Function ValidateFields()
    
     'Πλήθος αντιγράφων παραστατικών
     If mskInvoiceCopies.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         btnPanel_Click 3
         mskInvoiceCopies.SetFocus
@@ -1951,7 +1951,7 @@ End Function
 Private Function AbortProcedure(blnStatus)
 
     If Not blnStatus Then
-        If MyMsgBox(3, strAppTitle, strStandardMessages(3), 2) Then
+        If MyMsgBox(3, strApplicationName, strStandardMessages(3), 2) Then
             btnPanel_Click 0
             blnStatus = True
             DisableFields txtCompanyData(1), txtCompanyData(2), txtCompanyData(3), txtCompanyData(4), txtCompanyData(5), txtCompanyData(6), txtCompanyData(7), txtCompanyData(8), txtCompanyData(9), txtCompanyData(10), txtPreviewReportsDescription, txtUsualPaymentTermDescription, txtUsualRemarks, txtCashAccountsCode, txtSalesAccountsCode, txtVATAccountsCode, mskCustomerCodeLength, txtFileName, mskVAT, mskInvoiceCopies, txtPreviewInvoicesDescription, txtUsualPaymentTermDescription, cmdIndex(0), cmdIndex(1), cmdIndex(2)
@@ -1991,7 +1991,7 @@ Private Function SaveRecord()
         blnStatus = True
         DisableFields txtCompanyData(1), txtCompanyData(2), txtCompanyData(3), txtCompanyData(4), txtCompanyData(5), txtCompanyData(6), txtCompanyData(7), txtCompanyData(8), txtCompanyData(9), txtCompanyData(10), txtCashAccountsCode, txtSalesAccountsCode, txtVATAccountsCode, mskCustomerCodeLength, txtFileName, mskVAT, mskInvoiceCopies, txtPreviewInvoicesDescription, txtUsualPaymentTermDescription, txtUsualRemarks, cmdIndex(0), cmdIndex(1), cmdIndex(2)
         UpdateButtons Me, 3, 1, 0, 0, 1
-        If MyMsgBox(1, strAppTitle, strStandardMessages(21), 1) Then
+        If MyMsgBox(1, strApplicationName, strStandardMessages(21), 1) Then
         End If
     Else
         DisplayErrorMessage True, strStandardMessages(5)
@@ -2063,21 +2063,27 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 0
             'Προεπισκόπηση παραστατικών
             Set tmpRecordset = CheckForMatch("CommonDB", "YesOrNo", "YesOrNoDescription", "String", txtPreviewInvoicesDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtPreviewInvoicesID.text = tmpTableData.strCode
-            txtPreviewInvoicesDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtPreviewInvoicesID.text = tmpTableData.strCode
+                txtPreviewInvoicesDescription.text = tmpTableData.strFirstField
+            End If
         Case 1
             'Προεπισκόπηση αναφορών
             Set tmpRecordset = CheckForMatch("CommonDB", "YesOrNo", "YesOrNoDescription", "String", txtPreviewReportsDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtPreviewReportsID.text = tmpTableData.strCode
-            txtPreviewReportsDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtPreviewReportsID.text = tmpTableData.strCode
+                txtPreviewReportsDescription.text = tmpTableData.strFirstField
+            End If
         Case 2
             'Όρος πληρωμής
             Set tmpRecordset = CheckForMatch("CommonDB", "YesOrNo", "YesOrNoDescription", "String", txtUsualPaymentTermDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 3, 0, 1, 2, "ID", "Περιγραφή", "Πίστωση", 0, 40, 0, 1, 0, 0)
-            txtUsualPaymentTermID.text = tmpTableData.strCode
-            txtUsualPaymentTermDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 3, 0, 1, 2, "ID", "Περιγραφή", "Πίστωση", 0, 40, 0, 1, 0, 0)
+                txtUsualPaymentTermID.text = tmpTableData.strCode
+                txtUsualPaymentTermDescription.text = tmpTableData.strFirstField
+            End If
     End Select
 
 End Sub
@@ -2125,12 +2131,12 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
     
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     Select Case KeyCode
-        Case vbKeyE And CtrlDown And cmdButton(0).Enabled
+        Case vbKeyE And CtrlDown = 4 And cmdButton(0).Enabled
             cmdButton_Click 0
-        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown And cmdButton(1).Enabled
+        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown = 4 And cmdButton(1).Enabled
             cmdButton_Click 1
         Case vbKeyEscape
             If cmdButton(2).Enabled Then cmdButton_Click 2: Exit Function
@@ -2139,7 +2145,7 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
             GotoPreviousPanel Me, btnPanel.Count
         Case vbKeyPageDown
             GotoNextPanel Me, btnPanel.Count
-        Case vbKeyF12 And CtrlDown
+        Case vbKeyF12 And CtrlDown = 4
             ToggleInfoPanel Me
     End Select
 

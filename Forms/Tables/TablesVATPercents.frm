@@ -450,7 +450,7 @@ Private Function ValidateFields()
     
     'Ποσοστό
     If Len(mskVATPercentDescription.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskVATPercentDescription.SetFocus
         Exit Function
@@ -463,7 +463,7 @@ End Function
 Private Function AbortProcedure(blnStatus)
     
     If Not blnStatus Then
-        If MyMsgBox(3, strAppTitle, strStandardMessages(3), 2) Then
+        If MyMsgBox(3, strApplicationName, strStandardMessages(3), 2) Then
             blnStatus = False
             ClearFields txtVATPercentID, mskVATPercentDescription
             DisableFields mskVATPercentDescription
@@ -481,7 +481,7 @@ End Function
 
 Private Function DeleteRecord()
     
-    If MainDeleteRecord("CommonDB", "VATPercents", strAppTitle, "VATPercentID", txtVATPercentID.text, "True") Then
+    If MainDeleteRecord("CommonDB", "VATPercents", strApplicationName, "VATPercentID", txtVATPercentID.text, "True") Then
         PopulateGrid
         HighlightRow grdVATPercents, lngSelectedRow, 1, "", True
         ClearFields txtVATPercentID, mskVATPercentDescription
@@ -505,7 +505,7 @@ Private Function SaveRecord()
     
     If Not ValidateFields Then Exit Function
     
-    If MainSaveRecord("CommonDB", "VATPercents", blnStatus, strAppTitle, "VATPercentID", txtVATPercentID.text, mskVATPercentDescription.text, 1, strCurrentUser) <> 0 Then
+    If MainSaveRecord("CommonDB", "VATPercents", blnStatus, strApplicationName, "VATPercentID", txtVATPercentID.text, mskVATPercentDescription.text, 1, strCurrentUser) <> 0 Then
         PopulateGrid
         HighlightRow grdVATPercents, lngSelectedRow, 2, mskVATPercentDescription.text, True
         lngSelectedRow = 0
@@ -560,7 +560,7 @@ Private Sub Form_Activate()
 
     If Me.Tag = "True" Then
         Me.Tag = "False"
-        AddColumnsToGrid grdVATPercents, 25, GetSetting(strAppTitle, "Layout Strings", "grdVATPercents"), "04NCNID,40NRFDescription", "ID,Ποσοστό"
+        AddColumnsToGrid grdVATPercents, 25, GetSetting(strApplicationName, "Layout Strings", "grdVATPercents"), "04NCNID,40NRFDescription", "ID,Ποσοστό"
         Me.Refresh
         PopulateGrid
     End If
@@ -581,19 +581,19 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
     
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     Select Case KeyCode
-        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown And cmdButton(0).Enabled
+        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown = 4 And cmdButton(0).Enabled
             cmdButton_Click 0
-        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown And cmdButton(1).Enabled
+        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown = 4 And cmdButton(1).Enabled
             cmdButton_Click 1
-        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown And cmdButton(2).Enabled
+        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown = 4 And cmdButton(2).Enabled
             cmdButton_Click 2
         Case vbKeyEscape
             If cmdButton(3).Enabled Then cmdButton_Click 3: Exit Function
             If cmdButton(4).Enabled Then cmdButton_Click 4
-        Case vbKeyF12 And CtrlDown
+        Case vbKeyF12 And CtrlDown = 4
             ToggleInfoPanel Me
     End Select
 
@@ -615,7 +615,7 @@ Private Sub grdVATPercents_DblClick(ByVal lRow As Long, ByVal lCol As Long, bReq
 
 End Sub
 
-Private Sub grdVATPercents_HeaderRightClick(ByVal lCol As Long, ByVal Shift As Integer, ByVal x As Long, ByVal y As Long)
+Private Sub grdVATPercents_HeaderRightClick(ByVal lCol As Long, ByVal Shift As Integer, ByVal X As Long, ByVal Y As Long)
 
     PopupMenu mnuHdrPopUp
 
@@ -629,7 +629,7 @@ End Sub
 
 Private Sub mnuΑποθήκευσηΠλάτουςΣτηλών_Click()
 
-    SaveSetting strAppTitle, "Layout Strings", "grdVATPercents", grdVATPercents.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", "grdVATPercents", grdVATPercents.LayoutCol
 
 End Sub
 

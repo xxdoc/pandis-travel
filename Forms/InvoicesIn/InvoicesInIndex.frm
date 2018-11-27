@@ -550,7 +550,7 @@ Begin VB.Form InvoicesInIndex
          End
          Begin VB.Label lblLabel 
             BackColor       =   &H000080FF&
-            Caption         =   "Πιστωτής"
+            Caption         =   "Συναλλασόμενος"
             BeginProperty Font 
                Name            =   "Ubuntu Condensed"
                Size            =   9.75
@@ -1163,7 +1163,7 @@ Private Function EditRecord()
     Set rstRecordset = InvoicesIn.SeekRecord(grdInvoicesInIndex.CellValue(grdInvoicesInIndex.CurRow, "TrnID"))
                 
     If rstRecordset.RecordCount = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(9), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(9), 1) Then
         End If
         Exit Function
     End If
@@ -1171,7 +1171,7 @@ Private Function EditRecord()
     Set rstExpensesPerVAT = InvoicesIn.FindExpensesPerVAT(grdInvoicesInIndex.CellValue(grdInvoicesInIndex.CurRow, "TrnID"))
     
     If rstExpensesPerVAT.RecordCount = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(9), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(9), 1) Then
         End If
         Exit Function
     End If
@@ -1200,10 +1200,10 @@ Private Function FindRecordsAndPopulateGrid()
             UpdateButtons Me, 3, 1, 0, 0, 1
             If Not blnError Then
                 If blnProcessing Then
-                    If MyMsgBox(4, strAppTitle, strStandardMessages(27), 1) Then
+                    If MyMsgBox(4, strApplicationName, strStandardMessages(27), 1) Then
                     End If
                 Else
-                    If MyMsgBox(1, strAppTitle, strStandardMessages(7), 1) Then
+                    If MyMsgBox(1, strApplicationName, strStandardMessages(7), 1) Then
                     End If
                 End If
             End If
@@ -1393,7 +1393,7 @@ Private Function RefreshList()
     If rstRecordset.RecordCount = 0 Then blnError = False: RefreshList = False: Exit Function
     
     'Προετοιμάζω τη μπάρα προόδου
-    InitializeProgressBar Me, strAppTitle, rstRecordset
+    InitializeProgressBar Me, strApplicationName, rstRecordset
     
     'Προσωρινά
     UpdateButtons Me, 3, 0, 0, 1, 0
@@ -1503,7 +1503,7 @@ Private Function ValidateFields()
     'Σωστό διάστημα έκδοσης
     If IsDate(mskInvoiceDateIssueFrom.text) And IsDate(mskInvoiceDateIssueTo.text) Then
         If CDate(mskInvoiceDateIssueFrom.text) > CDate(mskInvoiceDateIssueTo.text) Then
-            If MyMsgBox(4, strAppTitle, strStandardMessages(10), 1) Then
+            If MyMsgBox(4, strApplicationName, strStandardMessages(10), 1) Then
             End If
             mskInvoiceDateIssueFrom.SetFocus
             Exit Function
@@ -1513,7 +1513,7 @@ Private Function ValidateFields()
     'Σωστό διάστημα καταχώρησης
     If IsDate(mskInvoiceDateInFrom.text) And IsDate(mskInvoiceDateInTo.text) Then
         If CDate(mskInvoiceDateInFrom.text) > CDate(mskInvoiceDateInTo.text) Then
-            If MyMsgBox(4, strAppTitle, strStandardMessages(10), 1) Then
+            If MyMsgBox(4, strApplicationName, strStandardMessages(10), 1) Then
             End If
             mskInvoiceDateInFrom.SetFocus
             Exit Function
@@ -1539,22 +1539,28 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 0
             'Κατηγορία εξόδου - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "ExpensesCategories", "ExpenseCategoryDescription", "String", txtExpenseDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtExpenseID.text = tmpTableData.strCode
-            txtExpenseDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtExpenseID.text = tmpTableData.strCode
+                txtExpenseDescription.text = tmpTableData.strFirstField
+            End If
         Case 1
             'Προμηθευτής - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "Suppliers", "Description", "String", txtSupplierDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtPersonID.text = tmpTableData.strCode
-            txtSupplierDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtPersonID.text = tmpTableData.strCode
+                txtSupplierDescription.text = tmpTableData.strFirstField
+            End If
         Case 2
             'Παραστατικό - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "Codes", "CodeShortDescriptionA, CodeMasterRefersTo", "String, String", txtCodeShortDescriptionA.text, "1")
-            tmpTableData = DisplayIndex(tmpRecordset, 3, True, 8, 0, 3, 5, 6, 7, 9, 10, 11, "ID", "Συντ. Α'", "Περιγραφή", "Σειρά", "Χειρόγραφο", "Προμηθευτές", "Τελευταίο Νο", "Ημερομηνία", 0, 6, 40, 6, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1)
-            txtCodeID.text = tmpTableData.strCode
-            txtCodeShortDescriptionA.text = tmpTableData.strFirstField
-            lblCodeDescription.Caption = tmpTableData.strSecondField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 3, True, 8, 0, 3, 5, 6, 7, 9, 10, 11, "ID", "Συντ. Α'", "Περιγραφή", "Σειρά", "Χειρόγραφο", "Προμηθευτές", "Τελευταίο Νο", "Ημερομηνία", 0, 6, 40, 6, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1)
+                txtCodeID.text = tmpTableData.strCode
+                txtCodeShortDescriptionA.text = tmpTableData.strFirstField
+                lblCodeDescription.Caption = tmpTableData.strSecondField
+            End If
     End Select
 
 End Sub
@@ -1563,7 +1569,7 @@ Private Sub Form_Activate()
 
     If Me.Tag = "True" Then
         Me.Tag = "False"
-        AddColumnsToGrid grdInvoicesInIndex, 44, GetSetting(strAppTitle, "Layout Strings", "grdInvoicesInIndex"), _
+        AddColumnsToGrid grdInvoicesInIndex, 44, GetSetting(strApplicationName, "Layout Strings", "grdInvoicesInIndex"), _
             "05ΝCNTrnID,12NCDXDateIssue,40NLNSupplier,10NCNInvoiceNo,40NLNCodeDescription,10NRFInvoiceNet,10NRFInvoiceVAT,10NRFInvoiceGross,05NCNSelected", _
             "TrnID,Ημερομηνία έκδοσης,Πιστωτής,Νο παραστατικού,Παραστατικό,Καθαρή αξία, Αξία Φ.Π.Α.,Συνολική αξία,E"
         Me.Refresh
@@ -1665,7 +1671,7 @@ End Sub
 
 Private Sub mnuΑποθήκευσηΠλάτουςΣτηλών_Click()
 
-    SaveSetting strAppTitle, "Layout Strings", "grdInvoicesInIndex", grdInvoicesInIndex.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", "grdInvoicesInIndex", grdInvoicesInIndex.LayoutCol
 
 End Sub
 

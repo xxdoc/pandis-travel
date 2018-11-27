@@ -294,10 +294,10 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
     
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     Select Case KeyCode
-        Case vbKeyF10 And cmdButton(0).Enabled, vbKeyC And CtrlDown And cmdButton(0).Enabled
+        Case vbKeyF10 And cmdButton(0).Enabled, vbKeyC And CtrlDown = 4 And cmdButton(0).Enabled
             cmdButton_Click 0
         Case vbKeyEscape And cmdButton(1).Enabled
             cmdButton_Click 1
@@ -316,8 +316,8 @@ Private Function DisplayHelloMessage(blnDisplay)
     Dim strWeekdayGender As String
     
     'Μηνυμα αστείου!
-    intDayOfWeek = Val(GetSetting(AppName:=strAppTitle, Section:="Misc", Key:="Day Of Week"))
-    strMessageHasBeenDisplayed = GetSetting(AppName:=strAppTitle, Section:="Misc", Key:="Message Has Been Displayed")
+    intDayOfWeek = Val(GetSetting(appName:=strApplicationName, Section:="Misc", Key:="Day Of Week"))
+    strMessageHasBeenDisplayed = GetSetting(appName:=strApplicationName, Section:="Misc", Key:="Message Has Been Displayed")
     
     'Επιλογή άρθρου ημέρας
     Select Case intDayOfWeek
@@ -329,14 +329,14 @@ Private Function DisplayHelloMessage(blnDisplay)
     
     'Εμφανίζω
     If Weekday(Now) = intDayOfWeek And strMessageHasBeenDisplayed = "False" Then
-        SaveSetting strAppTitle, "Misc", "MessageHasBeenDisplayed", "True"
-       If MyMsgBox(2, strAppTitle, strAppMessages(11) & strWeekdayGender & WeekdayName(Weekday(Now)) & ";", 1) Then
+        SaveSetting strApplicationName, "Misc", "MessageHasBeenDisplayed", "True"
+       If MyMsgBox(2, strApplicationName, strAppMessages(11) & strWeekdayGender & WeekdayName(Weekday(Now)) & ";", 1) Then
        End If
     End If
     
     'Επαναφορά!
     If Weekday(Now) = intDayOfWeek + 1 And strMessageHasBeenDisplayed = "True" Then
-        SaveSetting strAppTitle, "Misc", "MessageHasBeenDisplayed", "False"
+        SaveSetting strApplicationName, "Misc", "MessageHasBeenDisplayed", "False"
     End If
 
 End Function
@@ -353,7 +353,7 @@ Private Function LoadCompanies()
     cboCompanies.Clear
     
     'If strDatabaseType = "Access" Then
-        strPathName = GetSetting(AppName:=strAppTitle, Section:="Path Names", Key:="Database Path Name")
+        strPathName = GetSetting(appName:=strApplicationName, Section:="Path Names", Key:="Database Path Name")
         strCompanies = Dir(strPathName & "*.mdb")
         Do While strCompanies <> ""
             If strCompanies <> "Printers.mdb" And strCompanies <> "Users.mdb" Then
@@ -385,7 +385,7 @@ Private Function Start()
     lblProgress.Refresh
     
     If App.PrevInstance Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(15), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(15), 1) Then
         End If
         CloseApp
         End
@@ -395,7 +395,7 @@ Private Function Start()
     strCurrentUser = cboUsers.text
     
     If Not IsCorrectPassword(cboUsers.text, txtPassword.text) Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(11), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(11), 1) Then
         End If
         ClearFields lblProgress
         Exit Function
@@ -413,7 +413,7 @@ Private Function Start()
             End With
         End If
     Else
-        If MyMsgBox(4, strAppTitle, strStandardMessages(11), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(11), 1) Then
         End If
     End If
 
@@ -425,7 +425,7 @@ Private Function ValidateFields()
     
     'Χρήστες
     If cboUsers.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         cboUsers.SetFocus
         Exit Function
@@ -433,7 +433,7 @@ Private Function ValidateFields()
     
     'Εταιρία
     If cboCompanies.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         cboCompanies.SetFocus
         Exit Function
@@ -441,7 +441,7 @@ Private Function ValidateFields()
     
     'Κωδικός
     If txtPassword.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtPassword.SetFocus
         Exit Function
@@ -488,7 +488,7 @@ Private Function CloseApp()
 
     CloseApp = False
     
-    If MyMsgBox(2, strAppTitle, strStandardMessages(16), 2) Then
+    If MyMsgBox(2, strApplicationName, strStandardMessages(16), 2) Then
         CloseApp = True
     End If
 
@@ -522,10 +522,12 @@ Private Sub Form_Load()
     Me.Show
     lblCopyright.Caption = "Created by John Sourvinos 1999 - " & Year(Date)
     ClearFields lblProgress, cboUsers, cboCompanies, txtPassword
+    strApplicationName = GetSetting(Mid(App.Path, 4, Len(App.Path)), "Settings", "Application Name")
+    strApplicationEXEName = GetSetting(strApplicationName, "Settings", "Application EXE Name")
     LoadMessages
     If Not LoadCompanies Then Exit Sub
     If Not LoadUsers Then Exit Sub
-    If GetSetting(AppName:=strAppTitle, Section:="Settings", Key:="IsDevelopment") = "1" Then
+    If GetSetting(appName:=strApplicationName, Section:="Settings", Key:="IsDevelopment") = "1" Then
         cboUsers.ListIndex = 0
         cboCompanies.ListIndex = 0
         txtPassword.text = "1701"
@@ -539,7 +541,7 @@ Private Function LoadUsers()
     
     Dim rsUsers As Recordset
     
-    strPathName = GetSetting(AppName:=strAppTitle, Section:="Path Names", Key:="Database Path Name")
+    strPathName = GetSetting(appName:=strApplicationName, Section:="Path Names", Key:="Database Path Name")
     Set UsersDB = DBEngine.OpenDataBase(strPathName + "Users.mdb", False, False)
     
     Set rsUsers = UsersDB.OpenRecordset("Users")

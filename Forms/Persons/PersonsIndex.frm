@@ -548,7 +548,7 @@ Begin VB.Form PersonsIndex
          End
          Begin VB.Label lblLabel 
             BackColor       =   &H000080FF&
-            Caption         =   "Επωνυμία"
+            Caption         =   "Συναλλασόμενος"
             BeginProperty Font 
                Name            =   "Ubuntu Condensed"
                Size            =   9.75
@@ -723,7 +723,7 @@ Dim blnBatchProcessing As Boolean
 
 Private Function EditRecord()
 
-    Persons.SeekRecord grdPersonsIndex.CellValue(grdPersonsIndex.CurRow, "ID")
+    persons.SeekRecord grdPersonsIndex.CellValue(grdPersonsIndex.CurRow, "ID")
     
     Unload Me
 
@@ -751,10 +751,10 @@ Private Function FindRecordsAndPopulateGrid()
         UpdateButtons Me, 5, 1, 0, 0, 0, 0, 1
         If Not blnError Then
             If blnProcessing Then
-                If MyMsgBox(4, strAppTitle, strStandardMessages(27), 1) Then
+                If MyMsgBox(4, strApplicationName, strStandardMessages(27), 1) Then
                 End If
             Else
-                If MyMsgBox(1, strAppTitle, strStandardMessages(7), 1) Then
+                If MyMsgBox(1, strApplicationName, strStandardMessages(7), 1) Then
                 End If
             End If
         End If
@@ -785,9 +785,9 @@ End Function
 
 
 
-Private Sub cmdButton_Click(Index As Integer)
+Private Sub cmdButton_Click(index As Integer)
 
-    Select Case Index
+    Select Case index
         Case 0
             FindRecordsAndPopulateGrid
         Case 1
@@ -815,7 +815,7 @@ Private Function AbortProcedure(blnStatus)
             txtDescription.SetFocus
             UpdateButtons Me, 5, 1, 0, 0, 0, 0, 1
         Else
-            If MyMsgBox(3, strAppTitle, strStandardMessages(3), 2) Then
+            If MyMsgBox(3, strApplicationName, strStandardMessages(3), 2) Then
                 EnableGrid grdPersonsIndex, False
                 cmdButton(4).Caption = "Νέα αναζήτηση"
                 UpdateButtons Me, 5, 0, 1, 1, 0, 1, 0
@@ -921,7 +921,7 @@ Private Function RefreshList()
     If rstRecordset.RecordCount = 0 Then blnError = False: RefreshList = False: Exit Function
     
     'Προετοιμάζω τη μπάρα προόδου
-    InitializeProgressBar Me, strAppTitle, rstRecordset
+    InitializeProgressBar Me, strApplicationName, rstRecordset
     
     'Προσωρινά
     UpdateButtons Me, 5, 0, 0, 0, 0, 1, 0
@@ -942,7 +942,7 @@ Private Function RefreshList()
             grdPersonsIndex.CellValue(lngRow, "Phones") = !Phones
             grdPersonsIndex.CellValue(lngRow, "PersonInCharge") = !PersonInCharge
             grdPersonsIndex.CellValue(lngRow, "Email") = !Email
-            grdPersonsIndex.CellValue(lngRow, "TaxNo") = !taxNo
+            grdPersonsIndex.CellValue(lngRow, "TaxNo") = !TaxNo
             grdPersonsIndex.CellValue(lngRow, "TaxOfficeID") = !TaxOfficeID
             grdPersonsIndex.CellValue(lngRow, "VATStateID") = !VATStateID
             grdPersonsIndex.CellValue(lngRow, "AccountCode") = !AccountCode
@@ -987,7 +987,7 @@ Private Sub Form_Activate()
                 
     If Me.Tag = "True" Then
         Me.Tag = "False"
-        AddColumnsToGrid grdPersonsIndex, 44, GetSetting(strAppTitle, "Layout Strings", "grdPersonsIndex"), _
+        AddColumnsToGrid grdPersonsIndex, 44, GetSetting(strApplicationName, "Layout Strings", "grdPersonsIndex"), _
             "04NCIID,40NLNDescription,50NLNProfession,50NLNAddress,50NLNPhones,50NLNPersonInCharge,15NLNEmail,15NCNTaxNo,05NCNTaxOfficeID,05NCNXVATStateID,15NCNXAccountCode,05NCNSelected", _
             "ID,Επωνυμία,Δραστηριότητα,Διεύθυνση,Τηλέφωνα,Υπεύθυνος,E-mail,Α.Φ.Μ.,Δ.Ο.Υ.,Καθεστώς Φ.Π.Α.,Κωδ. Γεν. Λογιστικής,Ε"
         Me.Refresh
@@ -1084,7 +1084,7 @@ End Sub
 
 Private Sub mnuΑποθήκευσηΠλάτουςΣτηλών_Click()
 
-    SaveSetting strAppTitle, "Layout Strings", "grdPersonsIndex", grdPersonsIndex.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", "grdPersonsIndex", grdPersonsIndex.LayoutCol
 
 End Sub
 
@@ -1093,12 +1093,12 @@ Private Function SaveRecords()
     Dim lngRow As Long
     Dim lngID As Long
     
-    InitializeProgressBar Me, strAppTitle, grdPersonsIndex.RowCount
+    InitializeProgressBar Me, strApplicationName, grdPersonsIndex.RowCount
     
     With grdPersonsIndex
         For lngRow = 1 To .RowCount
             UpdateProgressBar Me
-            lngID = MainSaveRecord("CommonDB", txtCustomersOrSuppliers.text, False, strAppTitle, "ID", _
+            lngID = MainSaveRecord("CommonDB", txtCustomersOrSuppliers.text, False, strApplicationName, "ID", _
             .CellValue(lngRow, "ID"), _
             .CellValue(lngRow, "Description"), _
             .CellValue(lngRow, "Profession"), _
@@ -1118,7 +1118,7 @@ Private Function SaveRecords()
     frmProgress.Visible = False
     
     If lngID <> 0 Then
-        If MyMsgBox(1, strAppTitle, strStandardMessages(8), 1) Then
+        If MyMsgBox(1, strApplicationName, strStandardMessages(8), 1) Then
         End If
         EnableGrid grdPersonsIndex, False
         UpdateButtons Me, 5, 0, 1, 1, 0, 1, 0

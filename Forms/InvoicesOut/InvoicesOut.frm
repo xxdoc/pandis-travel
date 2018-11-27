@@ -2191,7 +2191,7 @@ Begin VB.Form InvoicesOut
       AutoSize        =   -1  'True
       BackColor       =   &H00E0E0E0&
       BackStyle       =   0  'Transparent
-      Caption         =   "ΧΕΙΡΟΓΡΑΦΟ"
+      Caption         =   "ΜΗΧΑΝΟΓΡΑΦΙΚΟ"
       BeginProperty Font 
          Name            =   "Ubuntu Condensed"
          Size            =   9.75
@@ -2202,11 +2202,11 @@ Begin VB.Form InvoicesOut
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00800080&
-      Height          =   315
-      Left            =   8775
+      Height          =   255
+      Left            =   3825
       TabIndex        =   49
-      Top             =   1725
-      Width           =   990
+      Top             =   1875
+      Width           =   1350
    End
    Begin VB.Label lblCodeBatch 
       AutoSize        =   -1  'True
@@ -2223,11 +2223,11 @@ Begin VB.Form InvoicesOut
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00800080&
-      Height          =   315
-      Left            =   8100
+      Height          =   255
+      Left            =   5250
       TabIndex        =   48
-      Top             =   1725
-      Width           =   615
+      Top             =   1875
+      Width           =   585
    End
    Begin VB.Label lblCodeDescription 
       AutoSize        =   -1  'True
@@ -2244,11 +2244,11 @@ Begin VB.Form InvoicesOut
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00800080&
-      Height          =   315
+      Height          =   255
       Left            =   3825
       TabIndex        =   47
-      Top             =   1725
-      Width           =   4215
+      Top             =   1650
+      Width           =   4200
    End
    Begin VB.Label lblLabel 
       BackColor       =   &H000080FF&
@@ -2474,7 +2474,7 @@ Begin VB.Form InvoicesOut
    End
    Begin VB.Label lblLabel 
       BackColor       =   &H000080FF&
-      Caption         =   "Πελάτης"
+      Caption         =   "Συναλλασόμενος"
       BeginProperty Font 
          Name            =   "Ubuntu Condensed"
          Size            =   9.75
@@ -2556,13 +2556,13 @@ Private Function AddAmounts()
     curTotalAmount = curAdultsAmountTotal + curKidsAmountTotal
     
     'Εμφανίζω - κάθετα
-    mskTotalAmountWithTransfer.text = Format(cutTotalAmountWithTransfer, "#,##0.00")
-    mskTotalAmountWithoutTransfer.text = Format(curTotalAmountWithoutTransfer, "#,##0.00")
+    mskTotalAmountWithTransfer.text = format(cutTotalAmountWithTransfer, "#,##0.00")
+    mskTotalAmountWithoutTransfer.text = format(curTotalAmountWithoutTransfer, "#,##0.00")
     
     'Εμφανίζω - οριζόντια
-    mskAdultsAmountTotal.text = Format(curAdultsAmountTotal, "#,##0.00")
-    mskKidsAmountTotal.text = Format(curKidsAmountTotal, "#,##0.00")
-    mskTotalAmount.text = Format(curTotalAmount, "#,##0.00")
+    mskAdultsAmountTotal.text = format(curAdultsAmountTotal, "#,##0.00")
+    mskKidsAmountTotal.text = format(curKidsAmountTotal, "#,##0.00")
+    mskTotalAmount.text = format(curTotalAmount, "#,##0.00")
     
     Exit Function
     
@@ -2598,19 +2598,19 @@ Private Function AddPersons()
     lngTotalPersons = lngTotalAdults + lngTotalKids + lngTotalFree
     
     'Εμφανίζω
-    mskTotalPersonsWithTransfer.text = Format(lngTotalPersonsWithTransfer, "#,##0")
-    mskTotalPersonsWithoutTransfer.text = Format(lngTotalPersonsWithoutTransfer, "#,##0")
-    mskTotalAdults.text = Format(lngTotalAdults, "#,##0")
-    mskTotalKids.text = Format(lngTotalKids, "#,##0")
-    mskTotalFree.text = Format(lngTotalFree, "#,##0")
-    mskTotalPersons.text = Format(lngTotalPersons, "#,##0")
+    mskTotalPersonsWithTransfer.text = format(lngTotalPersonsWithTransfer, "#,##0")
+    mskTotalPersonsWithoutTransfer.text = format(lngTotalPersonsWithoutTransfer, "#,##0")
+    mskTotalAdults.text = format(lngTotalAdults, "#,##0")
+    mskTotalKids.text = format(lngTotalKids, "#,##0")
+    mskTotalFree.text = format(lngTotalFree, "#,##0")
+    mskTotalPersons.text = format(lngTotalPersons, "#,##0")
 
 End Function
 
 Private Sub AbortProcedure(blnStatus)
     
     If Not blnStatus Then
-        If MyMsgBox(3, strAppTitle, strStandardMessages(3), 2) Then
+        If MyMsgBox(3, strApplicationName, strStandardMessages(3), 2) Then
             blnStatus = False
             blnCancel = True
             
@@ -2668,8 +2668,8 @@ Private Sub DeleteRecord()
     
     BeginTrans
     
-    If MainDeleteRecord("CommonDB", "Invoices", strAppTitle, "InvoiceID", txtInvoiceID.text, True) Then
-        If MainDeleteRecord("CommonDB", "InvoicesOut", strAppTitle, "InvoiceOutTrnID", txtInvoiceTrnID.text, False) Then
+    If MainDeleteRecord("CommonDB", "Invoices", strApplicationName, "InvoiceID", txtInvoiceID.text, True) Then
+        If MainDeleteRecord("CommonDB", "InvoicesOut", strApplicationName, "InvoiceOutTrnID", txtInvoiceTrnID.text, False) Then
             CommitTrans
             blnCancel = True
             ClearFields txtInvoiceID, txtInvoiceTrnID, txtInvoiceCodeID, txtInvoicePersonID, txtInvoiceDateIn, txtInvoiceOutDestinationID, txtInvoiceOutShipID, txtInvoiceOutPaymentTermID, txtCodeLastNo, txtCodeLastDate, txtCodePersonsPlusOrMinus, chkCodeHandID, txtShipRegistryNo, chkPaymentTermCreditID
@@ -2755,7 +2755,7 @@ Private Function AskToPrintInvoice()
     
     'Ερώτηση για εκτύπωση αν τυπώνεται και αν είμαι σε νέα εγγραφή
     If chkCodeHandID.Value = 0 And blnStatus Then
-        If MyMsgBox(2, strAppTitle, strAppMessages(7), 2) Then
+        If MyMsgBox(2, strApplicationName, strAppMessages(7), 2) Then
             ProcessSelectedInvoicesForPrinting txtInvoiceTrnID.text, arrDummy
         End If
     End If
@@ -2784,11 +2784,11 @@ Private Function PopulateFields(rstRecordset As Recordset)
         txtShipRegistryNo.text = !ShipRegistryNo
         chkPaymentTermCreditID.Value = !PaymentTermCreditID
         
-        mskDateIssue.text = Format(!InvoiceDateIssue, "dd/mm/yyyy")
+        mskDateIssue.text = format(!InvoiceDateIssue, "dd/mm/yyyy")
         txtCodeShortDescriptionA.text = !CodeShortDescriptionA
         lblCodeDescription.Caption = !CodeDescription
         lblCodeBatch.Caption = !CodeBatch
-        lblHand.Caption = IIf(!CodeHandID, "ΧΕΙΡΟΓΡΑΦΟ", "")
+        lblHand.Caption = IIf(!CodeHandID, "ΧΕΙΡΟΓΡΑΦΟ", "ΜΗΧΑΝΟΓΡΑΦΙΚΟ")
         txtInvoiceNo.text = !InvoiceNo
         txtCustomerDescription.text = !Description
         txtDestinationDescription.text = !DestinationDescription
@@ -2796,19 +2796,19 @@ Private Function PopulateFields(rstRecordset As Recordset)
         
         chkAgreement.Value = IIf(!InvoiceOutAgreement, 1, 0)
         
-        mskAdultsWithTransfer.text = Format(!InvoiceOutAdultsWithTransfer, "#,##0")
-        mskKidsWithTransfer.text = Format(!InvoiceOutKidsWithTransfer, "#,##0")
-        mskFreeWithTransfer.text = Format(!InvoiceOutFreeWithTransfer, "#,##0")
-        mskAdultsAmountWithTransfer.text = Format(!InvoiceOutAdultsAmountWithTransfer, "#,##0.00")
-        mskKidsAmountWithTransfer.text = Format(!InvoiceOutKidsAmountWithTransfer, "#,##0.00")
+        mskAdultsWithTransfer.text = format(!InvoiceOutAdultsWithTransfer, "#,##0")
+        mskKidsWithTransfer.text = format(!InvoiceOutKidsWithTransfer, "#,##0")
+        mskFreeWithTransfer.text = format(!InvoiceOutFreeWithTransfer, "#,##0")
+        mskAdultsAmountWithTransfer.text = format(!InvoiceOutAdultsAmountWithTransfer, "#,##0.00")
+        mskKidsAmountWithTransfer.text = format(!InvoiceOutKidsAmountWithTransfer, "#,##0.00")
         
-        mskAdultsWithoutTransfer.text = Format(!InvoiceOutAdultsWithoutTransfer, "#,##0")
-        mskKidsWithoutTransfer.text = Format(!InvoiceOutKidsWithoutTransfer, "#,##0")
-        mskFreeWithoutTransfer.text = Format(!InvoiceOutFreeWithoutTransfer, "#,##0")
-        mskAdultsAmountWithoutTransfer.text = Format(!InvoiceOutAdultsAmountWithoutTransfer, "#,##0.00")
-        mskKidsAmountWithoutTransfer.text = Format(!InvoiceOutKidsAmountWithoutTransfer, "#,##0.00")
+        mskAdultsWithoutTransfer.text = format(!InvoiceOutAdultsWithoutTransfer, "#,##0")
+        mskKidsWithoutTransfer.text = format(!InvoiceOutKidsWithoutTransfer, "#,##0")
+        mskFreeWithoutTransfer.text = format(!InvoiceOutFreeWithoutTransfer, "#,##0")
+        mskAdultsAmountWithoutTransfer.text = format(!InvoiceOutAdultsAmountWithoutTransfer, "#,##0.00")
+        mskKidsAmountWithoutTransfer.text = format(!InvoiceOutKidsAmountWithoutTransfer, "#,##0.00")
         
-        mskDirectAmount.text = Format(!InvoiceOutDirectAmount, "#,##0.00")
+        mskDirectAmount.text = format(!InvoiceOutDirectAmount, "#,##0.00")
         
         txtRemarks.text = !InvoiceOutReason
         txtPaymentTermDescription.text = !PaymentTermDescription
@@ -2851,7 +2851,7 @@ Private Function SaveInvoice()
 
     If blnStatus Then txtInvoiceTrnID.text = AddOneToTheLastRecord("Invoices")
     
-    If MainSaveRecord("CommonDB", "Invoices", blnStatus, strAppTitle, "InvoiceID", txtInvoiceID.text, txtInvoiceTrnID.text, txtInvoiceMasterRefersTo.text, txtInvoiceSecondaryRefersTo.text, mskDateIssue.text, txtInvoiceDateIn.text, txtInvoiceCodeID.text, txtInvoiceNo.text, txtInvoicePersonID.text, strCurrentUser) <> 0 Then
+    If MainSaveRecord("CommonDB", "Invoices", blnStatus, strApplicationName, "InvoiceID", txtInvoiceID.text, txtInvoiceTrnID.text, txtInvoiceMasterRefersTo.text, txtInvoiceSecondaryRefersTo.text, mskDateIssue.text, txtInvoiceDateIn.text, txtInvoiceCodeID.text, txtInvoiceNo.text, txtInvoicePersonID.text, strCurrentUser) <> 0 Then
         IsError = False
     Else
         IsError = True
@@ -2863,7 +2863,7 @@ Private Function SaveInvoiceOut()
 
     If IsError Then Exit Function
     
-    If MainSaveRecord("CommonDB", "InvoicesOut", blnStatus, strAppTitle, "InvoiceOutTrnID", txtInvoiceTrnID.text, txtInvoiceTrnID.text, _
+    If MainSaveRecord("CommonDB", "InvoicesOut", blnStatus, strApplicationName, "InvoiceOutTrnID", txtInvoiceTrnID.text, txtInvoiceTrnID.text, _
         txtInvoiceOutDestinationID.text, _
         txtInvoiceOutShipID.text, _
         chkAgreement.Value, _
@@ -2987,39 +2987,39 @@ Private Function UpdateInvoiceFieldsWithData(rstRecordset As Recordset)
         .lblDestination.Caption = rstRecordset!DestinationDescription
         .lblShip.Caption = rstRecordset!ShipDescription
         
-        .lblAdultsWithTransfer.Caption = IIf(rstRecordset!InvoiceOutAdultsWithTransfer <> 0, Format(rstRecordset!InvoiceOutAdultsWithTransfer, "#,##0"), "")
-        .lblAdultAmountWithTransfer.Caption = IIf(rstRecordset!InvoiceOutAdultsAmountWithTransfer <> 0, Format(rstRecordset!InvoiceOutAdultsAmountWithTransfer / rstRecordset!InvoiceOutAdultsWithTransfer, "#,##0.00"), "")
-        .lblAdultsTotalWithTransfer.Caption = IIf(rstRecordset!InvoiceOutAdultsAmountWithTransfer <> 0, Format(rstRecordset!InvoiceOutAdultsAmountWithTransfer, "#,##0.00"), "")
+        .lblAdultsWithTransfer.Caption = IIf(rstRecordset!InvoiceOutAdultsWithTransfer <> 0, format(rstRecordset!InvoiceOutAdultsWithTransfer, "#,##0"), "")
+        .lblAdultAmountWithTransfer.Caption = IIf(rstRecordset!InvoiceOutAdultsAmountWithTransfer <> 0, format(rstRecordset!InvoiceOutAdultsAmountWithTransfer / rstRecordset!InvoiceOutAdultsWithTransfer, "#,##0.00"), "")
+        .lblAdultsTotalWithTransfer.Caption = IIf(rstRecordset!InvoiceOutAdultsAmountWithTransfer <> 0, format(rstRecordset!InvoiceOutAdultsAmountWithTransfer, "#,##0.00"), "")
         
-        .lblKidsWithTransfer.Caption = IIf(rstRecordset!InvoiceOutKidsWithTransfer <> 0, Format(rstRecordset!InvoiceOutKidsWithTransfer, "#,##0"), "")
-        .lblKidAmountWithTransfer.Caption = IIf(rstRecordset!InvoiceOutKidsAmountWithTransfer <> 0, Format(rstRecordset!InvoiceOutKidsAmountWithTransfer / rstRecordset!InvoiceOutKidsWithTransfer, "#,##0.00"), "")
-        .lblKidsTotalWithTransfer.Caption = IIf(rstRecordset!InvoiceOutKidsAmountWithTransfer <> 0, Format(rstRecordset!InvoiceOutKidsAmountWithTransfer, "#,##0.00"), "")
+        .lblKidsWithTransfer.Caption = IIf(rstRecordset!InvoiceOutKidsWithTransfer <> 0, format(rstRecordset!InvoiceOutKidsWithTransfer, "#,##0"), "")
+        .lblKidAmountWithTransfer.Caption = IIf(rstRecordset!InvoiceOutKidsAmountWithTransfer <> 0, format(rstRecordset!InvoiceOutKidsAmountWithTransfer / rstRecordset!InvoiceOutKidsWithTransfer, "#,##0.00"), "")
+        .lblKidsTotalWithTransfer.Caption = IIf(rstRecordset!InvoiceOutKidsAmountWithTransfer <> 0, format(rstRecordset!InvoiceOutKidsAmountWithTransfer, "#,##0.00"), "")
 
-        .lblAdultsWithoutTransfer.Caption = IIf(rstRecordset!InvoiceOutAdultsWithoutTransfer <> 0, Format(rstRecordset!InvoiceOutAdultsWithoutTransfer, "#,##0"), "")
-        .lblAdultAmountWithoutTransfer.Caption = IIf(rstRecordset!InvoiceOutAdultsAmountWithoutTransfer <> 0, Format(rstRecordset!InvoiceOutAdultsAmountWithoutTransfer / rstRecordset!InvoiceOutAdultsWithoutTransfer, "#,##0.00"), "")
-        .lblAdultsTotalWithoutTransfer.Caption = IIf(rstRecordset!InvoiceOutAdultsAmountWithoutTransfer <> 0, Format(rstRecordset!InvoiceOutAdultsAmountWithoutTransfer, "#,##0.00"), "")
+        .lblAdultsWithoutTransfer.Caption = IIf(rstRecordset!InvoiceOutAdultsWithoutTransfer <> 0, format(rstRecordset!InvoiceOutAdultsWithoutTransfer, "#,##0"), "")
+        .lblAdultAmountWithoutTransfer.Caption = IIf(rstRecordset!InvoiceOutAdultsAmountWithoutTransfer <> 0, format(rstRecordset!InvoiceOutAdultsAmountWithoutTransfer / rstRecordset!InvoiceOutAdultsWithoutTransfer, "#,##0.00"), "")
+        .lblAdultsTotalWithoutTransfer.Caption = IIf(rstRecordset!InvoiceOutAdultsAmountWithoutTransfer <> 0, format(rstRecordset!InvoiceOutAdultsAmountWithoutTransfer, "#,##0.00"), "")
 
-        .lblKidsWithoutTransfer.Caption = IIf(rstRecordset!InvoiceOutKidsWithoutTransfer <> 0, Format(rstRecordset!InvoiceOutKidsWithoutTransfer, "#,##0"), "")
-        .lblKidAmountWithoutTransfer.Caption = IIf(rstRecordset!InvoiceOutKidsAmountWithoutTransfer <> 0, Format(rstRecordset!InvoiceOutKidsAmountWithoutTransfer / rstRecordset!InvoiceOutKidsWithoutTransfer, "#,##0.00"), "")
-        .lblKidsTotalWithoutTransfer.Caption = IIf(rstRecordset!InvoiceOutKidsAmountWithoutTransfer <> 0, Format(rstRecordset!InvoiceOutKidsAmountWithoutTransfer, "#,##0.00"), "")
+        .lblKidsWithoutTransfer.Caption = IIf(rstRecordset!InvoiceOutKidsWithoutTransfer <> 0, format(rstRecordset!InvoiceOutKidsWithoutTransfer, "#,##0"), "")
+        .lblKidAmountWithoutTransfer.Caption = IIf(rstRecordset!InvoiceOutKidsAmountWithoutTransfer <> 0, format(rstRecordset!InvoiceOutKidsAmountWithoutTransfer / rstRecordset!InvoiceOutKidsWithoutTransfer, "#,##0.00"), "")
+        .lblKidsTotalWithoutTransfer.Caption = IIf(rstRecordset!InvoiceOutKidsAmountWithoutTransfer <> 0, format(rstRecordset!InvoiceOutKidsAmountWithoutTransfer, "#,##0.00"), "")
         
-        .lblFree.Caption = IIf(intFree <> 0, Format(rstRecordset!InvoiceOutFreeWithTransfer + rstRecordset!InvoiceOutFreeWithoutTransfer, "#,##0"), "")
+        .lblFree.Caption = IIf(intFree <> 0, format(rstRecordset!InvoiceOutFreeWithTransfer + rstRecordset!InvoiceOutFreeWithoutTransfer, "#,##0"), "")
         
-        .lblTotalPersons.Caption = IIf(intPersons <> 0, Format(intPersons, "#,##0"), "")
-        .lblTotalAmount.Caption = Format(curGross, "#,##.00")
+        .lblTotalPersons.Caption = IIf(intPersons <> 0, format(intPersons, "#,##0"), "")
+        .lblTotalAmount.Caption = format(curGross, "#,##.00")
         
         .lblVATPercent.Caption = "ΣΥΝΟΛΟ " & rstRecordset!InvoiceOutVATPercent & "%"
-        .lblTotalNet1.Caption = Format(curNet, "#,##0.00")
-        .lblTotalVAT1.Caption = Format(curVAT, "#,##0.00")
-        .lblTotal1.Caption = Format(curGross, "#,##0.00")
+        .lblTotalNet1.Caption = format(curNet, "#,##0.00")
+        .lblTotalVAT1.Caption = format(curVAT, "#,##0.00")
+        .lblTotal1.Caption = format(curGross, "#,##0.00")
         
         .lblGrandTotalNet.Caption = .lblTotalNet1.Caption
         .lblGrandTotalVAT.Caption = .lblTotalVAT1.Caption
-        .lblGrandTotal.Caption = Format(CCur(.lblGrandTotalNet.Caption) + CCur(.lblGrandTotalVAT.Caption), "#,##0.00")
+        .lblGrandTotal.Caption = format(CCur(.lblGrandTotalNet.Caption) + CCur(.lblGrandTotalVAT.Caption), "#,##0.00")
         
         .lblTotalGross.Caption = .lblTotalNet1.Caption
         .lblTotalVAT.Caption = .lblGrandTotalVAT.Caption
-        .lblTotal.Caption = Format(CCur(.lblGrandTotalNet.Caption) + CCur(.lblGrandTotalVAT.Caption), "#,##0.00")
+        .lblTotal.Caption = format(CCur(.lblGrandTotalNet.Caption) + CCur(.lblGrandTotalVAT.Caption), "#,##0.00")
         
         .lblPaymentTerm.Caption = rstRecordset!PaymentTermDescription
 
@@ -3041,7 +3041,7 @@ Private Function ValidateFields()
     ValidateFields = False
     
     'Ημερομηνία
-    If Not CheckDate(mskDateIssue.text, strAppTitle) Then
+    If Not CheckDate(mskDateIssue.text, strApplicationName) Then
         mskDateIssue.SetFocus
         Exit Function
     End If
@@ -3049,7 +3049,7 @@ Private Function ValidateFields()
     'Καταχώρηση σε προηγούμενη ημερομηνία και όχι χειρόγραφο
     If IsDate(txtCodeLastDate.text) And chkCodeHandID.Value = 0 Then
         If CDate(txtCodeLastDate.text) > CDate(mskDateIssue.text) Then
-            If MyMsgBox(4, strAppTitle, strAppMessages(4) & txtCodeLastDate.text & ".", 1) Then
+            If MyMsgBox(4, strApplicationName, strAppMessages(4) & txtCodeLastDate.text & ".", 1) Then
             End If
             mskDateIssue.SetFocus
             Exit Function
@@ -3058,7 +3058,7 @@ Private Function ValidateFields()
     
     'Καταχώρηση σε ημερομηνία μεγαλύτερη από σήμερα
     If CDate(mskDateIssue.text) > Date Then
-        If MyMsgBox(4, strAppTitle, strAppMessages(5), 1) Then
+        If MyMsgBox(4, strApplicationName, strAppMessages(5), 1) Then
         End If
         mskDateIssue.SetFocus
         Exit Function
@@ -3066,7 +3066,7 @@ Private Function ValidateFields()
     
     'Μήκος ημερομηνίας
     If Len(mskDateIssue.text) <> 10 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskDateIssue.SetFocus
         Exit Function
@@ -3074,7 +3074,7 @@ Private Function ValidateFields()
     
     'Στοιχείο
     If Len(txtInvoiceCodeID.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtCodeShortDescriptionA.SetFocus
         Exit Function
@@ -3082,7 +3082,7 @@ Private Function ValidateFields()
     
     'Νο παραστατικού
     If txtInvoiceNo.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtInvoiceNo.SetFocus
         Exit Function
@@ -3090,7 +3090,7 @@ Private Function ValidateFields()
     
     'Νο παραστατικού = αριθμός
     If Not IsNumeric(txtInvoiceNo.text) Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         txtInvoiceNo.SetFocus
         Exit Function
@@ -3099,7 +3099,7 @@ Private Function ValidateFields()
     'Μηχανογραφικό στοιχείο ήδη καταχωρημένο: Ελέγχω αν το νούμερο του στοιχείου υπάρχει ήδη στην χρήση
     If chkCodeHandID.Value = 0 Then
         If CheckForDuplicateInvoice(mskDateIssue.text, txtInvoiceCodeID.text, txtInvoiceNo.text) Then
-            If MyMsgBox(4, strAppTitle, strStandardMessages(22), 1) Then
+            If MyMsgBox(4, strApplicationName, strStandardMessages(22), 1) Then
             End If
             txtCodeShortDescriptionA.SetFocus
             Exit Function
@@ -3108,7 +3108,7 @@ Private Function ValidateFields()
     
     'Πελάτης
     If Len(txtInvoicePersonID.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtCustomerDescription.SetFocus
         Exit Function
@@ -3116,7 +3116,7 @@ Private Function ValidateFields()
     
     'Προορισμός
     If Len(txtInvoiceOutDestinationID.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtDestinationDescription.SetFocus
         Exit Function
@@ -3124,7 +3124,7 @@ Private Function ValidateFields()
     
     'Πλοίο
     If txtInvoiceOutShipID.text = "0" And txtInvoiceSecondaryRefersTo.text = "1" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtShipDescription.SetFocus
         Exit Function
@@ -3132,7 +3132,7 @@ Private Function ValidateFields()
     
     'Όρος πληρωμής
     If Len(txtInvoiceOutPaymentTermID.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtPaymentTermDescription.SetFocus
         Exit Function
@@ -3140,7 +3140,7 @@ Private Function ValidateFields()
     
     'Αν έχω ποσό στα άτομα ΚΑΙ έχω βάλει ΚΑΙ απευθείας χρέωση
     If (Val(mskTotalAmountWithTransfer.text) <> 0 Or Val(mskTotalAmountWithoutTransfer.text)) And Val(mskDirectAmount.text) <> 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskDirectAmount.SetFocus
         Exit Function
@@ -3156,13 +3156,13 @@ Private Function ValidatePersonsAndAmounts()
     
     'Πλήθος ενηλίκων με μεταφορά
     If mskAdultsWithTransfer.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskAdultsWithTransfer.SetFocus
         Exit Function
     End If
     If CCur(mskAdultsWithTransfer.text) > 9999 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskAdultsWithTransfer.SetFocus
         Exit Function
@@ -3170,13 +3170,13 @@ Private Function ValidatePersonsAndAmounts()
     
     'Ποσό ενηλίκων με μεταφορά
     If mskAdultsAmountWithTransfer.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskAdultsAmountWithTransfer.SetFocus
         Exit Function
     End If
     If CCur(mskAdultsAmountWithTransfer.text) > 99999 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskAdultsAmountWithTransfer.SetFocus
         Exit Function
@@ -3184,7 +3184,7 @@ Private Function ValidatePersonsAndAmounts()
     
     'Ποσό ενηλίκων με μεταφορά > 0 και πλήθος ενηλίκων με μεταφορά = 0
     If CCur(mskAdultsAmountWithTransfer.text) > 0 And Val(mskAdultsWithTransfer.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskAdultsWithTransfer.SetFocus
         Exit Function
@@ -3192,13 +3192,13 @@ Private Function ValidatePersonsAndAmounts()
     
     'Πλήθος ενηλίκων χωρίς μεταφορά
     If mskAdultsWithoutTransfer.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskAdultsWithoutTransfer.SetFocus
         Exit Function
     End If
     If CCur(mskAdultsWithoutTransfer.text) > 9999 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskAdultsWithoutTransfer.SetFocus
         Exit Function
@@ -3206,13 +3206,13 @@ Private Function ValidatePersonsAndAmounts()
     
     'Ποσό ενηλίκων χωρίς μεταφορά
     If mskAdultsAmountWithoutTransfer.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskAdultsAmountWithoutTransfer.SetFocus
         Exit Function
     End If
     If CCur(mskAdultsAmountWithoutTransfer.text) > 99999 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskAdultsAmountWithoutTransfer.SetFocus
         Exit Function
@@ -3220,7 +3220,7 @@ Private Function ValidatePersonsAndAmounts()
     
     'Ποσό ενηλίκων χωρίς μεταφορά > 0 και πλήθος ενηλίκων χωρίς μεταφορά = 0
     If CCur(mskAdultsAmountWithoutTransfer.text) > 0 And Val(mskAdultsWithoutTransfer.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskAdultsWithoutTransfer.SetFocus
         Exit Function
@@ -3228,13 +3228,13 @@ Private Function ValidatePersonsAndAmounts()
     
     'Πλήθος παιδιών με μεταφορά
     If mskKidsWithTransfer.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskKidsWithTransfer.SetFocus
         Exit Function
     End If
     If CCur(mskKidsWithTransfer.text) > 9999 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskKidsWithTransfer.SetFocus
         Exit Function
@@ -3242,13 +3242,13 @@ Private Function ValidatePersonsAndAmounts()
     
     'Ποσό παιδιών με μεταφορά
     If mskKidsAmountWithTransfer.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskKidsAmountWithTransfer.SetFocus
         Exit Function
     End If
     If CCur(mskKidsAmountWithTransfer.text) > 99999 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskKidsAmountWithTransfer.SetFocus
         Exit Function
@@ -3256,7 +3256,7 @@ Private Function ValidatePersonsAndAmounts()
     
     'Ποσό παιδιών με μεταφορά > 0 και πλήθος παιδιών με μεταφορά = 0
     If CCur(mskKidsAmountWithTransfer.text) > 0 And Val(mskKidsWithTransfer.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskKidsWithTransfer.SetFocus
         Exit Function
@@ -3264,13 +3264,13 @@ Private Function ValidatePersonsAndAmounts()
     
     'Πλήθος παιδιών χωρίς μεταφορά
     If mskKidsWithoutTransfer.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskKidsWithoutTransfer.SetFocus
         Exit Function
     End If
     If CCur(mskKidsWithoutTransfer.text) > 9999 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskKidsWithoutTransfer.SetFocus
         Exit Function
@@ -3278,13 +3278,13 @@ Private Function ValidatePersonsAndAmounts()
     
     'Ποσό παιδιών χωρίς μεταφορά
     If mskKidsAmountWithoutTransfer.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskKidsAmountWithoutTransfer.SetFocus
         Exit Function
     End If
     If CCur(mskKidsAmountWithoutTransfer.text) > 99999 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskKidsAmountWithoutTransfer.SetFocus
         Exit Function
@@ -3292,7 +3292,7 @@ Private Function ValidatePersonsAndAmounts()
     
     'Ποσό παιδιών χωρίς μεταφορά > 0 και πλήθος παιδιών χωρίς μεταφορά = 0
     If CCur(mskKidsAmountWithoutTransfer.text) > 0 And Val(mskKidsWithoutTransfer.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskKidsWithoutTransfer.SetFocus
         Exit Function
@@ -3300,13 +3300,13 @@ Private Function ValidatePersonsAndAmounts()
     
     'Δωρεάν με μεταφορά
     If mskFreeWithTransfer.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskFreeWithTransfer.SetFocus
         Exit Function
     End If
     If CCur(mskFreeWithTransfer.text) > 9999 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskFreeWithTransfer.SetFocus
         Exit Function
@@ -3314,13 +3314,13 @@ Private Function ValidatePersonsAndAmounts()
     
     'Δωρεάν χωρίς μεταφορά
     If mskFreeWithoutTransfer.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskFreeWithoutTransfer.SetFocus
         Exit Function
     End If
     If CCur(mskFreeWithoutTransfer.text) > 9999 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskFreeWithoutTransfer.SetFocus
         Exit Function
@@ -3328,13 +3328,13 @@ Private Function ValidatePersonsAndAmounts()
     
     'Απευθείας χρέωση
     If mskDirectAmount.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskDirectAmount.SetFocus
         Exit Function
     End If
     If CCur(mskDirectAmount.text) > 99999 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         mskDirectAmount.SetFocus
         Exit Function
@@ -3348,10 +3348,10 @@ Private Sub chkAgreement_Click()
 
     If chkAgreement.Value = 0 Then
         'Τιμοκατάλογος. Δεν μπορώ να αλλάξω τις χρεώσεις
-        mskAdultsAmountWithTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithTransfer.text, 2), "#,##0.00")
-        mskKidsAmountWithTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithTransfer.text, 3), "#,##0.00")
-        mskAdultsAmountWithoutTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithoutTransfer.text, 4), "#,##0.00")
-        mskKidsAmountWithoutTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithoutTransfer.text, 5), "#,##0.00")
+        mskAdultsAmountWithTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithTransfer.text, 2), "#,##0.00")
+        mskKidsAmountWithTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithTransfer.text, 3), "#,##0.00")
+        mskAdultsAmountWithoutTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithoutTransfer.text, 4), "#,##0.00")
+        mskKidsAmountWithoutTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithoutTransfer.text, 5), "#,##0.00")
         'Υπολογίζω τα σύνολα
         AddAmounts
         'Απενεργοποιώ τα πεδία
@@ -3422,18 +3422,20 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 0
             'Παραστατικό - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "Codes", "CodeShortDescriptionA, CodeMasterRefersTo", "String, String", txtCodeShortDescriptionA.text, txtInvoiceMasterRefersTo.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 3, True, 8, 0, 3, 5, 6, 7, 8, 10, 11, "ID", "Συντ. Α'", "Περιγραφή", "Σειρά", "Χειρόγραφο", "Πελάτες", "Τελευταίο Νο", "Ημερομηνία", 0, 6, 40, 6, 10, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1)
-            txtInvoiceCodeID.text = tmpTableData.strCode
-            txtCodeShortDescriptionA.text = tmpTableData.strFirstField
-            lblCodeDescription.Caption = tmpTableData.strSecondField
-            lblCodeBatch.Caption = IIf(txtInvoiceCodeID.text <> "" And tmpTableData.strThirdField <> "", " ΣΕΙΡΑ " & tmpTableData.strThirdField, "")
-            chkCodeHandID.Value = IIf(tmpTableData.strFourthField = "1", 1, 0)
-            lblHand.Caption = IIf(tmpTableData.strFourthField = "1", "ΧΕΙΡΟΓΡΑΦΟ", "")
-            txtCodePersonsPlusOrMinus.text = tmpTableData.strFifthField
-            txtInvoiceNo.Locked = IIf(chkCodeHandID.Value = 1, False, True)
-            txtCodeLastNo.text = tmpTableData.strSixthField
-            txtCodeLastDate.text = Format(tmpTableData.strSeventhField, "dd/mm/yyyy")
-            If txtInvoiceCodeID.text <> "" And chkCodeHandID.Value = 0 Then txtInvoiceNo.text = txtCodeLastNo.text + 1
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 3, True, 8, 0, 3, 5, 6, 7, 8, 10, 11, "ID", "Συντ. Α'", "Περιγραφή", "Σειρά", "Χειρόγραφο", "Πελάτες", "Τελευταίο Νο", "Ημερομηνία", 0, 6, 40, 6, 10, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1)
+                txtInvoiceCodeID.text = tmpTableData.strCode
+                txtCodeShortDescriptionA.text = tmpTableData.strFirstField
+                lblCodeDescription.Caption = tmpTableData.strSecondField
+                lblCodeBatch.Caption = IIf(txtInvoiceCodeID.text <> "" And tmpTableData.strThirdField <> "", " ΣΕΙΡΑ " & tmpTableData.strThirdField, "")
+                chkCodeHandID.Value = IIf(tmpTableData.strFourthField = "1", 1, 0)
+                lblHand.Caption = IIf(tmpTableData.strFourthField = "1", "ΧΕΙΡΟΓΡΑΦΟ", "ΜΗΧΑΝΟΓΡΑΦΙΚΟ")
+                txtCodePersonsPlusOrMinus.text = tmpTableData.strFifthField
+                txtInvoiceNo.Locked = IIf(chkCodeHandID.Value = 1, False, True)
+                txtCodeLastNo.text = tmpTableData.strSixthField
+                txtCodeLastDate.text = format(tmpTableData.strSeventhField, "dd/mm/yyyy")
+                If txtInvoiceCodeID.text <> "" And chkCodeHandID.Value = 0 Then txtInvoiceNo.text = txtCodeLastNo.text + 1
+            End If
         Case 5
             'Παραστατικό - F5
             With TablesCodes
@@ -3445,9 +3447,11 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 1
             'Πελάτης - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "Customers", "Description", "String", txtCustomerDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 3, 0, 1, 7, "ID", "Επωνυμία", "Α.Φ.Μ.", 0, 40, 15, 1, 0, 1)
-            txtInvoicePersonID.text = tmpTableData.strCode
-            txtCustomerDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 3, 0, 1, 7, "ID", "Επωνυμία", "Α.Φ.Μ.", 0, 40, 15, 1, 0, 1)
+                txtInvoicePersonID.text = tmpTableData.strCode
+                txtCustomerDescription.text = tmpTableData.strFirstField
+            End If
         Case 6
             'Πελάτης - F5
             With persons
@@ -3457,9 +3461,11 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 2
             'Προορισμός - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "Destinations", "DestinationDescription, ShowInList", "String, Numeric", txtDestinationDescription.text, txtInvoiceSecondaryRefersTo.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 2, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtInvoiceOutDestinationID.text = tmpTableData.strCode
-            txtDestinationDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 2, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtInvoiceOutDestinationID.text = tmpTableData.strCode
+                txtDestinationDescription.text = tmpTableData.strFirstField
+            End If
         Case 7
             'Προορισμός - F5
             With TablesDestinations
@@ -3470,10 +3476,12 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 3
             'Πλοίο - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "Ships", "ShipDescription", "String", txtShipDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 3, 0, 1, 4, "ID", "Περιγραφή", "Νηολόγιο", 0, 40, 0, 1, 0, 0)
-            txtInvoiceOutShipID.text = tmpTableData.strCode
-            txtShipDescription.text = tmpTableData.strFirstField
-            txtShipRegistryNo.text = tmpTableData.strSecondField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 3, 0, 1, 4, "ID", "Περιγραφή", "Νηολόγιο", 0, 40, 0, 1, 0, 0)
+                txtInvoiceOutShipID.text = tmpTableData.strCode
+                txtShipDescription.text = tmpTableData.strFirstField
+                txtShipRegistryNo.text = tmpTableData.strSecondField
+            End If
         Case 8
             'Πλοίο - F5
             With TablesShips
@@ -3483,10 +3491,12 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 4
             'Όρος πληρωμής - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "PaymentTerms", "PaymentTermDescription", "String", txtPaymentTermDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 3, 0, 1, 2, "ID", "Περιγραφή", "Πίστωση", 0, 40, 0, 1, 0, 0)
-            txtInvoiceOutPaymentTermID.text = tmpTableData.strCode
-            txtPaymentTermDescription.text = tmpTableData.strFirstField
-            chkPaymentTermCreditID.Value = IIf(tmpTableData.strSecondField <> "", 1, 0)
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 3, 0, 1, 2, "ID", "Περιγραφή", "Πίστωση", 0, 40, 0, 1, 0, 0)
+                txtInvoiceOutPaymentTermID.text = tmpTableData.strCode
+                txtPaymentTermDescription.text = tmpTableData.strFirstField
+                chkPaymentTermCreditID.Value = IIf(tmpTableData.strSecondField <> "", 1, 0)
+            End If
         Case 9
             'Όρος πληρωμής - F5
             With TablesPaymentTerms
@@ -3636,7 +3646,7 @@ Private Sub mskAdultsWithoutTransfer_Validate(Cancel As Boolean)
 
     If Not blnCancel Then
         If chkAgreement.Value = 0 Then
-            mskAdultsAmountWithoutTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithoutTransfer.text, 4), "#,##0.00")
+            mskAdultsAmountWithoutTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithoutTransfer.text, 4), "#,##0.00")
         End If
         AddPersons
         AddAmounts
@@ -3648,7 +3658,7 @@ Private Sub mskAdultsWithTransfer_Validate(Cancel As Boolean)
 
     If Not blnCancel Then
         If chkAgreement.Value = 0 Then
-            mskAdultsAmountWithTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithTransfer.text, 2), "#,##0.00")
+            mskAdultsAmountWithTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithTransfer.text, 2), "#,##0.00")
         End If
         AddPersons
         AddAmounts
@@ -3660,10 +3670,10 @@ Private Sub mskDateIssue_Validate(Cancel As Boolean)
 
     If Not blnCancel Then
         If chkAgreement.Value = 0 Then
-            mskAdultsAmountWithTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithTransfer.text, 2), "#,##0.00")
-            mskKidsAmountWithTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithTransfer.text, 3), "#,##0.00")
-            mskAdultsAmountWithoutTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithoutTransfer.text, 4), "#,##0.00")
-            mskKidsAmountWithoutTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithoutTransfer.text, 5), "#,##0.00")
+            mskAdultsAmountWithTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithTransfer.text, 2), "#,##0.00")
+            mskKidsAmountWithTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithTransfer.text, 3), "#,##0.00")
+            mskAdultsAmountWithoutTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithoutTransfer.text, 4), "#,##0.00")
+            mskKidsAmountWithoutTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithoutTransfer.text, 5), "#,##0.00")
             AddAmounts
         End If
     End If
@@ -3701,7 +3711,7 @@ Private Sub mskKidsWithoutTransfer_Validate(Cancel As Boolean)
 
     If Not blnCancel Then
         If chkAgreement.Value = 0 Then
-            mskKidsAmountWithoutTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithoutTransfer.text, 5), "#,##0.00")
+            mskKidsAmountWithoutTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithoutTransfer.text, 5), "#,##0.00")
         End If
         AddPersons
         AddAmounts
@@ -3713,7 +3723,7 @@ Private Sub mskKidsWithTransfer_Validate(Cancel As Boolean)
 
     If Not blnCancel Then
         If chkAgreement.Value = 0 Then
-            mskKidsAmountWithTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithTransfer.text, 3), "#,##0.00")
+            mskKidsAmountWithTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithTransfer.text, 3), "#,##0.00")
         End If
         AddPersons
         AddAmounts
@@ -3800,10 +3810,10 @@ Private Sub txtCustomerDescription_KeyDown(KeyCode As Integer, Shift As Integer)
     
     If Not blnCancel Then
         If chkAgreement.Value = 0 Then
-            mskAdultsAmountWithTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithTransfer.text, 2), "#,##0.00")
-            mskKidsAmountWithTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithTransfer.text, 3), "#,##0.00")
-            mskAdultsAmountWithoutTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithoutTransfer.text, 4), "#,##0.00")
-            mskKidsAmountWithoutTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithoutTransfer.text, 5), "#,##0.00")
+            mskAdultsAmountWithTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithTransfer.text, 2), "#,##0.00")
+            mskKidsAmountWithTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithTransfer.text, 3), "#,##0.00")
+            mskAdultsAmountWithoutTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithoutTransfer.text, 4), "#,##0.00")
+            mskKidsAmountWithoutTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithoutTransfer.text, 5), "#,##0.00")
             AddAmounts
         End If
     End If
@@ -3816,10 +3826,10 @@ Private Sub txtCustomerDescription_Validate(Cancel As Boolean)
     
     If Not blnCancel Then
         If chkAgreement.Value = 0 Then
-            mskAdultsAmountWithTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithTransfer.text, 2), "#,##0.00")
-            mskKidsAmountWithTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithTransfer.text, 3), "#,##0.00")
-            mskAdultsAmountWithoutTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithoutTransfer.text, 4), "#,##0.00")
-            mskKidsAmountWithoutTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithoutTransfer.text, 5), "#,##0.00")
+            mskAdultsAmountWithTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithTransfer.text, 2), "#,##0.00")
+            mskKidsAmountWithTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithTransfer.text, 3), "#,##0.00")
+            mskAdultsAmountWithoutTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithoutTransfer.text, 4), "#,##0.00")
+            mskKidsAmountWithoutTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithoutTransfer.text, 5), "#,##0.00")
             AddAmounts
         End If
     End If
@@ -3841,10 +3851,10 @@ Private Sub txtDestinationDescription_KeyDown(KeyCode As Integer, Shift As Integ
     
     If Not blnCancel Then
         If chkAgreement.Value = 0 Then
-            mskAdultsAmountWithTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithTransfer.text, 2), "#,##0.00")
-            mskKidsAmountWithTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithTransfer.text, 3), "#,##0.00")
-            mskAdultsAmountWithoutTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithoutTransfer.text, 4), "#,##0.00")
-            mskKidsAmountWithoutTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithoutTransfer.text, 5), "#,##0.00")
+            mskAdultsAmountWithTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithTransfer.text, 2), "#,##0.00")
+            mskKidsAmountWithTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithTransfer.text, 3), "#,##0.00")
+            mskAdultsAmountWithoutTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithoutTransfer.text, 4), "#,##0.00")
+            mskKidsAmountWithoutTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithoutTransfer.text, 5), "#,##0.00")
             AddAmounts
         End If
     End If
@@ -3857,10 +3867,10 @@ Private Sub txtDestinationDescription_Validate(Cancel As Boolean)
     
     If Not blnCancel Then
         If chkAgreement.Value = 0 Then
-            mskAdultsAmountWithTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithTransfer.text, 2), "#,##0.00")
-            mskKidsAmountWithTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithTransfer.text, 3), "#,##0.00")
-            mskAdultsAmountWithoutTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithoutTransfer.text, 4), "#,##0.00")
-            mskKidsAmountWithoutTransfer.text = Format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithoutTransfer.text, 5), "#,##0.00")
+            mskAdultsAmountWithTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithTransfer.text, 2), "#,##0.00")
+            mskKidsAmountWithTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithTransfer.text, 3), "#,##0.00")
+            mskAdultsAmountWithoutTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskAdultsWithoutTransfer.text, 4), "#,##0.00")
+            mskKidsAmountWithoutTransfer.text = format(CalculateExcursionCharges(txtInvoicePersonID.text, txtInvoiceOutDestinationID.text, mskDateIssue.text, mskKidsWithoutTransfer.text, 5), "#,##0.00")
             AddAmounts
         End If
     End If
@@ -3897,7 +3907,7 @@ Public Function ProcessSelectedInvoicesForPrinting(strInvoiceTrnID, arrInvoicesT
     
     For intLoop = 0 To UBound(arrInvoicesTrnID)
         Set rstRecordset = SeekRecord(arrInvoicesTrnID(intLoop))
-        If rstRecordset.RecordCount = 0 Then MyMsgBox 4, strAppTitle, strStandardMessages(9), 1: Exit Function
+        If rstRecordset.RecordCount = 0 Then MyMsgBox 4, strApplicationName, strStandardMessages(9), 1: Exit Function
         ClearInvoiceFields
         UpdateInvoiceFieldsWithData rstRecordset
         PrintThisInvoice blnPreviewInvoices, False, rstRecordset!InvoiceNo 'False = Do not preview, True = Create PDF instead of print

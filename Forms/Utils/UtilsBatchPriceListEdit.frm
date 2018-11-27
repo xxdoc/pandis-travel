@@ -592,7 +592,7 @@ Private Function DeleteRecord()
     lngRow = grdBatchPriceEdit.CurRow
     
     'Διαγραφή εγγραφής
-    If MainDeleteRecord("CommonDB", "Prices", strAppTitle, "ID", lngID, "True") Then
+    If MainDeleteRecord("CommonDB", "Prices", strApplicationName, "ID", lngID, "True") Then
         With grdBatchPriceEdit
             'Διαγραφή γραμμής
             .RemoveRow (lngRow)
@@ -609,7 +609,7 @@ Private Function DeleteRecord()
                 'Redraw
                 grdBatchPriceEdit.Redraw = True
                 'Μήνυμα
-                If MyMsgBox(4, strAppTitle, strStandardMessages(7), 1) Then
+                If MyMsgBox(4, strApplicationName, strStandardMessages(7), 1) Then
                 End If
                 'Πεδία
                 EnableFields txtYear
@@ -631,19 +631,19 @@ Private Function ValidateFields()
     
     'Ετος
     If Len(txtYear.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtYear.SetFocus
         Exit Function
     End If
     If Len(txtYear.text) <> 4 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         txtYear.SetFocus
         Exit Function
     End If
     If Not IsNumeric(txtYear.text) Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         txtYear.SetFocus
         Exit Function
@@ -781,7 +781,7 @@ Private Function RefreshList()
     If rstRecordset.RecordCount = 0 Then blnErrors = False: RefreshList = False: Exit Function
     
     'Προετοιμάζω τη μπάρα προόδου
-    InitializeProgressBar Me, strAppTitle, rstRecordset
+    InitializeProgressBar Me, strApplicationName, rstRecordset
     
     'Γεμίζω το πλέγμα
     With rstRecordset
@@ -840,9 +840,11 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 0
             'Πελάτης
             Set tmpRecordset = CheckForMatch("CommonDB", "Customers", "CustomerDescription", "String", txtCustomerDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Επωνυμία", 0, 40, 1, 0)
-            txtCustomerID.text = tmpTableData.strCode
-            txtCustomerDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Επωνυμία", 0, 40, 1, 0)
+                txtCustomerID.text = tmpTableData.strCode
+                txtCustomerDescription.text = tmpTableData.strFirstField
+            End If
     End Select
 
 End Sub
@@ -851,7 +853,7 @@ Private Sub Form_Activate()
                 
     If Me.Tag = "True" Then
         Me.Tag = "False"
-        AddColumnsToGrid grdBatchPriceEdit, 44, GetSetting(strAppTitle, "Layout Strings", "grdBatchPriceEdit"), _
+        AddColumnsToGrid grdBatchPriceEdit, 44, GetSetting(strApplicationName, "Layout Strings", "grdBatchPriceEdit"), _
         "05NCIPriceID,05NCICustomerID,05NCIDestinationID,40NLNCustomerDescription,40NLNDestinationDescription,10NRFPriceFrom,10NRFPriceTo,10NRFXPriceAdultWithTransfer,10NRFXPriceKidWithTransfer,10NRFXPriceAdultWithoutTransfer,10NRFXPriceKidWithoutTransfer,05ShowInList", _
         "ID,CustomerID,DestinationID,Πελάτης,Προορισμός,Από,Εως,Ενήλικες με μεταφορά,Παιδιά με μεταφορά,Ενήλικες χωρίς μεταφορά,Παιδιά χωρίς μεταφορά,Αφορά"
         Me.Refresh
@@ -875,17 +877,17 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
 
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     Select Case KeyCode
-        Case vbKeyF10 And cmdButton(0).Enabled, vbKeyC And CtrlDown And cmdButton(0).Enabled
+        Case vbKeyF10 And cmdButton(0).Enabled, vbKeyC And CtrlDown = 4 And cmdButton(0).Enabled
             cmdButton_Click 0
-        Case vbKeyF3 And cmdButton(1).Enabled, vbKeyD And CtrlDown And cmdButton(1).Enabled
+        Case vbKeyF3 And cmdButton(1).Enabled, vbKeyD And CtrlDown = 4 And cmdButton(1).Enabled
             cmdButton_Click 1
         Case vbKeyEscape
             If cmdButton(2).Enabled Then cmdButton_Click 2: Exit Function
             If cmdButton(3).Enabled Then cmdButton_Click 3
-        Case vbKeyF12 And CtrlDown
+        Case vbKeyF12 And CtrlDown = 4
             ToggleInfoPanel Me
     End Select
 
@@ -910,7 +912,7 @@ Private Sub grdBatchPriceEdit_AfterCommitEdit(ByVal lRow As Long, ByVal lCol As 
     lngRow = grdBatchPriceEdit.CurRow
     
     With grdBatchPriceEdit
-        .CellValue(lngRow, "PriceID") = MainSaveRecord("CommonDB", "Prices", False, strAppTitle, "ID", _
+        .CellValue(lngRow, "PriceID") = MainSaveRecord("CommonDB", "Prices", False, strApplicationName, "ID", _
         .CellValue(lngRow, "PriceID"), _
         .CellValue(lngRow, "CustomerID"), _
         .CellValue(lngRow, "DestinationID"), _
@@ -965,7 +967,7 @@ Private Sub grdBatchPriceEdit_CurCellChange(ByVal lRow As Long, ByVal lCol As Lo
     Dim lngColCount As Long
     Dim lngRowCount As Long
     
-    lngColCount = grdBatchPriceEdit.ColCount
+    lngColCount = grdBatchPriceEdit.colCount
     lngRowCount = grdBatchPriceEdit.RowCount
     
     If grdBatchPriceEdit.RowCount = 0 Then Exit Sub
@@ -988,7 +990,7 @@ Private Sub grdBatchPriceEdit_CurCellChange(ByVal lRow As Long, ByVal lCol As Lo
         
 End Sub
 
-Private Sub grdBatchPriceEdit_HeaderRightClick(ByVal lCol As Long, ByVal Shift As Integer, ByVal x As Long, ByVal y As Long)
+Private Sub grdBatchPriceEdit_HeaderRightClick(ByVal lCol As Long, ByVal Shift As Integer, ByVal X As Long, ByVal Y As Long)
 
     PopupMenu mnuHdrPopUp
 
@@ -1003,7 +1005,7 @@ End Sub
 
 Private Sub mnuΑποθήκευσηΠλάτουςΣτηλών_Click()
 
-    SaveSetting strAppTitle, "Layout Strings", "grdBatchPriceEdit", grdBatchPriceEdit.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", "grdBatchPriceEdit", grdBatchPriceEdit.LayoutCol
 
 End Sub
 
@@ -1016,7 +1018,7 @@ Private Function SaveRecords()
     Dim lngID As Long
     
     'Προετοιμάζω τη μπάρα προόδου
-    InitializeProgressBar Me, strAppTitle, grdBatchPriceEdit.RowCount
+    InitializeProgressBar Me, strApplicationName, grdBatchPriceEdit.RowCount
     
     'Πλέγμα
     With grdBatchPriceEdit
@@ -1024,7 +1026,7 @@ Private Function SaveRecords()
             'Πρόοδος
             UpdateProgressBar Me
             'Αποθηκεύω
-            lngID = MainSaveRecord("CommonDB", "Prices", False, strAppTitle, "ID", .CellValue(lngRow, "ID"), .CellValue(lngRow, "Description"), .CellValue(lngRow, "Profession"), .CellValue(lngRow, "Address"), .CellValue(lngRow, "TaxNo"), .CellValue(lngRow, "TaxOfficeDescription"), .CellValue(lngRow, "VATStateID"), .CellValue(lngRow, "AccountCode"), .CellValue(lngRow, "PersonInCharge"), .CellValue(lngRow, "Phones"), 1, strCurrentUser)
+            lngID = MainSaveRecord("CommonDB", "Prices", False, strApplicationName, "ID", .CellValue(lngRow, "ID"), .CellValue(lngRow, "Description"), .CellValue(lngRow, "Profession"), .CellValue(lngRow, "Address"), .CellValue(lngRow, "TaxNo"), .CellValue(lngRow, "TaxOfficeDescription"), .CellValue(lngRow, "VATStateID"), .CellValue(lngRow, "AccountCode"), .CellValue(lngRow, "PersonInCharge"), .CellValue(lngRow, "Phones"), 1, strCurrentUser)
         Next lngRow
     End With
     
@@ -1032,7 +1034,7 @@ Private Function SaveRecords()
     frmProgress.Visible = False
     
     'Μήνυμα ολοκλήρωσης
-    If MyMsgBox(1, strAppTitle, strStandardMessages(8), 1) Then
+    If MyMsgBox(1, strApplicationName, strStandardMessages(8), 1) Then
     End If
     
     'Καθαρισμός
@@ -1042,7 +1044,7 @@ Private Function SaveRecords()
     Exit Function
     
 ErrTrap:
-    If MyMsgBox(4, strAppTitle, strStandardMessages(20), 1) Then
+    If MyMsgBox(4, strApplicationName, strStandardMessages(20), 1) Then
     End If
     'Πρόοδος
     frmProgress.Visible = False

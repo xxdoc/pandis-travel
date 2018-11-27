@@ -25,14 +25,14 @@ Begin VB.Form InvoicesIn
       BorderStyle     =   0  'None
       Height          =   690
       Left            =   450
-      TabIndex        =   61
+      TabIndex        =   59
       Top             =   8100
       Width           =   8940
       Begin Dacara_dcButton.dcButton cmdButton 
          Height          =   690
          Index           =   0
          Left            =   225
-         TabIndex        =   62
+         TabIndex        =   60
          TabStop         =   0   'False
          Top             =   0
          Width           =   1365
@@ -57,7 +57,7 @@ Begin VB.Form InvoicesIn
          Height          =   690
          Index           =   5
          Left            =   7350
-         TabIndex        =   63
+         TabIndex        =   61
          TabStop         =   0   'False
          Top             =   0
          Width           =   1365
@@ -82,7 +82,7 @@ Begin VB.Form InvoicesIn
          Height          =   690
          Index           =   1
          Left            =   1650
-         TabIndex        =   64
+         TabIndex        =   62
          TabStop         =   0   'False
          Top             =   0
          Width           =   1365
@@ -107,7 +107,7 @@ Begin VB.Form InvoicesIn
          Height          =   690
          Index           =   2
          Left            =   3075
-         TabIndex        =   65
+         TabIndex        =   63
          TabStop         =   0   'False
          Top             =   0
          Width           =   1365
@@ -132,7 +132,7 @@ Begin VB.Form InvoicesIn
          Height          =   690
          Index           =   3
          Left            =   4500
-         TabIndex        =   66
+         TabIndex        =   64
          TabStop         =   0   'False
          Top             =   0
          Width           =   1365
@@ -157,7 +157,7 @@ Begin VB.Form InvoicesIn
          Height          =   690
          Index           =   4
          Left            =   5925
-         TabIndex        =   67
+         TabIndex        =   65
          TabStop         =   0   'False
          Top             =   0
          Width           =   1365
@@ -261,7 +261,7 @@ Begin VB.Form InvoicesIn
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   75
-         TabIndex        =   60
+         TabIndex        =   58
          TabStop         =   0   'False
          Text            =   "Codes.CodeHandID"
          Top             =   4575
@@ -283,7 +283,7 @@ Begin VB.Form InvoicesIn
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   75
-         TabIndex        =   59
+         TabIndex        =   57
          TabStop         =   0   'False
          Text            =   "Codes.CodeLastDate"
          Top             =   3825
@@ -305,7 +305,7 @@ Begin VB.Form InvoicesIn
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   75
-         TabIndex        =   58
+         TabIndex        =   56
          TabStop         =   0   'False
          Text            =   "Codes.CodeLastNo"
          Top             =   3450
@@ -327,7 +327,7 @@ Begin VB.Form InvoicesIn
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   75
-         TabIndex        =   57
+         TabIndex        =   55
          TabStop         =   0   'False
          Text            =   "Codes.CodeSuppliers"
          Top             =   4200
@@ -349,7 +349,7 @@ Begin VB.Form InvoicesIn
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   3675
-         TabIndex        =   56
+         TabIndex        =   54
          TabStop         =   0   'False
          Top             =   4200
          Width           =   780
@@ -370,7 +370,7 @@ Begin VB.Form InvoicesIn
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   3675
-         TabIndex        =   55
+         TabIndex        =   53
          TabStop         =   0   'False
          Top             =   3450
          Width           =   780
@@ -391,7 +391,7 @@ Begin VB.Form InvoicesIn
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   3675
-         TabIndex        =   54
+         TabIndex        =   52
          TabStop         =   0   'False
          Top             =   3825
          Width           =   780
@@ -411,7 +411,7 @@ Begin VB.Form InvoicesIn
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   3675
-         TabIndex        =   53
+         TabIndex        =   51
          TabStop         =   0   'False
          Top             =   4575
          Width           =   780
@@ -432,7 +432,7 @@ Begin VB.Form InvoicesIn
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   3675
-         TabIndex        =   52
+         TabIndex        =   50
          TabStop         =   0   'False
          Top             =   1950
          Width           =   780
@@ -453,7 +453,7 @@ Begin VB.Form InvoicesIn
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   75
-         TabIndex        =   51
+         TabIndex        =   49
          TabStop         =   0   'False
          Text            =   "Invoices.InvoicePersonID"
          Top             =   1950
@@ -475,7 +475,7 @@ Begin VB.Form InvoicesIn
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   75
-         TabIndex        =   50
+         TabIndex        =   48
          TabStop         =   0   'False
          Text            =   "Invoices.InvoiceCodeID"
          Top             =   1575
@@ -497,7 +497,7 @@ Begin VB.Form InvoicesIn
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   75
-         TabIndex        =   49
+         TabIndex        =   47
          TabStop         =   0   'False
          Text            =   "Invoices.InvoiceID"
          Top             =   825
@@ -519,7 +519,7 @@ Begin VB.Form InvoicesIn
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   3675
-         TabIndex        =   48
+         TabIndex        =   46
          TabStop         =   0   'False
          Top             =   825
          Width           =   780
@@ -540,7 +540,7 @@ Begin VB.Form InvoicesIn
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   3675
-         TabIndex        =   47
+         TabIndex        =   45
          TabStop         =   0   'False
          Top             =   1575
          Width           =   780
@@ -561,7 +561,7 @@ Begin VB.Form InvoicesIn
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   3675
-         TabIndex        =   46
+         TabIndex        =   44
          TabStop         =   0   'False
          Top             =   2325
          Width           =   780
@@ -582,7 +582,7 @@ Begin VB.Form InvoicesIn
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   75
-         TabIndex        =   45
+         TabIndex        =   43
          TabStop         =   0   'False
          Text            =   "Invoices.InvoiceDateIn"
          Top             =   2325
@@ -604,7 +604,7 @@ Begin VB.Form InvoicesIn
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   3675
-         TabIndex        =   44
+         TabIndex        =   42
          TabStop         =   0   'False
          Top             =   1200
          Width           =   780
@@ -625,7 +625,7 @@ Begin VB.Form InvoicesIn
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   75
-         TabIndex        =   43
+         TabIndex        =   41
          TabStop         =   0   'False
          Text            =   "Invoices.InvoiceTrnID"
          Top             =   1200
@@ -647,7 +647,7 @@ Begin VB.Form InvoicesIn
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   75
-         TabIndex        =   42
+         TabIndex        =   40
          TabStop         =   0   'False
          Text            =   "InvoicesIn.InvoiceInPaymentTermID"
          Top             =   3075
@@ -669,7 +669,7 @@ Begin VB.Form InvoicesIn
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   3675
-         TabIndex        =   41
+         TabIndex        =   39
          TabStop         =   0   'False
          Text            =   "7"
          Top             =   3075
@@ -691,7 +691,7 @@ Begin VB.Form InvoicesIn
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   75
-         TabIndex        =   40
+         TabIndex        =   38
          TabStop         =   0   'False
          Text            =   "InvoicesIn.InvoiceInExpenseCategoryID"
          Top             =   2700
@@ -713,7 +713,7 @@ Begin VB.Form InvoicesIn
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   3675
-         TabIndex        =   39
+         TabIndex        =   37
          TabStop         =   0   'False
          Text            =   "7"
          Top             =   2700
@@ -1271,6 +1271,7 @@ Begin VB.Form InvoicesIn
       EndProperty
    End
    Begin VB.Label lblCodeDescription 
+      AutoSize        =   -1  'True
       BackColor       =   &H00E0E0E0&
       BackStyle       =   0  'Transparent
       Caption         =   "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -1284,51 +1285,11 @@ Begin VB.Form InvoicesIn
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00800080&
-      Height          =   315
+      Height          =   255
       Left            =   3825
-      TabIndex        =   38
-      Top             =   1725
-      Width           =   4215
-   End
-   Begin VB.Label lblCodeBatch 
-      BackColor       =   &H00E0E0E0&
-      BackStyle       =   0  'Transparent
-      Caption         =   "ΣΕΙΡΑ Ω"
-      BeginProperty Font 
-         Name            =   "Ubuntu Condensed"
-         Size            =   9.75
-         Charset         =   161
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00800080&
-      Height          =   315
-      Left            =   8100
-      TabIndex        =   37
-      Top             =   1725
-      Width           =   615
-   End
-   Begin VB.Label lblCodeHand 
-      BackColor       =   &H00E0E0E0&
-      BackStyle       =   0  'Transparent
-      Caption         =   "ΧΕΙΡΟΓΡΑΦΟ"
-      BeginProperty Font 
-         Name            =   "Ubuntu Condensed"
-         Size            =   9.75
-         Charset         =   161
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00800080&
-      Height          =   315
-      Left            =   8775
       TabIndex        =   36
       Top             =   1725
-      Width           =   990
+      Width           =   4200
    End
    Begin VB.Label lblLabel 
       Alignment       =   2  'Center
@@ -1562,7 +1523,7 @@ Begin VB.Form InvoicesIn
    End
    Begin VB.Label lblLabel 
       BackColor       =   &H000080FF&
-      Caption         =   "Προμηθευτής"
+      Caption         =   "Συναλλασόμενος"
       BeginProperty Font 
          Name            =   "Ubuntu Condensed"
          Size            =   9.75
@@ -1641,7 +1602,7 @@ Private Function DeleteExpensesPerVAT()
     
     With grdInvoicesIn
         For lngRow = 1 To .RowCount
-             If Not MainDeleteRecord("CommonDB", "ExpensesPerVAT", strAppTitle, "ExpensePerVATID", .CellValue(lngRow, "ID"), False) Then
+             If Not MainDeleteRecord("CommonDB", "ExpensesPerVAT", strApplicationName, "ExpensePerVATID", .CellValue(lngRow, "ID"), False) Then
                 IsError = True
                 Exit For
              End If
@@ -1668,9 +1629,9 @@ Private Function DisplayTotals()
         curTotalGross = curTotalGross + grdInvoicesIn.CellValue(lngRow, 6)
     Next lngRow
     
-    mskTotalNet.text = Format(curTotalNet, "#,##0.00")
-    mskTotalVAT.text = Format(curTotalVAT, "#,##0.00")
-    mskTotalGross.text = Format(curTotalGross, "#,##0.00")
+    mskTotalNet.text = format(curTotalNet, "#,##0.00")
+    mskTotalVAT.text = format(curTotalVAT, "#,##0.00")
+    mskTotalGross.text = format(curTotalGross, "#,##0.00")
     
     Exit Function
     
@@ -1715,10 +1676,10 @@ Private Function AbortProcedure(blnStatus)
     End If
     
     If Not blnStatus Then
-        If MyMsgBox(3, strAppTitle, strStandardMessages(3), 2) Then
+        If MyMsgBox(3, strApplicationName, strStandardMessages(3), 2) Then
             blnStatus = False
             ClearFields txtInvoiceID, txtInvoiceTrnID, txtInvoiceCodeID, txtInvoicePersonID, txtInvoiceDateIn, txtCodeLastNo, txtCodeLastDate, txtCodePersonsPlusOrMinus, chkCodeHandID
-            ClearFields lblCodeDescription, lblCodeBatch, lblCodeHand
+            ClearFields lblCodeDescription
             ClearFields mskDateIssue, txtExpenseDescription, txtSupplierDescription, txtCodeShortDescriptionA, txtInvoiceNo, txtPaymentTermDescription
             ClearFields grdInvoicesIn
             ClearFields mskTotalNet, mskTotalVAT, mskTotalGross
@@ -1748,7 +1709,7 @@ Private Function DeleteRecord()
     If Not IsError Then
         CommitTrans
         ClearFields txtInvoiceID, txtInvoiceTrnID, txtInvoiceCodeID, txtInvoicePersonID, txtInvoiceDateIn, txtCodeLastNo, txtCodeLastDate, txtCodePersonsPlusOrMinus, chkCodeHandID
-        ClearFields lblCodeDescription, lblCodeBatch, lblCodeHand
+        ClearFields lblCodeDescription
         ClearFields mskDateIssue, txtExpenseDescription, txtSupplierDescription, txtCodeShortDescriptionA, txtInvoiceNo, txtPaymentTermDescription
         ClearFields mskTotalNet, mskTotalVAT, mskTotalGross
         ClearFields grdInvoicesIn
@@ -1858,9 +1819,9 @@ Private Function InitializeGridWithZeroValues()
         grdInvoicesIn.CellValue(lngRow, 6) = 0
     Next lngRow
     
-    mskTotalNet.text = Format(curTotalNet, "#,##0.00")
-    mskTotalVAT.text = Format(curTotalVAT, "#,##0.00")
-    mskTotalGross.text = Format(curTotalGross, "#,##0.00")
+    mskTotalNet.text = format(curTotalNet, "#,##0.00")
+    mskTotalVAT.text = format(curTotalVAT, "#,##0.00")
+    mskTotalGross.text = format(curTotalGross, "#,##0.00")
 
 End Function
 
@@ -1872,7 +1833,7 @@ Private Function NewRecord()
     blnCancel = False
     
     ClearFields txtInvoiceID, txtInvoiceTrnID, txtInvoiceCodeID, txtInvoicePersonID, txtInvoiceDateIn, txtCodeLastNo, txtCodeLastDate, txtCodePersonsPlusOrMinus, chkCodeHandID
-    ClearFields lblCodeDescription, lblCodeBatch, lblCodeHand
+    ClearFields lblCodeDescription
     ClearFields mskDateIssue, txtExpenseDescription, txtSupplierDescription, txtCodeShortDescriptionA, txtInvoiceNo, txtPaymentTermDescription
     ClearFields grdInvoicesIn
     ClearFields mskTotalNet, mskTotalVAT, mskTotalGross
@@ -2081,7 +2042,7 @@ Private Function RefreshListWithVATPercents()
     If rstRecordset.RecordCount = 0 Then Exit Function
     
     'Προετοιμάζω τη μπάρα προόδου
-    InitializeProgressBar Me, strAppTitle, rstRecordset
+    InitializeProgressBar Me, strApplicationName, rstRecordset
     
     'Γεμίζω το πλέγμα
     With rstRecordset
@@ -2117,7 +2078,7 @@ Private Function SaveExpensesPerVAT()
     
     With grdInvoicesIn
         For lngRow = 1 To .RowCount
-            If MainSaveRecord("CommonDB", "ExpensesPerVAT", blnStatus, strAppTitle, "ExpensePerVATID", .CellValue(lngRow, "ID"), txtInvoiceTrnID.text, grdInvoicesIn.CellValue(lngRow, "VATPercentID"), grdInvoicesIn.CellValue(lngRow, "Net"), grdInvoicesIn.CellValue(lngRow, "Tax"), grdInvoicesIn.CellValue(lngRow, "Gross")) <> 0 Then
+            If MainSaveRecord("CommonDB", "ExpensesPerVAT", blnStatus, strApplicationName, "ExpensePerVATID", .CellValue(lngRow, "ID"), txtInvoiceTrnID.text, grdInvoicesIn.CellValue(lngRow, "VATPercentID"), grdInvoicesIn.CellValue(lngRow, "Net"), grdInvoicesIn.CellValue(lngRow, "Tax"), grdInvoicesIn.CellValue(lngRow, "Gross")) <> 0 Then
                 IsError = False
             Else
                 IsError = True
@@ -2134,7 +2095,7 @@ Private Function SaveInvoice()
 
     If blnStatus Then txtInvoiceTrnID.text = AddOneToTheLastRecord("Invoices")
 
-    If MainSaveRecord("CommonDB", "Invoices", blnStatus, strAppTitle, "InvoiceID", txtInvoiceID.text, txtInvoiceTrnID.text, txtInvoiceMasterRefersTo.text, txtInvoiceSecondaryRefersTo.text, mskDateIssue.text, txtInvoiceDateIn.text, txtInvoiceCodeID.text, txtInvoiceNo.text, txtInvoicePersonID.text, strCurrentUser) <> 0 Then
+    If MainSaveRecord("CommonDB", "Invoices", blnStatus, strApplicationName, "InvoiceID", txtInvoiceID.text, txtInvoiceTrnID.text, txtInvoiceMasterRefersTo.text, txtInvoiceSecondaryRefersTo.text, mskDateIssue.text, txtInvoiceDateIn.text, txtInvoiceCodeID.text, txtInvoiceNo.text, txtInvoicePersonID.text, strCurrentUser) <> 0 Then
         IsError = False
     Else
         IsError = True
@@ -2146,7 +2107,7 @@ Private Function SaveInvoiceIn()
 
     If IsError Then Exit Function
     
-    If MainSaveRecord("CommonDB", "InvoicesIn", blnStatus, strAppTitle, "InvoiceInTrnID", txtInvoiceTrnID.text, txtInvoiceTrnID.text, _
+    If MainSaveRecord("CommonDB", "InvoicesIn", blnStatus, strApplicationName, "InvoiceInTrnID", txtInvoiceTrnID.text, txtInvoiceTrnID.text, _
         txtInvoiceInExpenseCategoryID.text, _
         txtInvoiceInPaymentTermID.text, _
         mskTotalGross.text) <> 0 Then
@@ -2172,7 +2133,7 @@ Private Function SaveRecord()
     If Not IsError Then
         CommitTrans
         ClearFields txtInvoiceID, txtInvoiceTrnID, txtInvoiceCodeID, txtInvoicePersonID, txtInvoiceDateIn, txtCodeLastNo, txtCodeLastDate, txtCodePersonsPlusOrMinus, chkCodeHandID
-        ClearFields lblCodeDescription, lblCodeBatch, lblCodeHand
+        ClearFields lblCodeDescription
         ClearFields mskDateIssue, txtExpenseDescription, txtSupplierDescription, txtCodeShortDescriptionA, txtInvoiceNo, txtPaymentTermDescription
         ClearFields mskTotalNet, mskTotalVAT, mskTotalGross
         ClearFields grdInvoicesIn
@@ -2190,14 +2151,14 @@ Private Function ValidateFields()
     ValidateFields = False
     
     'Ημερομηνία
-    If Not CheckDate(mskDateIssue.text, strAppTitle) Then
+    If Not CheckDate(mskDateIssue.text, strApplicationName) Then
         mskDateIssue.SetFocus
         Exit Function
     End If
     
     'Καταχώρηση σε ημερομηνία μεγαλύτερη από σήμερα
     If CDate(mskDateIssue.text) > Date Then
-        If MyMsgBox(4, strAppTitle, strAppMessages(5), 1) Then
+        If MyMsgBox(4, strApplicationName, strAppMessages(5), 1) Then
         End If
         mskDateIssue.SetFocus
         Exit Function
@@ -2205,7 +2166,7 @@ Private Function ValidateFields()
     
     'Μήκος ημερομηνίας
     If Len(mskDateIssue.text) <> 10 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskDateIssue.SetFocus
         Exit Function
@@ -2213,7 +2174,7 @@ Private Function ValidateFields()
     
     'Στοιχείο
     If Len(txtInvoiceCodeID.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtCodeShortDescriptionA.SetFocus
         Exit Function
@@ -2221,7 +2182,7 @@ Private Function ValidateFields()
     
     'Νο παραστατικού
     If txtInvoiceNo.text = "" Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtInvoiceNo.SetFocus
         Exit Function
@@ -2229,7 +2190,7 @@ Private Function ValidateFields()
     
     'Νο παραστατικού = αριθμός
     If Not IsNumeric(txtInvoiceNo.text) Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         txtInvoiceNo.SetFocus
         Exit Function
@@ -2237,7 +2198,7 @@ Private Function ValidateFields()
     
     'Στοιχείο ήδη καταχωρημένο: Ελέγχω αν το νούμερο του στοιχείου υπάρχει ήδη στην χρήση
     'If CheckForDuplicateInvoice(mskDateIssue.text, txtSupplierID.text, txtCodeID.text, txtInvoiceNo.text) Then
-    '    If MyMsgBox(4, strAppTitle, strStandardMessages(22), 1) Then
+    '    If MyMsgBox(4, strApplicationName, strStandardMessages(22), 1) Then
     '    End If
     '    txtSupplierDescription.SetFocus
     '    Exit Function
@@ -2245,7 +2206,7 @@ Private Function ValidateFields()
     
     'Προμηθευτής
     If Len(txtInvoicePersonID.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtSupplierDescription.SetFocus
         Exit Function
@@ -2253,7 +2214,7 @@ Private Function ValidateFields()
     
     'Όρος πληρωμής
     If Len(txtInvoiceInPaymentTermID.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtPaymentTermDescription.SetFocus
         Exit Function
@@ -2302,9 +2263,11 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 0
             'Κατηγορία εξόδου - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "ExpensesCategories", "ExpenseCategoryDescription", "String", txtExpenseDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtInvoiceInExpenseCategoryID.text = tmpTableData.strCode
-            txtExpenseDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtInvoiceInExpenseCategoryID.text = tmpTableData.strCode
+                txtExpenseDescription.text = tmpTableData.strFirstField
+            End If
         Case 1
             'Κατηγορία εξόδου - F5
             With TablesExpenseCategories
@@ -2314,9 +2277,11 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 2
             'Προμηθευτής - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "Suppliers", "Description", "String", txtSupplierDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtInvoicePersonID.text = tmpTableData.strCode
-            txtSupplierDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtInvoicePersonID.text = tmpTableData.strCode
+                txtSupplierDescription.text = tmpTableData.strFirstField
+            End If
         Case 3
             'Προμηθευτής - F5
             With persons
@@ -2328,11 +2293,12 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 4
             'Παραστατικό - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "Codes", "CodeShortDescriptionA, CodeMasterRefersTo", "String, String", txtCodeShortDescriptionA.text, txtInvoiceMasterRefersTo.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 3, True, 8, 0, 3, 5, 6, 7, 9, 10, 11, "ID", "Συντ. Α'", "Περιγραφή", "Σειρά", "Χειρόγραφο", "Προμηθευτές", "Τελευταίο Νο", "Ημερομηνία", 0, 6, 40, 6, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1)
-            txtInvoiceCodeID.text = tmpTableData.strCode
-            txtCodeShortDescriptionA.text = tmpTableData.strFirstField
-            lblCodeDescription.Caption = tmpTableData.strSecondField
-            'txtCodePersonsPlusOrMinus.text = tmpTableData.strFifthField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 3, True, 8, 0, 3, 5, 6, 7, 9, 10, 11, "ID", "Συντ. Α'", "Περιγραφή", "Σειρά", "Χειρόγραφο", "Προμηθευτές", "Τελευταίο Νο", "Ημερομηνία", 0, 6, 40, 6, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1)
+                txtInvoiceCodeID.text = tmpTableData.strCode
+                txtCodeShortDescriptionA.text = tmpTableData.strFirstField
+                lblCodeDescription.Caption = tmpTableData.strSecondField
+            End If
         Case 5
             'Παραστατικό - F5
             With TablesCodes
@@ -2344,9 +2310,11 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 6
             'Όρος πληρωμής - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "PaymentTerms", "PaymentTermDescription", "String", txtPaymentTermDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 3, 0, 1, 2, "ID", "Περιγραφή", "Πίστωση", 0, 40, 0, 1, 0, 0)
-            txtInvoiceInPaymentTermID.text = tmpTableData.strCode
-            txtPaymentTermDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 3, 0, 1, 2, "ID", "Περιγραφή", "Πίστωση", 0, 40, 0, 1, 0, 0)
+                txtInvoiceInPaymentTermID.text = tmpTableData.strCode
+                txtPaymentTermDescription.text = tmpTableData.strFirstField
+            End If
         Case 7
             'Όρος πληρωμής - F5
             With TablesPaymentTerms
@@ -2443,21 +2411,21 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
     
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     Select Case KeyCode
-        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown And cmdButton(0).Enabled
+        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown = 4 And cmdButton(0).Enabled
             cmdButton_Click 0
-        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown And cmdButton(1).Enabled
+        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown = 4 And cmdButton(1).Enabled
             cmdButton_Click 1
-        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown And cmdButton(2).Enabled
+        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown = 4 And cmdButton(2).Enabled
             cmdButton_Click 2
-        Case vbKeyF7 And cmdButton(3).Enabled, vbKeyF And CtrlDown And cmdButton(3).Enabled
+        Case vbKeyF7 And cmdButton(3).Enabled, vbKeyF And CtrlDown = 4 And cmdButton(3).Enabled
             cmdButton_Click 3
         Case vbKeyEscape
             If cmdButton(4).Enabled Then cmdButton_Click 4: Exit Function
             If cmdButton(5).Enabled Then cmdButton_Click 5
-        Case vbKeyF12 And CtrlDown
+        Case vbKeyF12 And CtrlDown = 4
             ToggleInfoPanel Me
     End Select
 
@@ -2466,10 +2434,10 @@ End Function
 Private Sub Form_Load()
 
     UpdateColors Me, False
-    AddColumnsToGrid grdInvoicesIn, 44, GetSetting(strAppTitle, "Layout Strings", "grdInvoicesIn"), "04NCNID,04NCNVATPercentID,04NRFDescription,10YRFNet,04NRFTax,04NRFGross", "ID,VATPercentID,Ποσοστό,Καθαρή αξία,Αξία Φ.Π.Α.,Συνολική αξία"
+    AddColumnsToGrid grdInvoicesIn, 44, GetSetting(strApplicationName, "Layout Strings", "grdInvoicesIn"), "04NCNID,04NCNVATPercentID,04NRFDescription,10YRFNet,04NRFTax,04NRFGross", "ID,VATPercentID,Ποσοστό,Καθαρή αξία,Αξία Φ.Π.Α.,Συνολική αξία"
     SetUpGrid lstIconList, grdInvoicesIn
     ClearFields txtInvoiceID, txtInvoiceTrnID, txtInvoiceCodeID, txtInvoicePersonID, txtInvoiceDateIn, txtCodeLastNo, txtCodeLastDate, txtCodePersonsPlusOrMinus, chkCodeHandID
-    ClearFields lblCodeDescription, lblCodeBatch, lblCodeHand
+    ClearFields lblCodeDescription
     ClearFields mskDateIssue, txtExpenseDescription, txtSupplierDescription, txtCodeShortDescriptionA, txtInvoiceNo, txtPaymentTermDescription
     ClearFields mskTotalNet, mskTotalVAT, mskTotalGross
     ClearFields grdInvoicesIn
@@ -2574,7 +2542,7 @@ End Sub
 
 Private Sub mnuΑποθήκευσηΠλάτουςΣτηλών_Click()
 
-    SaveSetting strAppTitle, "Layout Strings", "grdInvoicesIn", grdInvoicesIn.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", "grdInvoicesIn", grdInvoicesIn.LayoutCol
     
 End Sub
 
@@ -2670,7 +2638,7 @@ End Sub
 
 Private Function DeleteInvoice()
 
-    If Not MainDeleteRecord("CommonDB", "Invoices", strAppTitle, "InvoiceID", txtInvoiceID.text, True) Then
+    If Not MainDeleteRecord("CommonDB", "Invoices", strApplicationName, "InvoiceID", txtInvoiceID.text, True) Then
         IsError = True
     End If
 
@@ -2682,7 +2650,7 @@ Private Function DeleteInvoiceTrn()
     
     If IsError Then Exit Function
     
-    If Not MainDeleteRecord("CommonDB", "InvoicesIn", strAppTitle, "InvoiceInTrnID", txtInvoiceTrnID.text, False) Then
+    If Not MainDeleteRecord("CommonDB", "InvoicesIn", strApplicationName, "InvoiceInTrnID", txtInvoiceTrnID.text, False) Then
         IsError = True
     End If
     
@@ -2742,14 +2710,11 @@ Private Function PopulateFields(rstRecordset As Recordset)
         txtInvoiceInPaymentTermID.text = !PaymentTermID
         txtCodeLastNo.text = !CodeLastNo
         txtCodeLastDate.text = !CodeLastDate
-        'txtCodePersonsPlusOrMinus.text = !CodeSuppliers
         chkCodeHandID.Value = !CodeHandID
         
-        mskDateIssue.text = Format(!InvoiceDateIssue, "dd/mm/yyyy")
+        mskDateIssue.text = format(!InvoiceDateIssue, "dd/mm/yyyy")
         txtCodeShortDescriptionA.text = !CodeShortDescriptionA
         lblCodeDescription.Caption = !CodeDescription
-        lblCodeBatch.Caption = !CodeBatch
-        lblCodeHand.Caption = IIf(!CodeHandID, "ΧΕΙΡΟΓΡΑΦΟ", "")
         txtInvoiceNo.text = !InvoiceNo
         txtSupplierDescription.text = !Description
         txtExpenseDescription.text = !ExpenseCategoryDescription

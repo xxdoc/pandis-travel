@@ -1437,7 +1437,7 @@ Dim blnStatus As Boolean
 Private Function AbortProcedure(blnStatus)
     
     If Not blnStatus Then
-        If MyMsgBox(3, strAppTitle, strStandardMessages(3), 2) Then
+        If MyMsgBox(3, strApplicationName, strStandardMessages(3), 2) Then
             blnStatus = False
             ClearFields txtID, txtRouteID, txtDestinationID, txtShipID, txtPropertyID, txtSexID, txtAgeID
             ClearFields mskDate, txtRoute, txtDestination, txtShip, txtProperty, txtLastName, txtFirstName, txtSex, txtAge, txtCare, txtRemarks
@@ -1456,7 +1456,7 @@ End Function
 
 Private Function DeleteRecord()
     
-    If MainDeleteRecord("CommonDB", "Manifest", strAppTitle, "TripID", txtID.text, "True") Then
+    If MainDeleteRecord("CommonDB", "Manifest", strApplicationName, "TripID", txtID.text, "True") Then
         ClearFields txtID, txtRouteID, txtDestinationID, txtShipID, txtPropertyID, txtSexID, txtAgeID
         ClearFields mskDate, txtRoute, txtDestination, txtShip, txtProperty, txtLastName, txtFirstName, txtSex, txtAge, txtCare, txtRemarks
         ClearFields lblRouteDescription
@@ -1503,7 +1503,7 @@ Private Function SaveRecord()
     
     If Not ValidateFields Then Exit Function
     
-    txtID.text = MainSaveRecord("CommonDB", "Manifest", blnStatus, strAppTitle, "TripID", txtID.text, mskDate.text, txtRouteID.text, txtDestinationID.text, txtShipID.text, txtPropertyID.text, txtLastName.text, txtFirstName.text, txtSexID.text, txtAgeID.text, txtCare.text, txtRemarks.text, 1, strCurrentUser)
+    txtID.text = MainSaveRecord("CommonDB", "Manifest", blnStatus, strApplicationName, "TripID", txtID.text, mskDate.text, txtRouteID.text, txtDestinationID.text, txtShipID.text, txtPropertyID.text, txtLastName.text, txtFirstName.text, txtSexID.text, txtAgeID.text, txtCare.text, txtRemarks.text, 1, strCurrentUser)
         
     If txtID.text <> "" Then
         SaveRecord = True
@@ -1524,13 +1524,13 @@ Private Function ValidateFields()
     ValidateFields = False
     
     'Ημερομηνία
-    If Not CheckDate(mskDate.text, strAppTitle) Then
+    If Not CheckDate(mskDate.text, strApplicationName) Then
         mskDate.SetFocus
         Exit Function
     End If
     
     If Len(mskDate.text) <> 10 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         mskDate.SetFocus
         Exit Function
@@ -1538,7 +1538,7 @@ Private Function ValidateFields()
     
     'Δρομολόγιο
     If Len(txtRouteID.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtRoute.SetFocus
         Exit Function
@@ -1546,7 +1546,7 @@ Private Function ValidateFields()
     
     'Προορισμός
     If Len(txtDestinationID.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtDestination.SetFocus
         Exit Function
@@ -1554,7 +1554,7 @@ Private Function ValidateFields()
     
     'Πλοίο
     If Len(txtShipID.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtShip.SetFocus
         Exit Function
@@ -1562,7 +1562,7 @@ Private Function ValidateFields()
     
     'Ιδιότητα
     If Len(txtPropertyID.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtProperty.SetFocus
         Exit Function
@@ -1570,13 +1570,13 @@ Private Function ValidateFields()
     
     'Ονομα
     If Len(txtLastName.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtLastName.SetFocus
         Exit Function
     End If
     If InStr(txtLastName.text, ",") Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         txtLastName.SetFocus
         Exit Function
@@ -1584,7 +1584,7 @@ Private Function ValidateFields()
     
     'Ηλικία
     If Len(txtAgeID.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtAge.SetFocus
         Exit Function
@@ -1592,7 +1592,7 @@ Private Function ValidateFields()
     
     'Φύλο
     If Len(txtSexID.text) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtSex.SetFocus
         Exit Function
@@ -1600,7 +1600,7 @@ Private Function ValidateFields()
     
     'Ειδική φροντίδα
     If InStr(txtCare.text, ",") Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         txtCare.SetFocus
         Exit Function
@@ -1608,7 +1608,7 @@ Private Function ValidateFields()
 
     'Παρατηρήσεις
     If InStr(txtRemarks.text, ",") Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(2), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(2), 1) Then
         End If
         txtRemarks.SetFocus
         Exit Function
@@ -1618,9 +1618,9 @@ Private Function ValidateFields()
 
 End Function
 
-Private Sub cmdButton_Click(Index As Integer)
+Private Sub cmdButton_Click(index As Integer)
                                                                                                                                 
-    Select Case Index
+    Select Case index
         Case 0
             NewRecord
         Case 1
@@ -1646,51 +1646,63 @@ Private Function FindRecords()
     
 End Function
 
-Private Sub cmdIndex_Click(Index As Integer)
+Private Sub cmdIndex_Click(index As Integer)
 
     Dim tmpTableData As typTableData
     Dim tmpRecordset As Recordset
     
-    Select Case Index
+    Select Case index
         Case 0
             'Δρομολόγιο
             Set tmpRecordset = CheckForMatch("CommonDB", "Routes", "RouteDescription", "String", txtRoute.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 4, 0, 1, 2, 4, "ID", "Συντ.", "Λιμένας εκκίνησης", "Λιμένας τελικού προορισμού", 0, 5, 40, 40, 1, 1, 0, 0)
-            txtRouteID.text = tmpTableData.strCode
-            txtRoute.text = tmpTableData.strFirstField
-            lblRouteDescription.Caption = tmpTableData.strSecondField & " - " & tmpTableData.strThirdField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 4, 0, 1, 2, 4, "ID", "Συντ.", "Λιμένας εκκίνησης", "Λιμένας τελικού προορισμού", 0, 5, 40, 40, 1, 1, 0, 0)
+                txtRouteID.text = tmpTableData.strCode
+                txtRoute.text = tmpTableData.strFirstField
+                lblRouteDescription.Caption = tmpTableData.strSecondField & " - " & tmpTableData.strThirdField
+            End If
         Case 1
             'Προορισμός
             Set tmpRecordset = CheckForMatch("CommonDB", "Destinations", "DestinationDescription", "String", txtDestination.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 2, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtDestinationID.text = tmpTableData.strCode
-            txtDestination.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 2, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtDestinationID.text = tmpTableData.strCode
+                txtDestination.text = tmpTableData.strFirstField
+            End If
         Case 2
             'Πλοίο
             Set tmpRecordset = CheckForMatch("CommonDB", "Ships", "ShipDescription", "String", txtShip.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 4, 0, 1, 7, 8, "ID", "Περιγραφή", "Επαναλαμβανόμενη καταχώρηση", "Αποθήκευση και δημιουργία με ενα κλικ", 0, 40, 10, 10, 1, 0, 1, 1)
-            txtShipID.text = tmpTableData.strCode
-            txtShip.text = tmpTableData.strFirstField
-            txtShipRepeatedEntriesID.text = tmpTableData.strSecondField
-            txtShipSaveAndNewID.text = tmpTableData.strThirdField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 4, 0, 1, 7, 8, "ID", "Περιγραφή", "Επαναλαμβανόμενη καταχώρηση", "Αποθήκευση και δημιουργία με ενα κλικ", 0, 40, 10, 10, 1, 0, 1, 1)
+                txtShipID.text = tmpTableData.strCode
+                txtShip.text = tmpTableData.strFirstField
+                txtShipRepeatedEntriesID.text = tmpTableData.strSecondField
+                txtShipSaveAndNewID.text = tmpTableData.strThirdField
+            End If
         Case 3
             'Ιδιότητα
             Set tmpRecordset = CheckForMatch("CommonDB", "OccupantsDescriptions", "OccupantDescriptionDescription", "String", txtProperty.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtPropertyID.text = tmpTableData.strCode
-            txtProperty.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtPropertyID.text = tmpTableData.strCode
+                txtProperty.text = tmpTableData.strFirstField
+            End If
         Case 5
             'Ηλικία
             Set tmpRecordset = CheckForMatch("CommonDB", "Ages", "AgeDescription", "String", txtAge.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtAgeID.text = tmpTableData.strCode
-            txtAge.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtAgeID.text = tmpTableData.strCode
+                txtAge.text = tmpTableData.strFirstField
+            End If
         Case 4
             'Φύλο
             Set tmpRecordset = CheckForMatch("CommonDB", "Genders", "GenderDescription", "String", txtSex.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtSexID.text = tmpTableData.strCode
-            txtSex.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtSexID.text = tmpTableData.strCode
+                txtSex.text = tmpTableData.strFirstField
+            End If
         Case 6
             'Δρομολόγιο
             With TablesShipRoutes
@@ -1799,21 +1811,21 @@ Private Sub CheckFunctionKeys(KeyCode, Shift)
     
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     Select Case KeyCode
-        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown And cmdButton(0).Enabled
+        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown = 4 And cmdButton(0).Enabled
             cmdButton_Click 0
-        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown And cmdButton(1).Enabled
+        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown = 4 And cmdButton(1).Enabled
             cmdButton_Click 1
-        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown And cmdButton(2).Enabled
+        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown = 4 And cmdButton(2).Enabled
             cmdButton_Click 2
-        Case vbKeyF7 And cmdButton(3).Enabled, vbKeyF And CtrlDown And cmdButton(3).Enabled
+        Case vbKeyF7 And cmdButton(3).Enabled, vbKeyF And CtrlDown = 4 And cmdButton(3).Enabled
             cmdButton_Click 3
         Case vbKeyEscape
             If cmdButton(4).Enabled Then cmdButton_Click 4: Exit Sub
             If cmdButton(5).Enabled Then cmdButton_Click 5
-        Case vbKeyF12 And CtrlDown
+        Case vbKeyF12 And CtrlDown = 4
             ToggleInfoPanel Me
     End Select
 

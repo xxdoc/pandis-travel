@@ -223,7 +223,7 @@ Begin VB.Form InvoicesOutIndex
          Left            =   150
          TabIndex        =   17
          Top             =   3975
-         Width           =   9765
+         Width           =   8040
          Begin UserControls.newDate mskInvoiceDateIssueFrom 
             Height          =   465
             Left            =   2175
@@ -505,11 +505,11 @@ Begin VB.Form InvoicesOutIndex
                Strikethrough   =   0   'False
             EndProperty
             ForeColor       =   &H00800080&
-            Height          =   315
+            Height          =   255
             Left            =   3375
             TabIndex        =   53
-            Top             =   1425
-            Width           =   4215
+            Top             =   1350
+            Width           =   4200
          End
          Begin VB.Label lblCodeBatch 
             AutoSize        =   -1  'True
@@ -526,17 +526,17 @@ Begin VB.Form InvoicesOutIndex
                Strikethrough   =   0   'False
             EndProperty
             ForeColor       =   &H00800080&
-            Height          =   315
-            Left            =   7650
+            Height          =   255
+            Left            =   4800
             TabIndex        =   52
-            Top             =   1425
-            Width           =   615
+            Top             =   1575
+            Width           =   585
          End
          Begin VB.Label lblHand 
             AutoSize        =   -1  'True
             BackColor       =   &H00E0E0E0&
             BackStyle       =   0  'Transparent
-            Caption         =   "ΧΕΙΡΟΓΡΑΦΟ"
+            Caption         =   "ΜΗΧΑΝΟΓΡΑΦΙΚΟ"
             BeginProperty Font 
                Name            =   "Ubuntu Condensed"
                Size            =   9.75
@@ -547,11 +547,11 @@ Begin VB.Form InvoicesOutIndex
                Strikethrough   =   0   'False
             EndProperty
             ForeColor       =   &H00800080&
-            Height          =   315
-            Left            =   8325
+            Height          =   255
+            Left            =   3375
             TabIndex        =   51
-            Top             =   1425
-            Width           =   990
+            Top             =   1575
+            Width           =   1350
          End
          Begin VB.Label lblLabel 
             BackColor       =   &H000080FF&
@@ -619,7 +619,7 @@ Begin VB.Form InvoicesOutIndex
          End
          Begin VB.Label lblLabel 
             BackColor       =   &H000080FF&
-            Caption         =   "Πελάτης"
+            Caption         =   "Συναλλασόμενος"
             BeginProperty Font 
                Name            =   "Ubuntu Condensed"
                Size            =   9.75
@@ -654,7 +654,7 @@ Begin VB.Form InvoicesOutIndex
             Left            =   0
             TabIndex        =   25
             Top             =   4200
-            Width           =   9765
+            Width           =   8040
          End
          Begin VB.Label lblToday 
             Alignment       =   1  'Right Justify
@@ -671,7 +671,7 @@ Begin VB.Form InvoicesOutIndex
             EndProperty
             ForeColor       =   &H0000FFFF&
             Height          =   390
-            Left            =   4350
+            Left            =   2625
             TabIndex        =   24
             Top             =   75
             Width           =   5265
@@ -748,8 +748,8 @@ Begin VB.Form InvoicesOutIndex
             FillColor       =   &H00008000&
             Height          =   840
             Index           =   2
-            Left            =   9300
-            Top             =   1125
+            Left            =   7575
+            Top             =   2175
             Visible         =   0   'False
             Width           =   465
          End
@@ -810,7 +810,7 @@ Begin VB.Form InvoicesOutIndex
             Left            =   0
             TabIndex        =   26
             Top             =   0
-            Width           =   9765
+            Width           =   8040
          End
       End
       Begin VB.Frame frmInfo 
@@ -1307,10 +1307,10 @@ Private Function FindRecordsAndPopulateGrid()
             UpdateButtons Me, 4, 1, 0, 0, 0, 1
             If Not blnError Then
                 If blnProcessing Then
-                    If MyMsgBox(4, strAppTitle, strStandardMessages(27), 1) Then
+                    If MyMsgBox(4, strApplicationName, strStandardMessages(27), 1) Then
                     End If
                 Else
-                    If MyMsgBox(1, strAppTitle, strStandardMessages(7), 1) Then
+                    If MyMsgBox(1, strApplicationName, strStandardMessages(7), 1) Then
                     End If
                 End If
             End If
@@ -1349,7 +1349,7 @@ Private Function PrintSelectedInvoices()
     If Not grdInvoicesOutIndex.Enabled Then Exit Function
     
     If Not LinesHaveBeenSelected(grdInvoicesOutIndex) Then
-        MyMsgBox 4, strAppTitle, strStandardMessages(6), 1
+        MyMsgBox 4, strApplicationName, strStandardMessages(6), 1
         Exit Function
     End If
     
@@ -1374,7 +1374,7 @@ Private Function EditRecord()
     Set rstRecordset = InvoicesOut.SeekRecord(grdInvoicesOutIndex.CellValue(grdInvoicesOutIndex.CurRow, "TrnID"))
                 
     If rstRecordset.RecordCount = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(9), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(9), 1) Then
         End If
         Exit Function
     End If
@@ -1543,7 +1543,7 @@ Private Function RefreshList()
     If rstRecordset.RecordCount = 0 Then blnError = False: RefreshList = False: Exit Function
     
     'Προετοιμάζω τη μπάρα προόδου
-    InitializeProgressBar Me, strAppTitle, rstRecordset
+    InitializeProgressBar Me, strApplicationName, rstRecordset
     
     'Προσωρινά
     UpdateButtons Me, 4, 0, 0, 0, 1, 0
@@ -1644,7 +1644,7 @@ Private Function ValidateFields()
     'Σωστό διάστημα έκδοσης
     If IsDate(mskInvoiceDateIssueFrom.text) And IsDate(mskInvoiceDateIssueTo.text) Then
         If CDate(mskInvoiceDateIssueFrom.text) > CDate(mskInvoiceDateIssueTo.text) Then
-            If MyMsgBox(4, strAppTitle, strStandardMessages(10), 1) Then
+            If MyMsgBox(4, strApplicationName, strStandardMessages(10), 1) Then
             End If
             mskInvoiceDateIssueFrom.SetFocus
             Exit Function
@@ -1670,30 +1670,38 @@ Private Sub cmdIndex_Click(index As Integer)
         Case 0
             'Παραστατικό - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "Codes", "CodeShortDescriptionA, CodeMasterRefersTo", "String, String", txtCodeShortDescriptionA.text, txtInvoiceMasterRefersTo.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 3, True, 8, 0, 3, 5, 6, 7, 8, 10, 11, "ID", "Συντ. Α'", "Περιγραφή", "Σειρά", "Χειρόγραφο", "Πελάτες", "Τελευταίο Νο", "Ημερομηνία", 0, 6, 40, 6, 10, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1)
-            txtInvoiceCodeID.text = tmpTableData.strCode
-            txtCodeShortDescriptionA.text = tmpTableData.strFirstField
-            lblCodeDescription.Caption = tmpTableData.strSecondField
-            lblCodeBatch.Caption = IIf(txtInvoiceCodeID.text <> "" And tmpTableData.strThirdField <> "", " ΣΕΙΡΑ " & tmpTableData.strThirdField, "")
-            lblHand.Caption = IIf(tmpTableData.strFourthField = "1", "ΧΕΙΡΟΓΡΑΦΟ", "")
-            'Πελάτης - F2
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 3, True, 8, 0, 3, 5, 6, 7, 8, 10, 11, "ID", "Συντ. Α'", "Περιγραφή", "Σειρά", "Χειρόγραφο", "Πελάτες", "Τελευταίο Νο", "Ημερομηνία", 0, 6, 40, 6, 10, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1)
+                txtInvoiceCodeID.text = tmpTableData.strCode
+                txtCodeShortDescriptionA.text = tmpTableData.strFirstField
+                lblCodeDescription.Caption = tmpTableData.strSecondField
+                lblCodeBatch.Caption = IIf(txtInvoiceCodeID.text <> "" And tmpTableData.strThirdField <> "", " ΣΕΙΡΑ " & tmpTableData.strThirdField, "")
+                lblHand.Caption = IIf(tmpTableData.strFourthField = "1", "ΧΕΙΡΟΓΡΑΦΟ", "ΜΗΧΑΝΟΓΡΑΦΙΚΟ")
+            End If
         Case 1
+            'Πελάτης - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "Customers", "Description", "String", txtPersonDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 3, 0, 1, 7, "ID", "Επωνυμία", "Α.Φ.Μ.", 0, 40, 15, 1, 0, 1)
-            txtPersonID.text = tmpTableData.strCode
-            txtPersonDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 3, 0, 1, 7, "ID", "Επωνυμία", "Α.Φ.Μ.", 0, 40, 15, 1, 0, 1)
+                txtPersonID.text = tmpTableData.strCode
+                txtPersonDescription.text = tmpTableData.strFirstField
+            End If
         Case 2
             'Προορισμός - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "Destinations", "DestinationDescription, ShowInList", "String, Numeric", txtDestinationDescription.text, txtInvoiceSecondaryRefersTo.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 2, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtDestinationID.text = tmpTableData.strCode
-            txtDestinationDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 2, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtDestinationID.text = tmpTableData.strCode
+                txtDestinationDescription.text = tmpTableData.strFirstField
+            End If
         Case 3
             'Πλοίο - F2
             Set tmpRecordset = CheckForMatch("CommonDB", "Ships", "ShipDescription", "String", txtShipDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 6, 0, 1, 3, 4, 5, 6, "ID", "Περιγραφή", "Σημαία", "Αρ. Νηολογίου", "Αρ. Ι.Μ.Ο.", "Διαχειριστής", 0, 40, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0)
-            txtShipID.text = tmpTableData.strCode
-            txtShipDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 6, 0, 1, 3, 4, 5, 6, "ID", "Περιγραφή", "Σημαία", "Αρ. Νηολογίου", "Αρ. Ι.Μ.Ο.", "Διαχειριστής", 0, 40, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0)
+                txtShipID.text = tmpTableData.strCode
+                txtShipDescription.text = tmpTableData.strFirstField
+            End If
     End Select
 
 End Sub
@@ -1702,7 +1710,7 @@ Private Sub Form_Activate()
 
     If Me.Tag = "True" Then
         Me.Tag = "False"
-        AddColumnsToGrid grdInvoicesOutIndex, 44, GetSetting(strAppTitle, "Layout Strings", "grdInvoicesOutIndex"), _
+        AddColumnsToGrid grdInvoicesOutIndex, 44, GetSetting(strApplicationName, "Layout Strings", "grdInvoicesOutIndex"), _
             "05NCNTrnID,12NCDXInvoiceDateIssue,50NCNFullInvoice,40NLNCustomerDescription,40NLNShipDescription,40NLNDestinationDescription,10NRFInvoiceTotalAmount,10NRIInvoiceTotalPersons,05NCNSelected", _
             "TrnID,Ημερομηνία έκδοσης,Παραστατικό,Πελάτης,Πλοίο,Προορισμός,Ποσό,Ατομα,Ε"
         Me.Refresh
@@ -1806,7 +1814,7 @@ End Sub
 
 Private Sub mnuΑποθήκευσηΠλάτουςΣτηλών_Click()
 
-    SaveSetting strAppTitle, "Layout Strings", "grdInvoicesOutIndex", grdInvoicesOutIndex.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", "grdInvoicesOutIndex", grdInvoicesOutIndex.LayoutCol
 
 End Sub
 

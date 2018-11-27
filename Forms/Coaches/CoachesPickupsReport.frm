@@ -1078,10 +1078,10 @@ Private Function FindRecordsAndPopulateGrid()
             UpdateButtons Me, 4, 1, 0, 0, 0, 1
             If Not blnError Then
                 If blnProcessing Then
-                    If MyMsgBox(4, strAppTitle, strStandardMessages(27), 1) Then
+                    If MyMsgBox(4, strApplicationName, strStandardMessages(27), 1) Then
                     End If
                 Else
-                    If MyMsgBox(1, strAppTitle, strStandardMessages(7), 1) Then
+                    If MyMsgBox(1, strApplicationName, strStandardMessages(7), 1) Then
                     End If
                 End If
             End If
@@ -1108,7 +1108,7 @@ Private Function RunActiveReport()
             .Run False
             .Show 1
         Else
-            If GetSetting(AppName:=strAppTitle, Section:="Settings", Key:="IsDevelopment") = "1" Then
+            If GetSetting(appName:=strApplicationName, Section:="Settings", Key:="IsDevelopment") = "1" Then
                 MsgBox "Development Mode: Will not print!", vbInformation
                 Exit Function
             Else
@@ -1164,7 +1164,7 @@ Private Function DoControlBreak(gridName As iGrid, totalName, ParamArray levelNa
     lngRow = 1
     level = UBound(levelName)
     
-    InitializeProgressBar Me, strAppTitle, gridName.RowCount
+    InitializeProgressBar Me, strApplicationName, gridName.RowCount
     
     Do While True
         Do While oldArea(level) = gridName.CellValue(lngRow, levelName(level))
@@ -1369,7 +1369,7 @@ Private Function RefreshList()
     If rstRecordset.RecordCount = 0 Then blnError = False: RefreshList = False: Exit Function
     
     'Προετοιμάζω τη μπάρα προόδου
-    InitializeProgressBar Me, strAppTitle, rstRecordset
+    InitializeProgressBar Me, strApplicationName, rstRecordset
     
     'Προσωρινά
     UpdateButtons Me, 5, 0, 0, 0, 0, 1, 0
@@ -1466,9 +1466,9 @@ Private Function RemoveTotals(gridName As iGrid)
 
 End Function
 
-Private Sub cmdButton_Click(Index As Integer)
+Private Sub cmdButton_Click(index As Integer)
                                 
-    Select Case Index
+    Select Case index
         Case 0
             FindRecordsAndPopulateGrid
         Case 1
@@ -1517,7 +1517,7 @@ Private Function DoReport(action As String)
                     End If
                 End If
             Else
-                If MyMsgBox(4, strAppTitle, strStandardMessages(18), 1) Then
+                If MyMsgBox(4, strApplicationName, strStandardMessages(18), 1) Then
                 End If
             End If
         End If
@@ -1528,7 +1528,7 @@ Private Function DoReport(action As String)
         If txtRefersTo.text = "1" Then
             RemoveTotals grdCoachesReport
             If CreatePDF("ΚΑΤΑΣΤΑΣΗ ΜΕΤΑΦΟΡΩΝ " & lblCriteria.Caption) Then
-                If MyMsgBox(1, strAppTitle, strStandardMessages(8), 1) Then
+                If MyMsgBox(1, strApplicationName, strStandardMessages(8), 1) Then
                 End If
             End If
             If txtRefersTo.text = "1" Then
@@ -1539,9 +1539,9 @@ Private Function DoReport(action As String)
         End If
         'Γρήγορη καταχώρηση
         If txtRefersTo.text = "2" Then
-            If CreateUnicodeFile("ΚΑΤΑΣΤΑΣΗ ΜΕΤΑΦΟΡΩΝ", lblCriteria.Caption, "", GetSetting(strAppTitle, "Settings", "Export Report Height")) Then
+            If CreateUnicodeFile("ΚΑΤΑΣΤΑΣΗ ΜΕΤΑΦΟΡΩΝ", lblCriteria.Caption, "", GetSetting(strApplicationName, "Settings", "Export Report Height")) Then
                 If CreateUnisexPDF("ΚΑΤΑΣΤΑΣΗ ΜΕΤΑΦΟΡΩΝ " & lblCriteria.Caption) Then
-                    If MyMsgBox(1, strAppTitle, strStandardMessages(8), 1) Then
+                    If MyMsgBox(1, strApplicationName, strStandardMessages(8), 1) Then
                     End If
                 End If
             End If
@@ -1585,7 +1585,7 @@ Private Function ValidateFields()
     'Σωστό διάστημα
     If IsDate(mskFrom.text) And IsDate(mskTo.text) Then
         If CDate(mskFrom.text) > CDate(mskTo.text) Then
-            If MyMsgBox(4, strAppTitle, strStandardMessages(10), 1) Then
+            If MyMsgBox(4, strApplicationName, strStandardMessages(10), 1) Then
             End If
             mskFrom.SetFocus
             Exit Function
@@ -1613,32 +1613,38 @@ Private Function AbortProcedure(blnStatus)
 
 End Function
 
-Private Sub cmdIndex_Click(Index As Integer)
+Private Sub cmdIndex_Click(index As Integer)
 
     'Local variables
     Dim strShowInList As String
     Dim tmpTableData As typTableData
     Dim tmpRecordset As Recordset
 
-    Select Case Index
+    Select Case index
         'Προορισμός
         Case 0
             Set tmpRecordset = CheckForMatch("CommonDB", "Destinations", "DestinationDescription", "String", txtDestinationDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 2, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtTransferDestinationID.text = tmpTableData.strCode
-            txtDestinationDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 2, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtTransferDestinationID.text = tmpTableData.strCode
+                txtDestinationDescription.text = tmpTableData.strFirstField
+            End If
         'Πελάτης
         Case 1
             Set tmpRecordset = CheckForMatch("CommonDB", "Customers", "Description", "String", txtCustomerDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
-            txtCustomerID.text = tmpTableData.strCode
-            txtCustomerDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtCustomerID.text = tmpTableData.strCode
+                txtCustomerDescription.text = tmpTableData.strFirstField
+            End If
         'Δρομολόγιο
         Case 2
             Set tmpRecordset = CheckForMatch("CommonDB", "PickupRoutes", "PickupRouteDescription", "String", txtRouteDescription.text)
-            tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 2, "ID", "Περιγραφή", 0, 60, 1, 0)
-            txtRouteID.text = tmpTableData.strCode
-            txtRouteDescription.text = tmpTableData.strFirstField
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 2, "ID", "Περιγραφή", 0, 60, 1, 0)
+                txtRouteID.text = tmpTableData.strCode
+                txtRouteDescription.text = tmpTableData.strFirstField
+            End If
     End Select
 
 End Sub
@@ -1647,7 +1653,7 @@ Private Sub Form_Activate()
     
     If Me.Tag = "True" Then
         Me.Tag = "False"
-        AddColumnsToGrid grdCoachesReport, 44, GetSetting(strAppTitle, "Layout Strings", grdCoachesReport.Tag), _
+        AddColumnsToGrid grdCoachesReport, 44, GetSetting(strApplicationName, "Layout Strings", grdCoachesReport.Tag), _
             "05NCNTransferID,12NCDTransferDate,40NLNCustomerDescription,40NLNDestinationDescription,50NLNRouteDescription,40NLNPickupPointHotelDescription,10NLNPickUpPointExactPoint,10NCTPickupPointTime,10NRITransferAdults,10NRITransferKids,10NRITransferFree,10NRITransferTotal,10NCΝRefNo,10NLNTransferRemarks,50NLNTransferDraftDescription", _
             "TransferID,Ημερομηνία,Πελάτης,Προορισμός,Δρομολόγιο,Σημείο παραλαβής,Ακριβές σημείο,Ωρα,Ενήλικες,Παιδιά,Δωρεάν,Σύνολο,Αριθμός αναφοράς,Παρατηρήσεις,Σημείο παραλαβής"
         Me.Refresh
@@ -1777,7 +1783,7 @@ End Sub
 
 Private Sub mnuΑποθήκευσηΠλάτουςΣτηλών_Click()
 
-    SaveSetting strAppTitle, "Layout Strings", grdCoachesReport.Tag, grdCoachesReport.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", grdCoachesReport.Tag, grdCoachesReport.LayoutCol
 
 End Sub
 
@@ -1851,7 +1857,7 @@ Private Function CreateUnicodeFile(strReportTitle, strReportSubTitle1, strReport
             Print #1, .CellText(lngRow, "RefNo"); _
                 Tab(11); Left(.CellText(lngRow, "CustomerDescription"), 30); _
                 Tab(42); Left(.CellText(lngRow, "TransferDraftDescription"), 41); _
-                Tab(89 - Len((Format(.CellText(lngRow, "TransferAdults"), "#,##0")))); Format(.CellText(lngRow, "TransferAdults"), "#,##0"); _
+                Tab(89 - Len((format(.CellText(lngRow, "TransferAdults"), "#,##0")))); format(.CellText(lngRow, "TransferAdults"), "#,##0"); _
                 Tab(90); Left(.CellText(lngRow, "TransferRemarks"), 38)
             
             intProcessedDetailLines = intProcessedDetailLines + 1

@@ -512,7 +512,7 @@ Dim lngSelectedRow As Long
 Private Function AbortProcedure(blnStatus)
     
     If Not blnStatus Then
-        If MyMsgBox(3, strAppTitle, strStandardMessages(3), 2) Then
+        If MyMsgBox(3, strApplicationName, strStandardMessages(3), 2) Then
             blnStatus = False
             ClearFields txtUserID, txtUserName, txtPassword, txtRepeatPassword
             DisableFields txtUserName, txtPassword, txtRepeatPassword
@@ -530,7 +530,7 @@ End Function
 
 Private Function DeleteRecord()
     
-    If MainDeleteRecord("UsersDB", "Users", strAppTitle, "UserID", txtUserID.text, "True") Then
+    If MainDeleteRecord("UsersDB", "Users", strApplicationName, "UserID", txtUserID.text, "True") Then
         PopulateGrid
         HighlightRow grdUsers, lngSelectedRow, 1, "", True
         ClearFields txtUserID, txtUserName, txtPassword, txtRepeatPassword
@@ -563,7 +563,7 @@ Private Function SaveRecord()
     
     If Not ValidateFields Then Exit Function
 
-    If MainSaveRecord("UsersDB", "Users", blnStatus, strAppTitle, "UserID", txtUserID.text, txtUserName.text, HashPassword(txtUserName.text, txtPassword.text)) <> 0 Then
+    If MainSaveRecord("UsersDB", "Users", blnStatus, strApplicationName, "UserID", txtUserID.text, txtUserName.text, HashPassword(txtUserName.text, txtPassword.text)) <> 0 Then
         PopulateGrid
         HighlightRow grdUsers, lngSelectedRow, 2, txtUserName.text, True
         lngSelectedRow = 0
@@ -618,7 +618,7 @@ Private Sub Form_Activate()
 
     If Me.Tag = "True" Then
         Me.Tag = "False"
-        AddColumnsToGrid grdUsers, 25, GetSetting(strAppTitle, "Layout Strings", "grdUsers"), "04NCIID,40NLNName", "ID,Ονομα"
+        AddColumnsToGrid grdUsers, 25, GetSetting(strApplicationName, "Layout Strings", "grdUsers"), "04NCIID,40NLNName", "ID,Ονομα"
         Me.Refresh
         PopulateGrid
     End If
@@ -639,19 +639,19 @@ Private Function CheckFunctionKeys(KeyCode, Shift)
     
     Dim CtrlDown
     
-    CtrlDown = (Shift And vbCtrlMask) > 0
+    CtrlDown = Shift + vbCtrlMask
     
     Select Case KeyCode
-        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown And cmdButton(0).Enabled
+        Case vbKeyInsert And cmdButton(0).Enabled, vbKeyN And CtrlDown = 4 And cmdButton(0).Enabled
             cmdButton_Click 0
-        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown And cmdButton(1).Enabled
+        Case vbKeyF10 And cmdButton(1).Enabled, vbKeyS And CtrlDown = 4 And cmdButton(1).Enabled
             cmdButton_Click 1
-        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown And cmdButton(2).Enabled
+        Case vbKeyF3 And cmdButton(2).Enabled, vbKeyD And CtrlDown = 4 And cmdButton(2).Enabled
             cmdButton_Click 2
         Case vbKeyEscape
             If cmdButton(3).Enabled Then cmdButton_Click 3: Exit Function
             If cmdButton(4).Enabled Then cmdButton_Click 4
-        Case vbKeyF12 And CtrlDown
+        Case vbKeyF12 And CtrlDown = 4
             ToggleInfoPanel Me
     End Select
 
@@ -673,7 +673,7 @@ Private Sub grdUsers_DblClick(ByVal lRow As Long, ByVal lCol As Long, bRequestEd
 
 End Sub
 
-Private Sub grdUsers_HeaderRightClick(ByVal lCol As Long, ByVal Shift As Integer, ByVal x As Long, ByVal y As Long)
+Private Sub grdUsers_HeaderRightClick(ByVal lCol As Long, ByVal Shift As Integer, ByVal X As Long, ByVal Y As Long)
 
     PopupMenu mnuHdrPopUp
 
@@ -687,7 +687,7 @@ End Sub
 
 Private Sub mnuΑποθήκευσηΠλάτουςΣτηλών_Click()
     
-    SaveSetting strAppTitle, "Layout Strings", "grdUsers", grdUsers.LayoutCol
+    SaveSetting strApplicationName, "Layout Strings", "grdUsers", grdUsers.LayoutCol
 
 End Sub
 
@@ -697,7 +697,7 @@ Private Function ValidateFields()
     
     'Χρήστης
     If Len(Trim(txtUserName.text)) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtUserName.SetFocus
         Exit Function
@@ -705,7 +705,7 @@ Private Function ValidateFields()
     
     'Νέος κωδικός
     If Len(Trim(txtPassword.text)) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtPassword.SetFocus
         Exit Function
@@ -713,7 +713,7 @@ Private Function ValidateFields()
     
     'Επιβεβαίωση νέου κωδικού
     If Len(Trim(txtRepeatPassword.text)) = 0 Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(1), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
         End If
         txtRepeatPassword.SetFocus
         Exit Function
@@ -721,7 +721,7 @@ Private Function ValidateFields()
     
     'Νέος κωδικός = επιβεβαίωση νέου κωδικού
     If txtPassword.text <> txtRepeatPassword.text Then
-        If MyMsgBox(4, strAppTitle, strStandardMessages(14), 1) Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(14), 1) Then
         End If
         txtPassword.SetFocus
         Exit Function
