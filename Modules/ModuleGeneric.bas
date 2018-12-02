@@ -702,18 +702,18 @@ Function HighlightRow(grdGrid As iGrid, lngSelectedRow, lngColumn, strID, blnRow
 
 End Function
 
-Public Function ShowMonthlyCalendar(myFormName As Form, myMonthyCalendar As MonthView)
+'Public Function ShowMonthlyCalendar(myFormName As Form, myMonthyCalendar As MonthView)
 
-    With myMonthyCalendar
-        .Visible = True
-        .Left = myFormName.Width / 2 - .Width / 2
-        .Top = myFormName.Height / 2 - .Height / 2
-        .ZOrder 0
-        .Value = Date
-        .SetFocus
-    End With
+'    With myMonthyCalendar
+'        .Visible = True
+'        .Left = myFormName.Width / 2 - .Width / 2
+'        .Top = myFormName.Height / 2 - .Height / 2
+'        .ZOrder 0
+'        .Value = Date
+'        .SetFocus
+'    End With
 
-End Function
+'End Function
 
 Function ToggleInfoPanel(thisForm As Form)
 
@@ -2012,12 +2012,12 @@ Function ResetKeyCode(KeyCode As Integer, Shift As Integer)
     
     If _
         (KeyCode = vbKeyEscape) Or _
-        (KeyCode = vbKeyN And CtrlDown) Or _
-        (KeyCode = vbKeyS And CtrlDown) Or _
-        (KeyCode = vbKeyD And CtrlDown) Or _
-        (KeyCode = vbKeyP And CtrlDown) Or _
-        (KeyCode = vbKeyC And CtrlDown) Or _
-        (KeyCode = vbKeyF And CtrlDown) Then KeyCode = 0
+        (KeyCode = vbKeyN And CtrlDown > 2) Or _
+        (KeyCode = vbKeyS And CtrlDown > 2) Or _
+        (KeyCode = vbKeyD And CtrlDown > 2) Or _
+        (KeyCode = vbKeyP And CtrlDown > 2) Or _
+        (KeyCode = vbKeyC And CtrlDown > 2) Or _
+        (KeyCode = vbKeyF And CtrlDown) > 2 Then KeyCode = 0
     
     ResetKeyCode = KeyCode
     

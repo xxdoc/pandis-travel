@@ -22,23 +22,23 @@ Dim strCustomersOrSuppliers As String
 
 Private Sub ActiveReport_DataInitialize()
 
-    fields.RemoveAll
+    Fields.RemoveAll
     
-    fields.Add "CompanyData"
-    fields.Add "Date"
-    fields.Add "Batch"
-    fields.Add "ReceiptDescription"
-    fields.Add "ReceiptNo"
-    fields.Add "Amount"
-    fields.Add "Description"
-    fields.Add "Profession"
-    fields.Add "Address"
-    fields.Add "TaxNo"
-    fields.Add "TaxOfficeDescription"
-    fields.Add "Reason"
-    fields.Add "PaymentWayDescription"
-    fields.Add "BankDescription"
-    fields.Add "FullNumber"
+    Fields.Add "CompanyData"
+    Fields.Add "Date"
+    Fields.Add "Batch"
+    Fields.Add "ReceiptDescription"
+    Fields.Add "ReceiptNo"
+    Fields.Add "Amount"
+    Fields.Add "Description"
+    Fields.Add "Profession"
+    Fields.Add "Address"
+    Fields.Add "TaxNo"
+    Fields.Add "TaxOfficeDescription"
+    Fields.Add "Reason"
+    Fields.Add "PaymentWayDescription"
+    Fields.Add "BankDescription"
+    Fields.Add "FullNumber"
 
 End Sub
 
@@ -56,14 +56,14 @@ Private Sub ActiveReport_FetchData(EOF As Boolean)
     
     With PersonsTransactions
         'Στοιχεία εταιρίας
-        fields("CompanyData") = arrCompanyData(1) & Chr(13) & arrCompanyData(2) & Chr(13) & arrCompanyData(3) & Chr(13) & arrCompanyData(4) & Chr(13) & arrCompanyData(5) & Chr(13) & arrCompanyData(6)
+        Fields("CompanyData") = arrCompanyData(1) & Chr(13) & arrCompanyData(2) & Chr(13) & arrCompanyData(3) & Chr(13) & arrCompanyData(4) & Chr(13) & arrCompanyData(5) & Chr(13) & arrCompanyData(6)
         'Παραστατικό
-        fields("Date") = .mskDateIssue.text
-        fields("Batch") = .lblCodeBatch.Caption
-        fields("ReceiptDescription") = .lblCodeDescription.Caption
-        fields("ReceiptNo") = "Νο " & .txtInvoiceNo.text
+        Fields("Date") = .mskDateIssue.text
+        Fields("Batch") = .lblCodeBatch.Caption
+        Fields("ReceiptDescription") = .lblCodeDescription.Caption
+        Fields("ReceiptNo") = "Νο " & .txtInvoiceNo.text
         'Ποσό
-        fields("Amount") = .mskAmount.text
+        Fields("Amount") = .mskAmount.text
         
         'Βρίσκω τα στοιχεία του πελάτη
         Dim strSQL As String
@@ -81,17 +81,17 @@ Private Sub ActiveReport_FetchData(EOF As Boolean)
         lblPaymentInOrPaymentOut.Caption = IIf(.txtCustomersOrSuppliers.text = "Customers", "ΕΙΣΠΡΑΞΑΜΕ ΑΠΟ", "ΠΛΗΡΩΣΑΜΕ ΣΕ")
         
         'Πελάτης
-        fields("Description") = rstRecordset!description
-        fields("Profession") = rstRecordset!Profession
-        fields("Address") = rstRecordset!Address
-        fields("TaxNo") = rstRecordset!taxNo
-        fields("TaxOfficeDescription") = rstRecordset!TaxOfficeDescription
+        Fields("Description") = rstRecordset!Description
+        Fields("Profession") = rstRecordset!Profession
+        Fields("Address") = rstRecordset!Address
+        Fields("TaxNo") = rstRecordset!TaxNo
+        Fields("TaxOfficeDescription") = rstRecordset!TaxOfficeDescription
         
         'Λεπτομέρειες κίνησης
-        fields("Reason") = .txtReason.text
-        fields("PaymentWayDescription") = .txtPaymentWayDescription.text
-        fields("BankDescription") = .txtBankDescription.text
-        fields("FullNumber") = .lblFullNumber.Caption
+        Fields("Reason") = .txtReason.text
+        Fields("PaymentWayDescription") = .txtPaymentWayDescription.text
+        Fields("BankDescription") = .txtBankDescription.text
+        Fields("FullNumber") = .lblFullNumber.Caption
         
         EOF = False
         
@@ -103,7 +103,7 @@ ErrTrap:
     If Err.Number = 6 Then
         Resume Next
     Else
-        DisplayErrorMessage True, Err.description
+        DisplayErrorMessage True, Err.Description
     End If
     
 End Sub

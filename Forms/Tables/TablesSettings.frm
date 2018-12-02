@@ -18,6 +18,634 @@ Begin VB.Form TablesSettings
    ScaleWidth      =   17880
    ShowInTaskbar   =   0   'False
    Begin VB.Frame frmFrame 
+      BackColor       =   &H00C0FFC0&
+      BorderStyle     =   0  'None
+      Height          =   4815
+      Index           =   1
+      Left            =   11325
+      TabIndex        =   23
+      Top             =   375
+      Width           =   9165
+      Begin VB.Frame Frame 
+         Appearance      =   0  'Flat
+         BackColor       =   &H00E0E0E0&
+         Caption         =   " Επικεφαλίδες αναφορών "
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   9.75
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H80000008&
+         Height          =   2940
+         Index           =   1
+         Left            =   450
+         TabIndex        =   24
+         Top             =   525
+         Width           =   8265
+         Begin UserControls.newText txtCompanyData 
+            Height          =   465
+            Index           =   7
+            Left            =   1650
+            TabIndex        =   6
+            Top             =   525
+            Width           =   6165
+            _ExtentX        =   10874
+            _ExtentY        =   820
+            ForeColor       =   0
+            MaxLength       =   50
+            Text            =   "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            BackColor       =   4210688
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "Ubuntu Condensed"
+               Size            =   11.25
+               Charset         =   161
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+         End
+         Begin UserControls.newText txtCompanyData 
+            Height          =   465
+            Index           =   8
+            Left            =   1650
+            TabIndex        =   7
+            Top             =   1050
+            Width           =   6165
+            _ExtentX        =   10874
+            _ExtentY        =   820
+            ForeColor       =   0
+            MaxLength       =   50
+            Text            =   "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            BackColor       =   4210688
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "Ubuntu Condensed"
+               Size            =   11.25
+               Charset         =   161
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+         End
+         Begin UserControls.newText txtCompanyData 
+            Height          =   465
+            Index           =   9
+            Left            =   1650
+            TabIndex        =   8
+            Top             =   1575
+            Width           =   6165
+            _ExtentX        =   10874
+            _ExtentY        =   820
+            ForeColor       =   0
+            MaxLength       =   50
+            Text            =   "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            BackColor       =   4210688
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "Ubuntu Condensed"
+               Size            =   11.25
+               Charset         =   161
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+         End
+         Begin UserControls.newText txtCompanyData 
+            Height          =   465
+            Index           =   10
+            Left            =   1650
+            TabIndex        =   9
+            Top             =   2100
+            Width           =   6165
+            _ExtentX        =   10874
+            _ExtentY        =   820
+            ForeColor       =   0
+            MaxLength       =   50
+            Text            =   "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            BackColor       =   4210688
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "Ubuntu Condensed"
+               Size            =   11.25
+               Charset         =   161
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+         End
+         Begin VB.Shape shpWedge 
+            BackColor       =   &H0000FFFF&
+            BackStyle       =   1  'Opaque
+            BorderStyle     =   0  'Transparent
+            FillColor       =   &H00008000&
+            Height          =   840
+            Index           =   31
+            Left            =   1200
+            Top             =   1050
+            Visible         =   0   'False
+            Width           =   465
+         End
+         Begin VB.Shape shpWedge 
+            BackColor       =   &H00C0C0FF&
+            BackStyle       =   1  'Opaque
+            BorderStyle     =   0  'Transparent
+            FillColor       =   &H00008000&
+            Height          =   540
+            Index           =   18
+            Left            =   7800
+            Top             =   1200
+            Visible         =   0   'False
+            Width           =   465
+         End
+         Begin VB.Shape shpWedge 
+            BackColor       =   &H0000FFFF&
+            BackStyle       =   1  'Opaque
+            BorderStyle     =   0  'Transparent
+            FillColor       =   &H00008000&
+            Height          =   840
+            Index           =   17
+            Left            =   0
+            Top             =   1125
+            Visible         =   0   'False
+            Width           =   465
+         End
+         Begin VB.Shape shpWedge 
+            BackColor       =   &H00C0C0FF&
+            BackStyle       =   1  'Opaque
+            BorderStyle     =   0  'Transparent
+            FillColor       =   &H00008000&
+            Height          =   390
+            Index           =   16
+            Left            =   3225
+            Top             =   2550
+            Visible         =   0   'False
+            Width           =   465
+         End
+         Begin VB.Shape shpWedge 
+            BackColor       =   &H00C0C0FF&
+            BackStyle       =   1  'Opaque
+            BorderStyle     =   0  'Transparent
+            FillColor       =   &H00008000&
+            Height          =   540
+            Index           =   15
+            Left            =   2550
+            Top             =   0
+            Visible         =   0   'False
+            Width           =   465
+         End
+         Begin VB.Label lblLabel 
+            BackColor       =   &H000080FF&
+            Caption         =   "4η Γραμμή"
+            BeginProperty Font 
+               Name            =   "Ubuntu Condensed"
+               Size            =   9.75
+               Charset         =   161
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   &H00FFFFFF&
+            Height          =   315
+            Index           =   3
+            Left            =   450
+            TabIndex        =   30
+            Top             =   2175
+            Width           =   750
+         End
+         Begin VB.Label lblLabel 
+            BackColor       =   &H000080FF&
+            Caption         =   "3η Γραμμή"
+            BeginProperty Font 
+               Name            =   "Ubuntu Condensed"
+               Size            =   9.75
+               Charset         =   161
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   &H00FFFFFF&
+            Height          =   315
+            Index           =   1
+            Left            =   450
+            TabIndex        =   29
+            Top             =   1650
+            Width           =   750
+         End
+         Begin VB.Label lblLabel 
+            BackColor       =   &H000080FF&
+            Caption         =   "2η Γραμμή"
+            BeginProperty Font 
+               Name            =   "Ubuntu Condensed"
+               Size            =   9.75
+               Charset         =   161
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   &H00FFFFFF&
+            Height          =   315
+            Index           =   0
+            Left            =   450
+            TabIndex        =   28
+            Top             =   1125
+            Width           =   750
+         End
+         Begin VB.Label lblLabel 
+            BackColor       =   &H000080FF&
+            Caption         =   "1η Γραμμή"
+            BeginProperty Font 
+               Name            =   "Ubuntu Condensed"
+               Size            =   9.75
+               Charset         =   161
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   &H00FFFFFF&
+            Height          =   315
+            Index           =   2
+            Left            =   450
+            TabIndex        =   27
+            Top             =   600
+            Width           =   750
+         End
+      End
+      Begin UserControls.newText txtPreviewReportsDescription 
+         Height          =   465
+         Left            =   2850
+         TabIndex        =   20
+         Top             =   3600
+         Width           =   615
+         _ExtentX        =   1085
+         _ExtentY        =   820
+         Alignment       =   2
+         ForeColor       =   4194304
+         Text            =   "ΝΑΙ"
+         BackColor       =   4210688
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+      End
+      Begin Dacara_dcButton.dcButton cmdIndex 
+         Height          =   465
+         Index           =   2
+         Left            =   3525
+         TabIndex        =   59
+         TabStop         =   0   'False
+         Top             =   3600
+         Width           =   390
+         _ExtentX        =   688
+         _ExtentY        =   820
+         BackColor       =   16777215
+         ButtonShape     =   3
+         ButtonStyle     =   2
+         Caption         =   ""
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Ubuntu Condensed"
+            Size            =   9.75
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   0
+         PicNormal       =   "TablesSettings.frx":0000
+         PicSizeH        =   16
+         PicSizeW        =   16
+      End
+      Begin VB.Shape shpWedge 
+         BackColor       =   &H00C0C0FF&
+         BackStyle       =   1  'Opaque
+         BorderStyle     =   0  'Transparent
+         FillColor       =   &H00008000&
+         Height          =   540
+         Index           =   19
+         Left            =   1575
+         Top             =   0
+         Visible         =   0   'False
+         Width           =   465
+      End
+      Begin VB.Shape shpWedge 
+         BackColor       =   &H0000FFFF&
+         BackStyle       =   1  'Opaque
+         BorderStyle     =   0  'Transparent
+         FillColor       =   &H00008000&
+         Height          =   840
+         Index           =   34
+         Left            =   2400
+         Top             =   3600
+         Visible         =   0   'False
+         Width           =   465
+      End
+      Begin VB.Label lblLabel 
+         BackColor       =   &H000080FF&
+         Caption         =   "Προεπισκόπηση αναφορών"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   9.75
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   315
+         Index           =   27
+         Left            =   450
+         TabIndex        =   50
+         Top             =   3675
+         Width           =   1965
+      End
+      Begin VB.Shape shpWedge 
+         BackColor       =   &H0000FFFF&
+         BackStyle       =   1  'Opaque
+         BorderStyle     =   0  'Transparent
+         FillColor       =   &H00008000&
+         Height          =   840
+         Index           =   14
+         Left            =   0
+         Top             =   0
+         Visible         =   0   'False
+         Width           =   465
+      End
+   End
+   Begin VB.Frame frmFrame 
+      BackColor       =   &H00808000&
+      BorderStyle     =   0  'None
+      Height          =   4890
+      Index           =   2
+      Left            =   11475
+      TabIndex        =   25
+      Top             =   5475
+      Width           =   9240
+      Begin UserControls.newText txtSalesAccountsCode 
+         Height          =   465
+         Left            =   2775
+         TabIndex        =   11
+         Top             =   1050
+         Width           =   1965
+         _ExtentX        =   3466
+         _ExtentY        =   820
+         Alignment       =   2
+         ForeColor       =   0
+         MaxLength       =   15
+         Text            =   "AAAAAAAAAAAAAAA"
+         BackColor       =   4210688
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+      End
+      Begin UserControls.newText txtVATAccountsCode 
+         Height          =   465
+         Left            =   2775
+         TabIndex        =   12
+         Top             =   1575
+         Width           =   1965
+         _ExtentX        =   3466
+         _ExtentY        =   820
+         Alignment       =   2
+         ForeColor       =   0
+         MaxLength       =   15
+         Text            =   "AAAAAAAAAAAAAAA"
+         BackColor       =   4210688
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+      End
+      Begin UserControls.newInteger mskCustomerCodeLength 
+         Height          =   465
+         Left            =   2775
+         TabIndex        =   13
+         Top             =   2100
+         Width           =   540
+         _ExtentX        =   953
+         _ExtentY        =   820
+         ForeColor       =   0
+         MaxLength       =   2
+         Text            =   "99"
+         BackColor       =   4210688
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Ubuntu Condensed"
+            Size            =   12
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+      End
+      Begin UserControls.newText txtFileName 
+         Height          =   465
+         Left            =   2775
+         TabIndex        =   14
+         Top             =   2625
+         Width           =   3765
+         _ExtentX        =   6641
+         _ExtentY        =   820
+         ForeColor       =   0
+         MaxLength       =   30
+         Text            =   "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+         BackColor       =   4210688
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+      End
+      Begin UserControls.newText txtCashAccountsCode 
+         Height          =   465
+         Left            =   2775
+         TabIndex        =   10
+         Top             =   525
+         Width           =   1965
+         _ExtentX        =   3466
+         _ExtentY        =   820
+         Alignment       =   2
+         ForeColor       =   0
+         MaxLength       =   15
+         Text            =   "AAAAAAAAAAAAAAA"
+         BackColor       =   4210688
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+      End
+      Begin VB.Label lblLabel 
+         BackColor       =   &H000080FF&
+         Caption         =   "Κωδ. ταμείου"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   9.75
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   315
+         Index           =   19
+         Left            =   450
+         TabIndex        =   60
+         Top             =   600
+         Width           =   1890
+      End
+      Begin VB.Shape shpWedge 
+         BackColor       =   &H0000FFFF&
+         BackStyle       =   1  'Opaque
+         BorderStyle     =   0  'Transparent
+         FillColor       =   &H00008000&
+         Height          =   840
+         Index           =   4
+         Left            =   2325
+         Top             =   450
+         Visible         =   0   'False
+         Width           =   465
+      End
+      Begin VB.Shape shpWedge 
+         BackColor       =   &H00C0C0FF&
+         BackStyle       =   1  'Opaque
+         BorderStyle     =   0  'Transparent
+         FillColor       =   &H00008000&
+         Height          =   540
+         Index           =   3
+         Left            =   3000
+         Top             =   0
+         Visible         =   0   'False
+         Width           =   465
+      End
+      Begin VB.Shape shpWedge 
+         BackColor       =   &H00C0C0FF&
+         BackStyle       =   1  'Opaque
+         BorderStyle     =   0  'Transparent
+         FillColor       =   &H00008000&
+         Height          =   540
+         Index           =   2
+         Left            =   0
+         Top             =   450
+         Visible         =   0   'False
+         Width           =   465
+      End
+      Begin VB.Label lblLabel 
+         BackColor       =   &H000080FF&
+         Caption         =   "Μήκος κωδικών"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   9.75
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   315
+         Index           =   16
+         Left            =   450
+         TabIndex        =   43
+         Top             =   2175
+         Width           =   1890
+      End
+      Begin VB.Label lblLabel 
+         BackColor       =   &H000080FF&
+         Caption         =   "Κωδ. Φ.Π.Α. πωλήσεων"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   9.75
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   315
+         Index           =   15
+         Left            =   450
+         TabIndex        =   42
+         Top             =   1650
+         Width           =   1890
+      End
+      Begin VB.Label lblLabel 
+         BackColor       =   &H000080FF&
+         Caption         =   "Ονομα αρχείου πωλήσεων"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   9.75
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   315
+         Index           =   14
+         Left            =   450
+         TabIndex        =   41
+         Top             =   2700
+         Width           =   1890
+      End
+      Begin VB.Label lblLabel 
+         BackColor       =   &H000080FF&
+         Caption         =   "Κωδ. πωλήσεων"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   9.75
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   315
+         Index           =   13
+         Left            =   450
+         TabIndex        =   40
+         Top             =   1125
+         Width           =   1890
+      End
+   End
+   Begin VB.Frame frmFrame 
       BackColor       =   &H00C0C000&
       BorderStyle     =   0  'None
       BeginProperty Font 
@@ -32,9 +660,9 @@ Begin VB.Form TablesSettings
       ForeColor       =   &H00800080&
       Height          =   6090
       Index           =   0
-      Left            =   10800
+      Left            =   2100
       TabIndex        =   21
-      Top             =   8850
+      Top             =   7350
       Width           =   9165
       Begin VB.Frame Frame 
          Appearance      =   0  'Flat
@@ -412,375 +1040,6 @@ Begin VB.Form TablesSettings
          Width           =   465
       End
    End
-   Begin VB.Frame frmFrame 
-      BackColor       =   &H00C0FFC0&
-      BorderStyle     =   0  'None
-      Height          =   4815
-      Index           =   1
-      Left            =   5550
-      TabIndex        =   23
-      Top             =   10650
-      Width           =   9165
-      Begin VB.Frame Frame 
-         Appearance      =   0  'Flat
-         BackColor       =   &H00E0E0E0&
-         Caption         =   " Επικεφαλίδες αναφορών "
-         BeginProperty Font 
-            Name            =   "Ubuntu Condensed"
-            Size            =   9.75
-            Charset         =   161
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H80000008&
-         Height          =   2940
-         Index           =   1
-         Left            =   450
-         TabIndex        =   24
-         Top             =   525
-         Width           =   8265
-         Begin UserControls.newText txtCompanyData 
-            Height          =   465
-            Index           =   7
-            Left            =   1650
-            TabIndex        =   6
-            Top             =   525
-            Width           =   6165
-            _ExtentX        =   10874
-            _ExtentY        =   820
-            ForeColor       =   0
-            MaxLength       =   50
-            Text            =   "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-            BackColor       =   4210688
-            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-               Name            =   "Ubuntu Condensed"
-               Size            =   11.25
-               Charset         =   161
-               Weight          =   400
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-         End
-         Begin UserControls.newText txtCompanyData 
-            Height          =   465
-            Index           =   8
-            Left            =   1650
-            TabIndex        =   7
-            Top             =   1050
-            Width           =   6165
-            _ExtentX        =   10874
-            _ExtentY        =   820
-            ForeColor       =   0
-            MaxLength       =   50
-            Text            =   "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-            BackColor       =   4210688
-            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-               Name            =   "Ubuntu Condensed"
-               Size            =   11.25
-               Charset         =   161
-               Weight          =   400
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-         End
-         Begin UserControls.newText txtCompanyData 
-            Height          =   465
-            Index           =   9
-            Left            =   1650
-            TabIndex        =   8
-            Top             =   1575
-            Width           =   6165
-            _ExtentX        =   10874
-            _ExtentY        =   820
-            ForeColor       =   0
-            MaxLength       =   50
-            Text            =   "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-            BackColor       =   4210688
-            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-               Name            =   "Ubuntu Condensed"
-               Size            =   11.25
-               Charset         =   161
-               Weight          =   400
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-         End
-         Begin UserControls.newText txtCompanyData 
-            Height          =   465
-            Index           =   10
-            Left            =   1650
-            TabIndex        =   9
-            Top             =   2100
-            Width           =   6165
-            _ExtentX        =   10874
-            _ExtentY        =   820
-            ForeColor       =   0
-            MaxLength       =   50
-            Text            =   "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-            BackColor       =   4210688
-            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-               Name            =   "Ubuntu Condensed"
-               Size            =   11.25
-               Charset         =   161
-               Weight          =   400
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-         End
-         Begin VB.Shape shpWedge 
-            BackColor       =   &H0000FFFF&
-            BackStyle       =   1  'Opaque
-            BorderStyle     =   0  'Transparent
-            FillColor       =   &H00008000&
-            Height          =   840
-            Index           =   31
-            Left            =   1200
-            Top             =   1050
-            Visible         =   0   'False
-            Width           =   465
-         End
-         Begin VB.Shape shpWedge 
-            BackColor       =   &H00C0C0FF&
-            BackStyle       =   1  'Opaque
-            BorderStyle     =   0  'Transparent
-            FillColor       =   &H00008000&
-            Height          =   540
-            Index           =   18
-            Left            =   7800
-            Top             =   1200
-            Visible         =   0   'False
-            Width           =   465
-         End
-         Begin VB.Shape shpWedge 
-            BackColor       =   &H0000FFFF&
-            BackStyle       =   1  'Opaque
-            BorderStyle     =   0  'Transparent
-            FillColor       =   &H00008000&
-            Height          =   840
-            Index           =   17
-            Left            =   0
-            Top             =   1125
-            Visible         =   0   'False
-            Width           =   465
-         End
-         Begin VB.Shape shpWedge 
-            BackColor       =   &H00C0C0FF&
-            BackStyle       =   1  'Opaque
-            BorderStyle     =   0  'Transparent
-            FillColor       =   &H00008000&
-            Height          =   390
-            Index           =   16
-            Left            =   3225
-            Top             =   2550
-            Visible         =   0   'False
-            Width           =   465
-         End
-         Begin VB.Shape shpWedge 
-            BackColor       =   &H00C0C0FF&
-            BackStyle       =   1  'Opaque
-            BorderStyle     =   0  'Transparent
-            FillColor       =   &H00008000&
-            Height          =   540
-            Index           =   15
-            Left            =   2550
-            Top             =   0
-            Visible         =   0   'False
-            Width           =   465
-         End
-         Begin VB.Label lblLabel 
-            BackColor       =   &H000080FF&
-            Caption         =   "4η Γραμμή"
-            BeginProperty Font 
-               Name            =   "Ubuntu Condensed"
-               Size            =   9.75
-               Charset         =   161
-               Weight          =   400
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            ForeColor       =   &H00FFFFFF&
-            Height          =   315
-            Index           =   3
-            Left            =   450
-            TabIndex        =   30
-            Top             =   2175
-            Width           =   750
-         End
-         Begin VB.Label lblLabel 
-            BackColor       =   &H000080FF&
-            Caption         =   "3η Γραμμή"
-            BeginProperty Font 
-               Name            =   "Ubuntu Condensed"
-               Size            =   9.75
-               Charset         =   161
-               Weight          =   400
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            ForeColor       =   &H00FFFFFF&
-            Height          =   315
-            Index           =   1
-            Left            =   450
-            TabIndex        =   29
-            Top             =   1650
-            Width           =   750
-         End
-         Begin VB.Label lblLabel 
-            BackColor       =   &H000080FF&
-            Caption         =   "2η Γραμμή"
-            BeginProperty Font 
-               Name            =   "Ubuntu Condensed"
-               Size            =   9.75
-               Charset         =   161
-               Weight          =   400
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            ForeColor       =   &H00FFFFFF&
-            Height          =   315
-            Index           =   0
-            Left            =   450
-            TabIndex        =   28
-            Top             =   1125
-            Width           =   750
-         End
-         Begin VB.Label lblLabel 
-            BackColor       =   &H000080FF&
-            Caption         =   "1η Γραμμή"
-            BeginProperty Font 
-               Name            =   "Ubuntu Condensed"
-               Size            =   9.75
-               Charset         =   161
-               Weight          =   400
-               Underline       =   0   'False
-               Italic          =   0   'False
-               Strikethrough   =   0   'False
-            EndProperty
-            ForeColor       =   &H00FFFFFF&
-            Height          =   315
-            Index           =   2
-            Left            =   450
-            TabIndex        =   27
-            Top             =   600
-            Width           =   750
-         End
-      End
-      Begin UserControls.newText txtPreviewReportsDescription 
-         Height          =   465
-         Left            =   2850
-         TabIndex        =   20
-         Top             =   3600
-         Width           =   615
-         _ExtentX        =   1085
-         _ExtentY        =   820
-         Alignment       =   2
-         ForeColor       =   4194304
-         Text            =   "ΝΑΙ"
-         BackColor       =   4210688
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Ubuntu Condensed"
-            Size            =   11.25
-            Charset         =   161
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-      End
-      Begin Dacara_dcButton.dcButton cmdIndex 
-         Height          =   465
-         Index           =   2
-         Left            =   3525
-         TabIndex        =   59
-         TabStop         =   0   'False
-         Top             =   3600
-         Width           =   390
-         _ExtentX        =   688
-         _ExtentY        =   820
-         BackColor       =   16777215
-         ButtonShape     =   3
-         ButtonStyle     =   2
-         Caption         =   ""
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Ubuntu Condensed"
-            Size            =   9.75
-            Charset         =   161
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   0
-         PicNormal       =   "TablesSettings.frx":0000
-         PicSizeH        =   16
-         PicSizeW        =   16
-      End
-      Begin VB.Shape shpWedge 
-         BackColor       =   &H00C0C0FF&
-         BackStyle       =   1  'Opaque
-         BorderStyle     =   0  'Transparent
-         FillColor       =   &H00008000&
-         Height          =   540
-         Index           =   19
-         Left            =   1575
-         Top             =   0
-         Visible         =   0   'False
-         Width           =   465
-      End
-      Begin VB.Shape shpWedge 
-         BackColor       =   &H0000FFFF&
-         BackStyle       =   1  'Opaque
-         BorderStyle     =   0  'Transparent
-         FillColor       =   &H00008000&
-         Height          =   840
-         Index           =   34
-         Left            =   2400
-         Top             =   3600
-         Visible         =   0   'False
-         Width           =   465
-      End
-      Begin VB.Label lblLabel 
-         BackColor       =   &H000080FF&
-         Caption         =   "Προεπισκόπηση αναφορών"
-         BeginProperty Font 
-            Name            =   "Ubuntu Condensed"
-            Size            =   9.75
-            Charset         =   161
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00FFFFFF&
-         Height          =   315
-         Index           =   27
-         Left            =   450
-         TabIndex        =   50
-         Top             =   3675
-         Width           =   1965
-      End
-      Begin VB.Shape shpWedge 
-         BackColor       =   &H0000FFFF&
-         BackStyle       =   1  'Opaque
-         BorderStyle     =   0  'Transparent
-         FillColor       =   &H00008000&
-         Height          =   840
-         Index           =   14
-         Left            =   0
-         Top             =   0
-         Visible         =   0   'False
-         Width           =   465
-      End
-   End
    Begin VB.Frame frmButtonFrame 
       BackColor       =   &H00E0E0E0&
       BorderStyle     =   0  'None
@@ -888,265 +1147,6 @@ Begin VB.Form TablesSettings
             Strikethrough   =   0   'False
          EndProperty
          PicOpacity      =   0
-      End
-   End
-   Begin VB.Frame frmFrame 
-      BackColor       =   &H00808000&
-      BorderStyle     =   0  'None
-      Height          =   4890
-      Index           =   2
-      Left            =   11475
-      TabIndex        =   25
-      Top             =   4200
-      Width           =   9240
-      Begin UserControls.newText txtSalesAccountsCode 
-         Height          =   465
-         Left            =   2775
-         TabIndex        =   11
-         Top             =   1050
-         Width           =   1965
-         _ExtentX        =   3466
-         _ExtentY        =   820
-         Alignment       =   2
-         ForeColor       =   0
-         MaxLength       =   15
-         Text            =   "AAAAAAAAAAAAAAA"
-         BackColor       =   4210688
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Ubuntu Condensed"
-            Size            =   11.25
-            Charset         =   161
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-      End
-      Begin UserControls.newText txtVATAccountsCode 
-         Height          =   465
-         Left            =   2775
-         TabIndex        =   12
-         Top             =   1575
-         Width           =   1965
-         _ExtentX        =   3466
-         _ExtentY        =   820
-         Alignment       =   2
-         ForeColor       =   0
-         MaxLength       =   15
-         Text            =   "AAAAAAAAAAAAAAA"
-         BackColor       =   4210688
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Ubuntu Condensed"
-            Size            =   11.25
-            Charset         =   161
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-      End
-      Begin UserControls.newInteger mskCustomerCodeLength 
-         Height          =   465
-         Left            =   2775
-         TabIndex        =   13
-         Top             =   2100
-         Width           =   540
-         _ExtentX        =   953
-         _ExtentY        =   820
-         ForeColor       =   0
-         MaxLength       =   2
-         Text            =   "99"
-         BackColor       =   4210688
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Ubuntu Condensed"
-            Size            =   12
-            Charset         =   161
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-      End
-      Begin UserControls.newText txtFileName 
-         Height          =   465
-         Left            =   2775
-         TabIndex        =   14
-         Top             =   2625
-         Width           =   3765
-         _ExtentX        =   6641
-         _ExtentY        =   820
-         ForeColor       =   0
-         MaxLength       =   30
-         Text            =   "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-         BackColor       =   4210688
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Ubuntu Condensed"
-            Size            =   11.25
-            Charset         =   161
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-      End
-      Begin UserControls.newText txtCashAccountsCode 
-         Height          =   465
-         Left            =   2775
-         TabIndex        =   10
-         Top             =   525
-         Width           =   1965
-         _ExtentX        =   3466
-         _ExtentY        =   820
-         Alignment       =   2
-         ForeColor       =   0
-         MaxLength       =   15
-         Text            =   "AAAAAAAAAAAAAAA"
-         BackColor       =   4210688
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Ubuntu Condensed"
-            Size            =   11.25
-            Charset         =   161
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-      End
-      Begin VB.Label lblLabel 
-         BackColor       =   &H000080FF&
-         Caption         =   "Κωδ. ταμείου"
-         BeginProperty Font 
-            Name            =   "Ubuntu Condensed"
-            Size            =   9.75
-            Charset         =   161
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00FFFFFF&
-         Height          =   315
-         Index           =   19
-         Left            =   450
-         TabIndex        =   60
-         Top             =   600
-         Width           =   1890
-      End
-      Begin VB.Shape shpWedge 
-         BackColor       =   &H0000FFFF&
-         BackStyle       =   1  'Opaque
-         BorderStyle     =   0  'Transparent
-         FillColor       =   &H00008000&
-         Height          =   840
-         Index           =   4
-         Left            =   2325
-         Top             =   450
-         Visible         =   0   'False
-         Width           =   465
-      End
-      Begin VB.Shape shpWedge 
-         BackColor       =   &H00C0C0FF&
-         BackStyle       =   1  'Opaque
-         BorderStyle     =   0  'Transparent
-         FillColor       =   &H00008000&
-         Height          =   540
-         Index           =   3
-         Left            =   3000
-         Top             =   0
-         Visible         =   0   'False
-         Width           =   465
-      End
-      Begin VB.Shape shpWedge 
-         BackColor       =   &H00C0C0FF&
-         BackStyle       =   1  'Opaque
-         BorderStyle     =   0  'Transparent
-         FillColor       =   &H00008000&
-         Height          =   540
-         Index           =   2
-         Left            =   0
-         Top             =   450
-         Visible         =   0   'False
-         Width           =   465
-      End
-      Begin VB.Label lblLabel 
-         BackColor       =   &H000080FF&
-         Caption         =   "Μήκος κωδικών"
-         BeginProperty Font 
-            Name            =   "Ubuntu Condensed"
-            Size            =   9.75
-            Charset         =   161
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00FFFFFF&
-         Height          =   315
-         Index           =   16
-         Left            =   450
-         TabIndex        =   43
-         Top             =   2175
-         Width           =   1890
-      End
-      Begin VB.Label lblLabel 
-         BackColor       =   &H000080FF&
-         Caption         =   "Κωδ. Φ.Π.Α. πωλήσεων"
-         BeginProperty Font 
-            Name            =   "Ubuntu Condensed"
-            Size            =   9.75
-            Charset         =   161
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00FFFFFF&
-         Height          =   315
-         Index           =   15
-         Left            =   450
-         TabIndex        =   42
-         Top             =   1650
-         Width           =   1890
-      End
-      Begin VB.Label lblLabel 
-         BackColor       =   &H000080FF&
-         Caption         =   "Ονομα αρχείου πωλήσεων"
-         BeginProperty Font 
-            Name            =   "Ubuntu Condensed"
-            Size            =   9.75
-            Charset         =   161
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00FFFFFF&
-         Height          =   315
-         Index           =   14
-         Left            =   450
-         TabIndex        =   41
-         Top             =   2700
-         Width           =   1890
-      End
-      Begin VB.Label lblLabel 
-         BackColor       =   &H000080FF&
-         Caption         =   "Κωδ. πωλήσεων"
-         BeginProperty Font 
-            Name            =   "Ubuntu Condensed"
-            Size            =   9.75
-            Charset         =   161
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H00FFFFFF&
-         Height          =   315
-         Index           =   13
-         Left            =   450
-         TabIndex        =   40
-         Top             =   1125
-         Width           =   1890
       End
    End
    Begin VB.Frame frmFrame 
@@ -2069,20 +2069,20 @@ Private Sub cmdIndex_Click(index As Integer)
                 txtPreviewInvoicesDescription.text = tmpTableData.strFirstField
             End If
         Case 1
-            'Προεπισκόπηση αναφορών
-            Set tmpRecordset = CheckForMatch("CommonDB", "YesOrNo", "YesOrNoDescription", "String", txtPreviewReportsDescription.text)
-            If tmpRecordset.RecordCount > 0 Then
-                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
-                txtPreviewReportsID.text = tmpTableData.strCode
-                txtPreviewReportsDescription.text = tmpTableData.strFirstField
-            End If
-        Case 2
             'Όρος πληρωμής
             Set tmpRecordset = CheckForMatch("CommonDB", "YesOrNo", "YesOrNoDescription", "String", txtUsualPaymentTermDescription.text)
             If tmpRecordset.RecordCount > 0 Then
                 tmpTableData = DisplayIndex(tmpRecordset, 2, True, 3, 0, 1, 2, "ID", "Περιγραφή", "Πίστωση", 0, 40, 0, 1, 0, 0)
                 txtUsualPaymentTermID.text = tmpTableData.strCode
                 txtUsualPaymentTermDescription.text = tmpTableData.strFirstField
+            End If
+        Case 2
+            'Προεπισκόπηση αναφορών
+            Set tmpRecordset = CheckForMatch("CommonDB", "YesOrNo", "YesOrNoDescription", "String", txtPreviewReportsDescription.text)
+            If tmpRecordset.RecordCount > 0 Then
+                tmpTableData = DisplayIndex(tmpRecordset, 2, True, 2, 0, 1, "ID", "Περιγραφή", 0, 40, 1, 0)
+                txtPreviewReportsID.text = tmpTableData.strCode
+                txtPreviewReportsDescription.text = tmpTableData.strFirstField
             End If
     End Select
 
@@ -2241,13 +2241,13 @@ End Sub
 
 Private Sub txtPreviewReportsDescription_KeyDown(KeyCode As Integer, Shift As Integer)
 
-    If KeyCode = vbKeyF2 Then cmdIndex_Click 1
+    If KeyCode = vbKeyF2 Then cmdIndex_Click 2
 
 End Sub
 
 Private Sub txtPreviewReportsDescription_Validate(Cancel As Boolean)
 
-    If txtPreviewReportsID.text = "" And txtPreviewReportsDescription.text <> "" Then cmdIndex_Click 1
+    If txtPreviewReportsID.text = "" And txtPreviewReportsDescription.text <> "" Then cmdIndex_Click 2
 
 End Sub
 
@@ -2261,13 +2261,13 @@ End Sub
 
 Private Sub txtUsualPaymentTermDescription_KeyDown(KeyCode As Integer, Shift As Integer)
 
-    If KeyCode = vbKeyF2 Then cmdIndex_Click 2
+    If KeyCode = vbKeyF2 Then cmdIndex_Click 1
 
 End Sub
 
 Private Sub txtUsualPaymentTermDescription_Validate(Cancel As Boolean)
 
-    If txtUsualPaymentTermID.text = "" And txtUsualPaymentTermDescription.text <> "" Then cmdIndex_Click 2
+    If txtUsualPaymentTermID.text = "" And txtUsualPaymentTermDescription.text <> "" Then cmdIndex_Click 1
 
 End Sub
 

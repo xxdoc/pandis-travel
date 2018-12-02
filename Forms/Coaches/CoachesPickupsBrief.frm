@@ -1,7 +1,6 @@
 VERSION 5.00
 Object = "{158C2A77-1CCD-44C8-AF42-AA199C5DCC6C}#1.0#0"; "dcButton.ocx"
 Object = "{FFE4AEB4-0D55-4004-ADF2-3C1C84D17A72}#1.0#0"; "userControls.ocx"
-Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomct2.ocx"
 Begin VB.Form CoachesPickupsBrief 
    Appearance      =   0  'Flat
    BackColor       =   &H00E0E0E0&
@@ -24,14 +23,14 @@ Begin VB.Form CoachesPickupsBrief
       BorderStyle     =   0  'None
       Height          =   690
       Left            =   450
-      TabIndex        =   35
+      TabIndex        =   32
       Top             =   6300
       Width           =   8940
       Begin Dacara_dcButton.dcButton cmdButton 
          Height          =   690
          Index           =   0
          Left            =   225
-         TabIndex        =   36
+         TabIndex        =   33
          TabStop         =   0   'False
          Top             =   0
          Width           =   1365
@@ -56,7 +55,7 @@ Begin VB.Form CoachesPickupsBrief
          Height          =   690
          Index           =   5
          Left            =   7350
-         TabIndex        =   37
+         TabIndex        =   34
          TabStop         =   0   'False
          Top             =   0
          Width           =   1365
@@ -81,7 +80,7 @@ Begin VB.Form CoachesPickupsBrief
          Height          =   690
          Index           =   1
          Left            =   1650
-         TabIndex        =   38
+         TabIndex        =   35
          TabStop         =   0   'False
          Top             =   0
          Width           =   1365
@@ -106,7 +105,7 @@ Begin VB.Form CoachesPickupsBrief
          Height          =   690
          Index           =   2
          Left            =   3075
-         TabIndex        =   39
+         TabIndex        =   36
          TabStop         =   0   'False
          Top             =   0
          Width           =   1365
@@ -131,7 +130,7 @@ Begin VB.Form CoachesPickupsBrief
          Height          =   690
          Index           =   3
          Left            =   4500
-         TabIndex        =   40
+         TabIndex        =   37
          TabStop         =   0   'False
          Top             =   0
          Width           =   1365
@@ -156,7 +155,7 @@ Begin VB.Form CoachesPickupsBrief
          Height          =   690
          Index           =   4
          Left            =   5925
-         TabIndex        =   41
+         TabIndex        =   38
          TabStop         =   0   'False
          Top             =   0
          Width           =   1365
@@ -178,21 +177,6 @@ Begin VB.Form CoachesPickupsBrief
          PicOpacity      =   0
       End
    End
-   Begin MSComCtl2.MonthView monthlyCalendar 
-      Height          =   2370
-      Left            =   12075
-      TabIndex        =   34
-      Top             =   2100
-      Width           =   2805
-      _ExtentX        =   4948
-      _ExtentY        =   4180
-      _Version        =   393216
-      ForeColor       =   0
-      BackColor       =   14737632
-      Appearance      =   1
-      StartOfWeek     =   25296898
-      CurrentDate     =   43031
-   End
    Begin VB.Frame frmInfo 
       Appearance      =   0  'Flat
       BackColor       =   &H8000000D&
@@ -201,7 +185,7 @@ Begin VB.Form CoachesPickupsBrief
       ForeColor       =   &H80000008&
       Height          =   1965
       Left            =   10350
-      TabIndex        =   19
+      TabIndex        =   18
       Top             =   75
       Width           =   4515
       Begin VB.TextBox txtDestinationShortDescription 
@@ -221,7 +205,7 @@ Begin VB.Form CoachesPickupsBrief
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   3675
-         TabIndex        =   30
+         TabIndex        =   29
          TabStop         =   0   'False
          Top             =   1200
          Width           =   780
@@ -243,7 +227,7 @@ Begin VB.Form CoachesPickupsBrief
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   75
-         TabIndex        =   29
+         TabIndex        =   28
          TabStop         =   0   'False
          Text            =   "Destinations.DestinationShortDescription"
          Top             =   1200
@@ -266,7 +250,7 @@ Begin VB.Form CoachesPickupsBrief
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   3675
-         TabIndex        =   27
+         TabIndex        =   26
          TabStop         =   0   'False
          Top             =   1575
          Width           =   780
@@ -288,7 +272,7 @@ Begin VB.Form CoachesPickupsBrief
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   75
-         TabIndex        =   26
+         TabIndex        =   25
          TabStop         =   0   'False
          Text            =   "RefersTo"
          Top             =   1575
@@ -311,7 +295,7 @@ Begin VB.Form CoachesPickupsBrief
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   75
-         TabIndex        =   25
+         TabIndex        =   24
          TabStop         =   0   'False
          Text            =   "Transfers.TransferID"
          Top             =   75
@@ -334,7 +318,7 @@ Begin VB.Form CoachesPickupsBrief
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   75
-         TabIndex        =   24
+         TabIndex        =   23
          TabStop         =   0   'False
          Text            =   "Transfers.CustomerID"
          Top             =   450
@@ -357,7 +341,7 @@ Begin VB.Form CoachesPickupsBrief
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   3675
-         TabIndex        =   23
+         TabIndex        =   22
          TabStop         =   0   'False
          Top             =   75
          Width           =   780
@@ -379,7 +363,7 @@ Begin VB.Form CoachesPickupsBrief
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   3675
-         TabIndex        =   22
+         TabIndex        =   21
          TabStop         =   0   'False
          Top             =   450
          Width           =   780
@@ -401,7 +385,7 @@ Begin VB.Form CoachesPickupsBrief
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   75
-         TabIndex        =   21
+         TabIndex        =   20
          TabStop         =   0   'False
          Text            =   "Transfers.DestinationID"
          Top             =   825
@@ -424,7 +408,7 @@ Begin VB.Form CoachesPickupsBrief
          ForeColor       =   &H00000000&
          Height          =   315
          Left            =   3675
-         TabIndex        =   20
+         TabIndex        =   19
          TabStop         =   0   'False
          Top             =   825
          Width           =   780
@@ -630,11 +614,11 @@ Begin VB.Form CoachesPickupsBrief
    End
    Begin Dacara_dcButton.dcButton cmdIndex 
       Height          =   465
-      Index           =   0
-      Left            =   3750
-      TabIndex        =   31
+      Index           =   1
+      Left            =   7275
+      TabIndex        =   30
       TabStop         =   0   'False
-      Top             =   1125
+      Top             =   1650
       Width           =   390
       _ExtentX        =   688
       _ExtentY        =   820
@@ -657,11 +641,11 @@ Begin VB.Form CoachesPickupsBrief
    End
    Begin Dacara_dcButton.dcButton cmdIndex 
       Height          =   465
-      Index           =   1
+      Index           =   2
       Left            =   7275
-      TabIndex        =   32
+      TabIndex        =   31
       TabStop         =   0   'False
-      Top             =   1650
+      Top             =   2175
       Width           =   390
       _ExtentX        =   688
       _ExtentY        =   820
@@ -684,11 +668,11 @@ Begin VB.Form CoachesPickupsBrief
    End
    Begin Dacara_dcButton.dcButton cmdIndex 
       Height          =   465
-      Index           =   2
-      Left            =   7275
-      TabIndex        =   33
+      Index           =   0
+      Left            =   3750
+      TabIndex        =   39
       TabStop         =   0   'False
-      Top             =   2175
+      Top             =   1125
       Width           =   390
       _ExtentX        =   688
       _ExtentY        =   820
@@ -780,7 +764,7 @@ Begin VB.Form CoachesPickupsBrief
       Height          =   315
       Index           =   8
       Left            =   450
-      TabIndex        =   28
+      TabIndex        =   27
       Top             =   2775
       Width           =   1365
    End
@@ -801,7 +785,7 @@ Begin VB.Form CoachesPickupsBrief
       Height          =   315
       Index           =   2
       Left            =   450
-      TabIndex        =   18
+      TabIndex        =   17
       Top             =   1200
       Width           =   1365
    End
@@ -822,7 +806,7 @@ Begin VB.Form CoachesPickupsBrief
       Height          =   315
       Index           =   5
       Left            =   450
-      TabIndex        =   17
+      TabIndex        =   16
       Top             =   1725
       Width           =   1365
    End
@@ -843,7 +827,7 @@ Begin VB.Form CoachesPickupsBrief
       Height          =   315
       Index           =   7
       Left            =   450
-      TabIndex        =   16
+      TabIndex        =   15
       Top             =   2250
       Width           =   1365
    End
@@ -864,7 +848,7 @@ Begin VB.Form CoachesPickupsBrief
       Height          =   315
       Index           =   10
       Left            =   450
-      TabIndex        =   15
+      TabIndex        =   14
       Top             =   3300
       Width           =   1365
    End
@@ -885,7 +869,7 @@ Begin VB.Form CoachesPickupsBrief
       Height          =   315
       Index           =   11
       Left            =   450
-      TabIndex        =   14
+      TabIndex        =   13
       Top             =   3825
       Width           =   1365
    End
@@ -906,7 +890,7 @@ Begin VB.Form CoachesPickupsBrief
       Height          =   315
       Index           =   12
       Left            =   450
-      TabIndex        =   13
+      TabIndex        =   12
       Top             =   4350
       Width           =   1365
    End
@@ -927,7 +911,7 @@ Begin VB.Form CoachesPickupsBrief
       Height          =   315
       Index           =   13
       Left            =   450
-      TabIndex        =   12
+      TabIndex        =   11
       Top             =   4875
       Width           =   1365
    End
@@ -948,30 +932,9 @@ Begin VB.Form CoachesPickupsBrief
       Height          =   315
       Index           =   14
       Left            =   450
-      TabIndex        =   11
+      TabIndex        =   10
       Top             =   5400
       Width           =   1365
-   End
-   Begin VB.Label lblWeekday 
-      AutoSize        =   -1  'True
-      BackColor       =   &H000080FF&
-      BackStyle       =   0  'Transparent
-      Caption         =   "Ημέρα"
-      BeginProperty Font 
-         Name            =   "Ubuntu Condensed"
-         Size            =   9.75
-         Charset         =   161
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00000000&
-      Height          =   315
-      Left            =   4200
-      TabIndex        =   10
-      Top             =   1200
-      Width           =   465
    End
    Begin VB.Label lblTitle 
       AutoSize        =   -1  'True
@@ -1028,7 +991,7 @@ Dim blnCancel As Boolean
 
 Private Function AbortProcedure(blnStatus)
 
-    If monthlyCalendar.Visible Then monthlyCalendar.Visible = False: Exit Function
+    'If monthlyCalendar.Visible Then monthlyCalendar.Visible = False: Exit Function
 
     If Not blnStatus Then
         If MyMsgBox(3, strApplicationName, strStandardMessages(3), 2) Then
@@ -1036,7 +999,8 @@ Private Function AbortProcedure(blnStatus)
             blnCancel = True
             ClearFields txtTransferID, txtCustomerID, txtTransferDestinationID, txtDestinationShortDescription
             ClearFields mskDate, txtCompanyDescription, txtDestinationDescription, txtPickupPointDescription, mskAdults, mskKids, mskFree, txtRemarks
-            ClearFields lblWeekday, mskTotal
+            ClearFields mskTotal
+            'ClearFields lblWeekday, mskTotal
             DisableFields mskDate, txtCompanyDescription, txtDestinationDescription, txtPickupPointDescription, mskAdults, mskKids, mskFree, txtRemarks
             DisableFields cmdIndex(0), cmdIndex(1), cmdIndex(2)
             UpdateButtons Me, 5, 1, 0, 0, IIf(CheckForLoadedForm("CoachesReport"), 0, 1), 0, 1
@@ -1053,7 +1017,8 @@ Private Function DeleteRecord()
         blnCancel = True
         ClearFields txtTransferID, txtCustomerID, txtTransferDestinationID, txtDestinationShortDescription
         ClearFields mskDate, txtCompanyDescription, txtDestinationDescription, txtPickupPointDescription, mskAdults, mskKids, mskFree, txtRemarks
-        ClearFields lblWeekday, mskTotal
+        'ClearFields lblWeekday, mskTotal
+        ClearFields mskTotal
         DisableFields mskDate, txtCompanyDescription, txtDestinationDescription, txtPickupPointDescription, mskAdults, mskKids, mskFree, txtRemarks
         DisableFields cmdIndex(0), cmdIndex(1), cmdIndex(2)
         UpdateButtons Me, 5, 1, 0, 0, IIf(CheckForLoadedForm("CoachesReport"), 0, 1), 0, 1
@@ -1109,7 +1074,8 @@ Private Function SaveRecord()
         DisplayRecordID txtDestinationShortDescription.text, mskDate.text, txtTransferID.text
         ClearFields txtTransferID, txtCustomerID, txtTransferDestinationID, txtDestinationShortDescription
         ClearFields mskDate, txtCompanyDescription, txtDestinationDescription, txtPickupPointDescription, mskAdults, mskKids, mskFree, txtRemarks
-        ClearFields lblWeekday, mskTotal
+        'ClearFields lblWeekday, mskTotal
+        ClearFields mskTotal
         DisableFields mskDate, txtCompanyDescription, txtDestinationDescription, txtPickupPointDescription, mskAdults, mskKids, mskFree, txtRemarks
         DisableFields cmdIndex(0), cmdIndex(1), cmdIndex(2)
         UpdateButtons Me, 5, 1, 0, 0, IIf(CheckForLoadedForm("CoachesReport"), 0, 1), 0, 1
@@ -1185,7 +1151,8 @@ Private Function NewRecord()
     blnCancel = False
     ClearFields txtTransferID, txtCustomerID, txtTransferDestinationID, txtDestinationShortDescription
     ClearFields mskDate, txtCompanyDescription, txtDestinationDescription, txtPickupPointDescription, mskAdults, mskKids, mskFree, txtRemarks
-    ClearFields lblWeekday, mskTotal
+    'ClearFields lblWeekday, mskTotal
+    ClearFields mskTotal
     EnableFields mskDate, txtCompanyDescription, txtDestinationDescription, txtPickupPointDescription, mskAdults, mskKids, mskFree, txtRemarks
     EnableFields cmdIndex(0), cmdIndex(1), cmdIndex(2)
     UpdateButtons Me, 5, 0, 1, 0, 0, 1, 0
@@ -1203,7 +1170,7 @@ Private Sub cmdIndex_Click(index As Integer)
     Select Case index
         Case 0
             'Ημερολόγιο
-            ShowMonthlyCalendar Me, monthlyCalendar
+            'ShowMonthlyCalendar Me, monthlyCalendar
         Case 1
             'Πελάτης
             Set tmpRecordset = CheckForMatch("CommonDB", "Customers", "Description", "String", txtCompanyDescription.text)
@@ -1240,7 +1207,8 @@ Public Function SeekRecord(myTransferID, myRefersTo)
     
     ClearFields txtTransferID, txtCustomerID, txtTransferDestinationID, txtDestinationShortDescription
     ClearFields mskDate, txtCompanyDescription, txtDestinationDescription, txtPickupPointDescription, mskAdults, mskKids, mskFree, txtRemarks
-    ClearFields lblWeekday, mskTotal
+    'ClearFields lblWeekday, mskTotal
+    ClearFields mskTotal
     DisableFields mskDate, txtCompanyDescription, txtDestinationDescription, txtPickupPointDescription, mskAdults, mskKids, mskFree, txtRemarks
     DisableFields cmdIndex(0), cmdIndex(1), cmdIndex(2)
     
@@ -1260,7 +1228,7 @@ Public Function SeekRecord(myTransferID, myRefersTo)
         EnableFields mskDate, txtCompanyDescription, txtDestinationDescription, txtPickupPointDescription, mskAdults, mskKids, mskFree, txtRemarks
         EnableFields cmdIndex(0), cmdIndex(1), cmdIndex(2)
         mskTotal.text = AddNumbers(mskAdults.text, mskKids.text, mskFree.text)
-        lblWeekday.Caption = FindWeekDay(mskDate.text)
+        'lblWeekday.Caption = FindWeekDay(mskDate.text)
         txtRefersTo.text = myRefersTo
         blnCancel = False
         blnStatus = False
@@ -1300,27 +1268,28 @@ Private Sub Form_Load()
     blnCancel = True
     ClearFields txtTransferID, txtCustomerID, txtTransferDestinationID, txtDestinationShortDescription
     ClearFields mskDate, txtCompanyDescription, txtDestinationDescription, txtPickupPointDescription, mskAdults, mskKids, mskFree, txtRemarks
-    ClearFields lblWeekday, mskTotal
+    'ClearFields lblWeekday, mskTotal
+    ClearFields mskTotal
     DisableFields mskDate, txtCompanyDescription, txtDestinationDescription, txtPickupPointDescription, mskAdults, mskKids, mskFree, txtRemarks
     DisableFields cmdIndex(0), cmdIndex(1), cmdIndex(2)
-    monthlyCalendar.Visible = False
+    'monthlyCalendar.Visible = False
     UpdateButtons Me, 5, 1, 0, 0, 1, 0, 1
    
 End Sub
 
 Private Sub monthlyCalendar_DblClick()
 
-    mskDate.text = format(monthlyCalendar.Value, "dd/mm/yyyy")
-    monthlyCalendar.Visible = False
+    'mskDate.text = format(monthlyCalendar.Value, "dd/mm/yyyy")
+    'monthlyCalendar.Visible = False
 
 End Sub
 
 Private Sub monthlyCalendar_KeyPress(KeyAscii As Integer)
 
-    If KeyAscii = vbKeyReturn Then
-        mskDate.text = format(monthlyCalendar.Value, "dd/mm/yyyy")
-        monthlyCalendar.Visible = False
-    End If
+    'If KeyAscii = vbKeyReturn Then
+    '    mskDate.text = format(monthlyCalendar.Value, "dd/mm/yyyy")
+    '    monthlyCalendar.Visible = False
+    'End If
 
 End Sub
 
@@ -1334,7 +1303,7 @@ End Sub
 
 Private Sub mskDate_GotFocus()
 
-    lblWeekday.Caption = FindWeekDay(mskDate.text)
+    'lblWeekday.Caption = FindWeekDay(mskDate.text)
 
 End Sub
 
@@ -1346,13 +1315,13 @@ End Sub
 
 Private Sub mskDate_LostFocus()
 
-    lblWeekday.Caption = FindWeekDay(mskDate.text)
+    'lblWeekday.Caption = FindWeekDay(mskDate.text)
     
 End Sub
 
 Private Sub mskDate_Validate(Cancel As Boolean)
 
-    lblWeekday.Caption = FindWeekDay(mskDate.text)
+    'lblWeekday.Caption = FindWeekDay(mskDate.text)
     
 End Sub
 
@@ -1365,14 +1334,6 @@ Private Sub mskFree_Validate(Cancel As Boolean)
 End Sub
 
 Private Sub mskKids_Validate(Cancel As Boolean)
-
-    If Not blnCancel Then
-        mskTotal.text = AddNumbers(mskAdults.text, mskKids.text, mskFree.text)
-    End If
-
-End Sub
-
-Private Sub mskKids_Change()
 
     If Not blnCancel Then
         mskTotal.text = AddNumbers(mskAdults.text, mskKids.text, mskFree.text)

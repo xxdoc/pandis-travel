@@ -461,7 +461,7 @@ Begin VB.Form UtilsSalesExport
       AutoSize        =   -1  'True
       BackColor       =   &H00800000&
       BackStyle       =   0  'Transparent
-      Caption         =   "Δημιουργία αρχείου πωλήσεων"
+      Caption         =   "Δημιουργία αρχείου γενικής λογιστικής"
       BeginProperty Font 
          Name            =   "Ubuntu Condensed"
          Size            =   30
@@ -476,7 +476,7 @@ Begin VB.Form UtilsSalesExport
       Left            =   225
       TabIndex        =   9
       Top             =   75
-      Width           =   7320
+      Width           =   9165
    End
    Begin VB.Shape shpBackground 
       BackColor       =   &H00C0FFFF&
@@ -762,9 +762,9 @@ Private Function ExportGridToFile()
 
 End Function
 
-Private Sub cmdButton_Click(index As Integer)
+Private Sub cmdButton_Click(Index As Integer)
 
-    Select Case index
+    Select Case Index
         Case 0
             DoJobs
         Case 1
@@ -1046,7 +1046,7 @@ Private Sub grdSalesExport_ColHeaderMouseLeave(ByVal lCol As Long)
     
 End Sub
 
-Private Sub grdSalesExport_HeaderRightClick(ByVal lCol As Long, ByVal Shift As Integer, ByVal X As Long, ByVal Y As Long)
+Private Sub grdSalesExport_HeaderRightClick(ByVal lCol As Long, ByVal Shift As Integer, ByVal x As Long, ByVal y As Long)
 
     PopupMenu mnuHdrPopUp
 

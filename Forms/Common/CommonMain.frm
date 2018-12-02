@@ -1,66 +1,1800 @@
 VERSION 5.00
-Object = "{396F7AC0-A0DD-11D3-93EC-00C0DFE7442A}#1.0#0"; "ImageList.ocx"
-Object = "{77EBD0B1-871A-4AD1-951A-26AEFE783111}#2.1#0"; "vbalExpBar6.ocx"
+Object = "{E3F0D4E9-96BB-4A6B-BA7B-D9C806E333BB}#1.0#0"; "Buttons.ocx"
 Begin VB.Form CommonMain 
    Appearance      =   0  'Flat
-   BackColor       =   &H00000000&
+   BackColor       =   &H00C0C0FF&
    BorderStyle     =   1  'Fixed Single
-   ClientHeight    =   6210
+   ClientHeight    =   13020
    ClientLeft      =   2025
    ClientTop       =   120
-   ClientWidth     =   7545
+   ClientWidth     =   28410
    FontTransparent =   0   'False
    ForeColor       =   &H00000000&
    Icon            =   "CommonMain.frx":0000
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
-   ScaleHeight     =   6210
-   ScaleWidth      =   7545
+   ScaleHeight     =   868
+   ScaleMode       =   3  'Pixel
+   ScaleWidth      =   1894
    WindowState     =   2  'Maximized
-   Begin vbalExplorerBarLib6.vbalExplorerBarCtl vbExplorerBar 
-      Height          =   481
-      Left            =   624
+   Begin VB.Frame menuFrame 
+      BackColor       =   &H00FFFFC0&
+      BorderStyle     =   0  'None
+      Height          =   1140
+      Index           =   8
+      Left            =   24000
+      TabIndex        =   87
+      Top             =   225
+      Width           =   3915
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Τερματισμός εφαρμογής"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   52
+         Left            =   300
+         TabIndex        =   89
+         Top             =   600
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Αλλαγή εταιρίας"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   51
+         Left            =   300
+         MousePointer    =   2  'Cross
+         TabIndex        =   88
+         Top             =   225
+         Width           =   3315
+      End
+   End
+   Begin VB.Frame menuFrame 
+      BackColor       =   &H00FFFFC0&
+      BorderStyle     =   0  'None
+      Height          =   9390
+      Index           =   7
+      Left            =   4125
+      TabIndex        =   62
+      Top             =   3075
+      Width           =   4890
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Ποσοστά Φ.Π.Α."
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   49
+         Left            =   315
+         TabIndex        =   86
+         Top             =   3975
+         Width           =   4290
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Δημιουργία αρχείου γενικής λογιστικής"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   47
+         Left            =   300
+         TabIndex        =   85
+         Top             =   8475
+         Width           =   4290
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Χρήστες"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   46
+         Left            =   315
+         TabIndex        =   84
+         Top             =   7725
+         Width           =   4290
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Ελεγχος αρχείων"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   48
+         Left            =   300
+         TabIndex        =   83
+         Top             =   8850
+         Width           =   4290
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Τρόποι πληρωμής"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   44
+         Left            =   315
+         TabIndex        =   82
+         Top             =   6975
+         Width           =   4290
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Χαρακτηρισμοί επιβαινόντων"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   45
+         Left            =   315
+         TabIndex        =   81
+         Top             =   7350
+         Width           =   4290
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Τιμοκατάλογοι εκδρομών λεωφορείων"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   42
+         Left            =   315
+         TabIndex        =   80
+         Top             =   6225
+         Width           =   4290
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Τράπεζες"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   43
+         Left            =   315
+         TabIndex        =   79
+         Top             =   6600
+         Width           =   4290
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Τιμοκατάλογοι εκδρομών πλοίων"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   41
+         Left            =   315
+         TabIndex        =   78
+         Top             =   5850
+         Width           =   4290
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Σημεία παραλαβής επιβατών"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   39
+         Left            =   315
+         TabIndex        =   77
+         Top             =   5100
+         Width           =   4290
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Σύνδεση προορισμών με δρομολόγια λεωφορείων"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   40
+         Left            =   315
+         TabIndex        =   76
+         Top             =   5475
+         Width           =   4290
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Προορισμοί πλοίων"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   37
+         Left            =   315
+         TabIndex        =   75
+         Top             =   4350
+         Width           =   4290
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Προορισμοί λεωφορείων"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   38
+         Left            =   315
+         TabIndex        =   74
+         Top             =   4725
+         Width           =   4290
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Δρομολόγια πλοίων"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   31
+         Left            =   315
+         TabIndex        =   73
+         Top             =   1725
+         Width           =   4290
+      End
+      Begin VB.Label mnuHeader 
+         BackColor       =   &H00FFC0C0&
+         Caption         =   "Πίνακες"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   21
+         Left            =   300
+         TabIndex        =   72
+         Top             =   1350
+         Width           =   4290
+      End
+      Begin VB.Label mnuHeader 
+         BackColor       =   &H00FFC0C0&
+         Caption         =   "Παραμετροποίηση"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   20
+         Left            =   300
+         TabIndex        =   71
+         Top             =   225
+         Width           =   4290
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Γενικές παράμετροι"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   29
+         Left            =   300
+         MousePointer    =   2  'Cross
+         TabIndex        =   70
+         Top             =   600
+         Width           =   4290
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Εκτυπωτές"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   30
+         Left            =   300
+         TabIndex        =   69
+         Top             =   975
+         Width           =   4290
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Οροι πληρωμής"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   35
+         Left            =   315
+         MousePointer    =   2  'Cross
+         TabIndex        =   68
+         Top             =   3225
+         Width           =   4290
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Δρομολόγια λεωφορείων"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   32
+         Left            =   315
+         TabIndex        =   67
+         Top             =   2100
+         Width           =   4290
+      End
+      Begin VB.Label mnuHeader 
+         BackColor       =   &H00FFC0C0&
+         Caption         =   "Εργασίες"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   18
+         Left            =   300
+         TabIndex        =   66
+         Top             =   8100
+         Width           =   4290
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Κατηγορίες εξόδων"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   33
+         Left            =   315
+         TabIndex        =   65
+         Top             =   2475
+         Width           =   4290
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Οικονομικές υπηρεσίες"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   34
+         Left            =   315
+         TabIndex        =   64
+         Top             =   2850
+         Width           =   4290
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Πλοία"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   36
+         Left            =   315
+         MousePointer    =   2  'Cross
+         TabIndex        =   63
+         Top             =   3600
+         Width           =   4290
+      End
+   End
+   Begin VB.Frame menuFrame 
+      BackColor       =   &H00FFFFC0&
+      BorderStyle     =   0  'None
+      Height          =   2640
+      Index           =   6
+      Left            =   20025
+      TabIndex        =   55
+      Top             =   225
+      Width           =   3915
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Κινήσεις"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   27
+         Left            =   300
+         MousePointer    =   2  'Cross
+         TabIndex        =   61
+         Top             =   1725
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Κατάσταση επιβατών"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   28
+         Left            =   300
+         TabIndex        =   60
+         Top             =   2100
+         Width           =   3315
+      End
+      Begin VB.Label mnuHeader 
+         Caption         =   "Γρήγορη καταχώρηση"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   16
+         Left            =   300
+         TabIndex        =   59
+         Top             =   225
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Κινήσεις"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   25
+         Left            =   300
+         MousePointer    =   2  'Cross
+         TabIndex        =   58
+         Top             =   600
+         Width           =   3315
+      End
+      Begin VB.Label mnuHeader 
+         Caption         =   "Κανονική καταχώρηση"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   14
+         Left            =   300
+         TabIndex        =   57
+         Top             =   1350
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Κατάσταση επιβατών"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   26
+         Left            =   300
+         TabIndex        =   56
+         Top             =   975
+         Width           =   3315
+      End
+   End
+   Begin VB.Frame menuFrame 
+      BackColor       =   &H00FFFFC0&
+      BorderStyle     =   0  'None
+      Height          =   2640
+      Index           =   5
+      Left            =   16050
+      TabIndex        =   48
+      Top             =   225
+      Width           =   3915
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Κατάσταση με βάση τις πωλήσεις"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   23
+         Left            =   300
+         TabIndex        =   54
+         Top             =   1725
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Κατάσταση επιβατών"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   22
+         Left            =   300
+         TabIndex        =   53
+         Top             =   1350
+         Width           =   3315
+      End
+      Begin VB.Label mnuHeader 
+         Caption         =   "Αναφορές"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   17
+         Left            =   300
+         TabIndex        =   52
+         Top             =   975
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Κατάσταση με βάση τους επιβαίνοντες"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   24
+         Left            =   300
+         MousePointer    =   2  'Cross
+         TabIndex        =   51
+         Top             =   2100
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Κινήσεις"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   21
+         Left            =   300
+         MousePointer    =   2  'Cross
+         TabIndex        =   50
+         Top             =   600
+         Width           =   3315
+      End
+      Begin VB.Label mnuHeader 
+         Caption         =   "Διαχείρηση"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   15
+         Left            =   300
+         TabIndex        =   49
+         Top             =   225
+         Width           =   3315
+      End
+   End
+   Begin VB.Frame menuFrame 
+      BackColor       =   &H00FFFFC0&
+      BorderStyle     =   0  'None
+      Height          =   3765
+      Index           =   4
+      Left            =   12075
+      TabIndex        =   38
+      Top             =   225
+      Width           =   3915
+      Begin VB.Label mnuHeader 
+         Caption         =   "Κινήσεις"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   13
+         Left            =   300
+         TabIndex        =   47
+         Top             =   975
+         Width           =   3315
+      End
+      Begin VB.Label mnuHeader 
+         Caption         =   "Διαχείρηση"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   12
+         Left            =   300
+         TabIndex        =   46
+         Top             =   225
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Αρχείο"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   16
+         Left            =   300
+         MousePointer    =   2  'Cross
+         TabIndex        =   45
+         Top             =   600
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Διαχείρηση"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   17
+         Left            =   300
+         TabIndex        =   44
+         Top             =   1350
+         Width           =   3315
+      End
+      Begin VB.Label mnuHeader 
+         Caption         =   "Τύποι παραστατικών"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   11
+         Left            =   300
+         TabIndex        =   43
+         Top             =   2850
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Διαχείρηση"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   20
+         Left            =   300
+         MousePointer    =   2  'Cross
+         TabIndex        =   42
+         Top             =   3225
+         Width           =   3315
+      End
+      Begin VB.Label mnuHeader 
+         Caption         =   "Αναφορές"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   10
+         Left            =   300
+         TabIndex        =   41
+         Top             =   1725
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Καρτέλα"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   18
+         Left            =   300
+         TabIndex        =   40
+         Top             =   2100
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Ισοζύγιο"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   19
+         Left            =   300
+         TabIndex        =   39
+         Top             =   2475
+         Width           =   3315
+      End
+   End
+   Begin VB.Frame menuFrame 
+      BackColor       =   &H00FFFFC0&
+      BorderStyle     =   0  'None
+      Height          =   4515
+      Index           =   3
+      Left            =   8100
+      TabIndex        =   26
+      Top             =   225
+      Width           =   3915
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Εκδρομών λεωφορείων"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   15
+         Left            =   300
+         MousePointer    =   2  'Cross
+         TabIndex        =   37
+         Top             =   3975
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Ισοζύγιο"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   13
+         Left            =   300
+         TabIndex        =   36
+         Top             =   2850
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Καρτέλα"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   12
+         Left            =   300
+         TabIndex        =   35
+         Top             =   2475
+         Width           =   3315
+      End
+      Begin VB.Label mnuHeader 
+         Caption         =   "Αναφορές"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   9
+         Left            =   300
+         TabIndex        =   34
+         Top             =   2100
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Εκδρομές λεωφορείων"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   11
+         Left            =   300
+         TabIndex        =   33
+         Top             =   1725
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Εκδρομών πλοίων"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   14
+         Left            =   300
+         MousePointer    =   2  'Cross
+         TabIndex        =   32
+         Top             =   3600
+         Width           =   3315
+      End
+      Begin VB.Label mnuHeader 
+         Caption         =   "Τύποι παραστατικών"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   8
+         Left            =   300
+         TabIndex        =   31
+         Top             =   3225
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Εκδρομές πλοίων"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   10
+         Left            =   300
+         TabIndex        =   30
+         Top             =   1350
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Αρχείο"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   9
+         Left            =   300
+         MousePointer    =   2  'Cross
+         TabIndex        =   29
+         Top             =   600
+         Width           =   3315
+      End
+      Begin VB.Label mnuHeader 
+         Caption         =   "Διαχείρηση"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   7
+         Left            =   300
+         TabIndex        =   28
+         Top             =   225
+         Width           =   3315
+      End
+      Begin VB.Label mnuHeader 
+         Caption         =   "Κινήσεις"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   5
+         Left            =   300
+         TabIndex        =   27
+         Top             =   975
+         Width           =   3315
+      End
+   End
+   Begin VB.Frame menuFrame 
+      BackColor       =   &H00FFFFC0&
+      BorderStyle     =   0  'None
+      Height          =   2640
+      Index           =   2
+      Left            =   4125
+      TabIndex        =   19
+      Top             =   225
+      Width           =   3915
+      Begin VB.Label mnuHeader 
+         Caption         =   "Αναφορές"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   3
+         Left            =   300
+         TabIndex        =   25
+         Top             =   975
+         Width           =   3315
+      End
+      Begin VB.Label mnuHeader 
+         Caption         =   "Διαχείρηση"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   4
+         Left            =   300
+         TabIndex        =   24
+         Top             =   225
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Κινήσεις"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   6
+         Left            =   300
+         MousePointer    =   2  'Cross
+         TabIndex        =   23
+         Top             =   600
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Ημερολόγιο"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   7
+         Left            =   300
+         TabIndex        =   22
+         Top             =   1350
+         Width           =   3315
+      End
+      Begin VB.Label mnuHeader 
+         Caption         =   "Τύποι παραστατικών"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   2
+         Left            =   300
+         TabIndex        =   21
+         Top             =   1725
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Διαχείρηση"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   8
+         Left            =   300
+         MousePointer    =   2  'Cross
+         TabIndex        =   20
+         Top             =   2100
+         Width           =   3315
+      End
+   End
+   Begin VB.Frame menuFrame 
+      BackColor       =   &H00FFFFC0&
+      BorderStyle     =   0  'None
+      Height          =   3390
+      Index           =   1
+      Left            =   150
       TabIndex        =   1
-      Top             =   2106
-      Width           =   481
-      _ExtentX        =   847
-      _ExtentY        =   847
-      BackColorEnd    =   0
-      BackColorStart  =   0
+      Top             =   225
+      Width           =   3915
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Διαχείρηση"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   5
+         Left            =   300
+         MousePointer    =   2  'Cross
+         TabIndex        =   18
+         Top             =   2850
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Κινήσεις"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   3
+         Left            =   300
+         MousePointer    =   2  'Cross
+         TabIndex        =   17
+         Top             =   1725
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Ημερολόγιο"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   4
+         Left            =   300
+         TabIndex        =   16
+         Top             =   2100
+         Width           =   3315
+      End
+      Begin VB.Label mnuHeader 
+         AutoSize        =   -1  'True
+         Caption         =   "Τύποι παραστατικών"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   6
+         Left            =   300
+         TabIndex        =   15
+         Top             =   2475
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Ημερολόγιο"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   2
+         Left            =   300
+         TabIndex        =   14
+         Top             =   975
+         Width           =   3315
+      End
+      Begin VB.Label menuOption 
+         BackColor       =   &H0080C0FF&
+         Caption         =   "Κινήσεις"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   1
+         Left            =   300
+         MousePointer    =   2  'Cross
+         TabIndex        =   13
+         Top             =   600
+         Width           =   3315
+      End
+      Begin VB.Label mnuHeader 
+         AutoSize        =   -1  'True
+         Caption         =   "Εκδρομές λεωφορείων"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   1
+         Left            =   300
+         TabIndex        =   12
+         Top             =   1350
+         Width           =   3315
+      End
+      Begin VB.Label mnuHeader 
+         AutoSize        =   -1  'True
+         Caption         =   "Εκδρομές πλοίων"
+         BeginProperty Font 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   315
+         Index           =   22
+         Left            =   300
+         TabIndex        =   11
+         Top             =   225
+         Width           =   3315
+      End
    End
-   Begin vbalIml6.vbalImageList imgImageList 
-      Left            =   9975
-      Top             =   450
-      _ExtentX        =   953
-      _ExtentY        =   953
-      Size            =   2296
-      Images          =   "CommonMain.frx":0ECA
-      Version         =   131072
-      KeyCount        =   2
-      Keys            =   "ÿ"
+   Begin VB.Frame frmNavigation 
+      BackColor       =   &H00000000&
+      BorderStyle     =   0  'None
+      Height          =   1140
+      Left            =   10500
+      TabIndex        =   2
+      Top             =   5250
+      Width           =   12840
+      Begin GurhanButtonOCX.GurhanButton cmdMenu 
+         Height          =   840
+         Index           =   1
+         Left            =   150
+         TabIndex        =   3
+         Top             =   150
+         Width           =   1515
+         _ExtentX        =   2672
+         _ExtentY        =   1482
+         Caption         =   "Εσοδα"
+         ButtonStyle     =   3
+         OriginalPicSizeW=   0
+         OriginalPicSizeH=   0
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         MousePointer    =   2
+         BackColor       =   12632064
+         ForeColor       =   0
+         BEVEL           =   0
+         BEVELDEPTH      =   0
+      End
+      Begin GurhanButtonOCX.GurhanButton cmdMenu 
+         Height          =   840
+         Index           =   2
+         Left            =   1725
+         TabIndex        =   4
+         Top             =   150
+         Width           =   1515
+         _ExtentX        =   2672
+         _ExtentY        =   1482
+         Caption         =   "Εξοδα"
+         ButtonStyle     =   3
+         OriginalPicSizeW=   0
+         OriginalPicSizeH=   0
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         MousePointer    =   2
+         BackColor       =   12632064
+         ForeColor       =   0
+         BEVEL           =   0
+         BEVELDEPTH      =   0
+      End
+      Begin GurhanButtonOCX.GurhanButton cmdMenu 
+         Height          =   840
+         Index           =   3
+         Left            =   3300
+         TabIndex        =   5
+         Top             =   150
+         Width           =   1515
+         _ExtentX        =   2672
+         _ExtentY        =   1482
+         Caption         =   "Χρεώστες"
+         ButtonStyle     =   3
+         OriginalPicSizeW=   0
+         OriginalPicSizeH=   0
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         MousePointer    =   2
+         BackColor       =   12632064
+         ForeColor       =   0
+         BEVEL           =   0
+         BEVELDEPTH      =   0
+      End
+      Begin GurhanButtonOCX.GurhanButton cmdMenu 
+         Height          =   840
+         Index           =   4
+         Left            =   4875
+         TabIndex        =   6
+         Top             =   150
+         Width           =   1515
+         _ExtentX        =   2672
+         _ExtentY        =   1482
+         Caption         =   "Πιστωτές"
+         ButtonStyle     =   3
+         OriginalPicSizeW=   0
+         OriginalPicSizeH=   0
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         MousePointer    =   2
+         BackColor       =   12632064
+         ForeColor       =   0
+         BEVEL           =   0
+         BEVELDEPTH      =   0
+      End
+      Begin GurhanButtonOCX.GurhanButton cmdMenu 
+         Height          =   840
+         Index           =   5
+         Left            =   6450
+         TabIndex        =   7
+         Top             =   150
+         Width           =   1515
+         _ExtentX        =   2672
+         _ExtentY        =   1482
+         Caption         =   "Επιβαίνοντες πλοίων"
+         ButtonStyle     =   3
+         OriginalPicSizeW=   0
+         OriginalPicSizeH=   0
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         MousePointer    =   2
+         BackColor       =   12632064
+         ForeColor       =   0
+         BEVEL           =   0
+         BEVELDEPTH      =   0
+      End
+      Begin GurhanButtonOCX.GurhanButton cmdMenu 
+         Height          =   840
+         Index           =   6
+         Left            =   8025
+         TabIndex        =   8
+         Top             =   150
+         Width           =   1515
+         _ExtentX        =   2672
+         _ExtentY        =   1482
+         Caption         =   "Επιβαίνοντες λεωφορείων"
+         ButtonStyle     =   3
+         OriginalPicSizeW=   0
+         OriginalPicSizeH=   0
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         MousePointer    =   2
+         BackColor       =   12632064
+         ForeColor       =   0
+         BEVEL           =   0
+         BEVELDEPTH      =   0
+      End
+      Begin GurhanButtonOCX.GurhanButton cmdMenu 
+         Height          =   840
+         Index           =   7
+         Left            =   9600
+         TabIndex        =   9
+         Top             =   150
+         Width           =   1515
+         _ExtentX        =   2672
+         _ExtentY        =   1482
+         Caption         =   "Βοηθητικά"
+         ButtonStyle     =   3
+         OriginalPicSizeW=   0
+         OriginalPicSizeH=   0
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         MousePointer    =   2
+         XPColor_Hover   =   8421376
+         BackColor       =   8421376
+         ForeColor       =   0
+         BEVEL           =   0
+         BEVELDEPTH      =   0
+      End
+      Begin GurhanButtonOCX.GurhanButton cmdMenu 
+         Height          =   840
+         Index           =   8
+         Left            =   11175
+         TabIndex        =   10
+         Top             =   150
+         Width           =   1515
+         _ExtentX        =   2672
+         _ExtentY        =   1482
+         Caption         =   "Εξοδος"
+         ButtonStyle     =   3
+         OriginalPicSizeW=   0
+         OriginalPicSizeH=   0
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Ubuntu Condensed"
+            Size            =   11.25
+            Charset         =   161
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         MousePointer    =   2
+         BackColor       =   8421631
+         ForeColor       =   0
+         BEVEL           =   0
+         BEVELDEPTH      =   0
+      End
    End
-   Begin vbalIml6.vbalImageList ilsExplorerIcons 
-      Left            =   600
-      Top             =   2625
-      _ExtentX        =   953
-      _ExtentY        =   953
-      IconSizeX       =   48
-      IconSizeY       =   48
-      ColourDepth     =   24
-      Size            =   57960
-      Images          =   "CommonMain.frx":17E2
-      Version         =   131072
-      KeyCount        =   6
-      Keys            =   "ÿÿÿÿÿ"
+   Begin VB.Image imgImage 
+      Appearance      =   0  'Flat
+      Height          =   2400
+      Left            =   17400
+      Picture         =   "CommonMain.frx":0ECA
+      Top             =   2550
+      Width           =   1995
+   End
+   Begin VB.Image Image1 
+      Height          =   540
+      Left            =   3150
+      Top             =   2850
+      Width           =   1215
    End
    Begin VB.Label lblCompany 
-      Alignment       =   2  'Center
       Appearance      =   0  'Flat
       BackColor       =   &H00000000&
-      Caption         =   "Label1"
+      Caption         =   "Corfu Cruises"
       BeginProperty Font 
-         Name            =   "Ubuntu Condensed"
-         Size            =   12
+         Name            =   "Candara"
+         Size            =   15.75
          Charset         =   161
          Weight          =   400
          Underline       =   0   'False
@@ -68,19 +1802,11 @@ Begin VB.Form CommonMain
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00C0FFFF&
-      Height          =   315
-      Left            =   1650
+      Height          =   390
+      Left            =   12825
       TabIndex        =   0
-      Top             =   525
+      Top             =   9600
       Width           =   3690
-   End
-   Begin VB.Image imgImage 
-      Appearance      =   0  'Flat
-      Height          =   2400
-      Left            =   4275
-      Picture         =   "CommonMain.frx":FA6A
-      Top             =   3000
-      Width           =   1995
    End
 End
 Attribute VB_Name = "CommonMain"
@@ -90,160 +1816,45 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Private Function AddCreditorsSubMenu()
+Dim isFirstTime As Boolean
 
-    Dim cBar As cExplorerBar
-    Dim cItem As cExplorerBarItem
+Private Function BuildMenu()
 
-    Set cBar = vbExplorerBar.Bars.Add(, "Πιστωτές", Space(5) & "Πιστωτές")
-        cBar.IsSpecial = True
-        cBar.State = eBarCollapsed
-        Set cItem = cBar.Items.Add(, "ΠιστωτέςΑρχείο", " - Αρχείο")
-        Set cItem = cBar.Items.Add(, "ΠιστωτέςΚινήσεις", " - Κινήσεις")
-        Set cItem = cBar.Items.Add(, "ΠιστωτέςΚαρτέλα", " - Καρτέλα")
-        Set cItem = cBar.Items.Add(, "ΠιστωτέςΙσοζύγιο", " - Ισοζύγιο")
-        Set cItem = cBar.Items.Add(, "ΠιστωτέςΤύποιΠαραστατικών", " - Τύποι παραστατικών")
-
-End Function
-
-Private Function AddDebitorsSubMenu()
-
-    Dim cBar As cExplorerBar
-    Dim cItem As cExplorerBarItem
-
-    Set cBar = vbExplorerBar.Bars.Add(, "Χρεώστες", Space(5) & "Χρεώστες")
-        cBar.IsSpecial = True
-        cBar.State = eBarCollapsed
-        Set cItem = cBar.Items.Add(, "ΧρεώστεςΑρχείο", " - Αρχείο")
-        Set cItem = cBar.Items.Add(, "ΧρεώστεςΚινήσειςΕκδρομέςΠλοίων", " - Κινήσεις εκδρομών πλοίων")
-        Set cItem = cBar.Items.Add(, "ΧρεώστεςΚινήσειςΕκδρομέςΛεωφορείων", " - Κινήσεις εκδρομών λεωφορείων")
-        Set cItem = cBar.Items.Add(, "ΧρεώστεςΚαρτέλα", " - Καρτέλα")
-        Set cItem = cBar.Items.Add(, "ΧρεώστεςΙσοζύγιο", " - Ισοζύγιο")
-        Set cItem = cBar.Items.Add(, "ΧρεώστεςΤύποιΠαραστατικώνΕκδρομώνΠλοίων", " - Τύποι παραστατικών εκδρομών πλοίων")
-        Set cItem = cBar.Items.Add(, "ΧρεώστεςΤύποιΠαραστατικώνΕκδρομώνΛεωφορείων", " - Τύποι παραστατικών εκδρομών λεωφορείων")
-
-End Function
-
-Private Function AddExitSubMenu()
-
-    Dim cBar As cExplorerBar
-    Dim cItem As cExplorerBarItem
-
-    Set cBar = vbExplorerBar.Bars.Add(, "Εξοδος", Space(5) & "Εξοδος")
-        cBar.IsSpecial = True
-        cBar.State = eBarCollapsed
-        Set cItem = cBar.Items.Add(, "ΕξοδοςΑλλαγήΕταιρίας", "- Αλλαγή εταιρίας")
-        Set cItem = cBar.Items.Add(, "ΕξοδοςΤερματισμόςΕφαρμογής", "- Τερματισμός εφαρμογής")
-
-End Function
-
-Private Function AddIncomeMenu()
-
-    Dim cBar As cExplorerBar
-    Dim cItem As cExplorerBarItem
-
-    Set cBar = vbExplorerBar.Bars.Add(, "Εσοδα", Space(5) & "Εσοδα")
-        cBar.IsSpecial = True
-        cBar.State = eBarCollapsed
-        Set cItem = cBar.Items.Add(, "ΕσοδαΕκδρομέςΠλοίων", "Εκδρομές πλοίων")
-            cItem.ItemType = eItemText
-            cItem.Bold = True
-            cItem.TextColor = RGB(96, 150, 207)
-            Set cItem = cBar.Items.Add(, "ΕσοδαΕκδρομέςΠλοίωνΚινήσεις", " - Κινήσεις")
-            Set cItem = cBar.Items.Add(, "ΕσοδαΕκδρομέςΠλοίωνΗμερολόγιο", " - Ημερολόγιο")
-        Set cItem = cBar.Items.Add(, "ΕσοδαΕκδρομέςΛεωφορείων", "Εκδρομές λεωφορείων")
-            cItem.ItemType = eItemText
-            cItem.Bold = True
-            cItem.TextColor = RGB(96, 150, 207)
-            Set cItem = cBar.Items.Add(, "ΕσοδαΕκδρομέςΛεωφορείωνΚινήσεις", " - Κινήσεις")
-            Set cItem = cBar.Items.Add(, "ΕσοδαΕκδρομέςΛεωφορείωνΗμερολόγιο", " - Ημερολόγιο")
-        Set cItem = cBar.Items.Add(, "ΕσοδαΤύποιΠαραστατικών", "Τύποι παραστατικών")
-            cItem.ItemType = eItemText
-            cItem.Bold = True
-            cItem.TextColor = RGB(96, 150, 207)
-            Set cItem = cBar.Items.Add(, "ΕσοδαΤύποιΠαραστατικώνΔιαχείρηση", " - Διαχείρηση")
-
-End Function
-
-Private Function AddShipsPassengers()
-
-    Dim cBar As cExplorerBar
-    Dim cItem As cExplorerBarItem
-        
-    Set cBar = vbExplorerBar.Bars.Add(, "ΕπιβαίνοντεςΠλοίων", Space(5) & "Επιβαίνοντες πλοίων")
-        cBar.IsSpecial = True
-        cBar.State = eBarCollapsed
-        Set cItem = cBar.Items.Add(, "ΕπιβαίνοντεςΠλοίωνΚινήσεις", " - Αρχείο")
-        Set cItem = cBar.Items.Add(, "ΕπιβαίνοντεςΠλοίωνΚατάσταση", " - Κατάσταση επιβατών")
-        Set cItem = cBar.Items.Add(, "ΕπιβαίνοντεςΠλοίωνΣτατιστικάΠωλήσεις", " - Στατιστικά με βάση τις πωλήσεις")
-        Set cItem = cBar.Items.Add(, "ΕπιβαίνοντεςΠλοίωνΣτατιστικάΛιμεναρχείο", " - Στατιστικά με βάση τους επιβαίνοντες")
-
-End Function
-
-Private Function AddTransfersSubMenu()
-
-    Dim cBar As cExplorerBar
-    Dim cItem As cExplorerBarItem
-        
-    Set cBar = vbExplorerBar.Bars.Add(, "ΜεταφορέςΛεωφορείων", Space(5) & "Επιβαίνοντες λεωφορείων")
-        cBar.IsSpecial = True
-        cBar.State = eBarCollapsed
-        Set cItem = cBar.Items.Add(, "ΜεταφορέςΛεωφορείωνΓρήγορηΚαταχώρηση", " - Γρήγορη καταχώρηση")
-            cItem.ItemType = eItemText
-            cItem.Bold = True
-            cItem.TextColor = RGB(96, 150, 207)
-            Set cItem = cBar.Items.Add(, "ΜεταφορέςΛεωφορείωνΓρήγορηΚαταχώρησηΚινήσεις", Space(5) & " - Κινήσεις")
-            Set cItem = cBar.Items.Add(, "ΜεταφορέςΛεωφορείωνΓρήγορηΚαταχώρησηΗμερολόγιο", Space(5) & " - Κατάσταση επιβατών")
-        Set cItem = cBar.Items.Add(, "ΜεταφορέςΛεωφορείωνΚανονικήΚαταχώρηση", " - Κανονική καταχώρηση")
-            cItem.ItemType = eItemText
-            cItem.Bold = True
-            cItem.TextColor = RGB(96, 150, 207)
-            Set cItem = cBar.Items.Add(, "ΜεταφορέςΛεωφορείωνΚανονικήΚαταχώρησηΚινήσεις", Space(5) & " - Κινήσεις")
-            Set cItem = cBar.Items.Add(, "ΜεταφορέςΛεωφορείωνΚανονικήΚαταχώρησηΗμερολόγιο", Space(5) & " - Κατάσταση επιβατών")
-
-End Function
-
-Private Function AddUtilsSubMenu()
-
-    Dim cBar As cExplorerBar
-    Dim cItem As cExplorerBarItem
-        
-    Set cBar = vbExplorerBar.Bars.Add(, "Βοηθητικά", Space(5) & "Βοηθητικά")
-        cBar.IsSpecial = True
-        cBar.State = eBarCollapsed
-        Set cItem = cBar.Items.Add(, "Παραμετροποίηση", "Παραμετροποίηση")
-            cItem.ItemType = eItemText
-            cItem.Bold = True
-            cItem.TextColor = RGB(96, 150, 207)
-            Set cItem = cBar.Items.Add(, "ΒοηθητικάΠαράμετροι", Space(5) & " - Γενικές παράμετροι")
-            Set cItem = cBar.Items.Add(, "TablesPrinters", Space(5) & " - Εκτυπωτές")
-        Set cItem = cBar.Items.Add(, "Πίνακες", "Πίνακες")
-            cItem.ItemType = eItemText
-            cItem.Bold = True
-            cItem.TextColor = RGB(96, 150, 207)
-            Set cItem = cBar.Items.Add(, "TablesShipRoutes", Space(5) & " - Δρομολόγια πλοίων")
-            Set cItem = cBar.Items.Add(, "TablesCoachRoutes", Space(5) & " - Δρομολόγια λεωφορείων")
-            Set cItem = cBar.Items.Add(, "TablesExpenseCategories", Space(5) & " - Κατηγορίες εξόδων")
-            Set cItem = cBar.Items.Add(, "TablesTaxOffices", Space(5) & " - Οικονομικές υπηρεσίες")
-            Set cItem = cBar.Items.Add(, "TablesPaymentTerms", Space(5) & " - Όροι πληρωμής")
-            Set cItem = cBar.Items.Add(, "TablesShips", Space(5) & " - Πλοία")
-            Set cItem = cBar.Items.Add(, "TablesVATPercents", Space(5) & " - Ποσοστά Φ.Π.Α.")
-            Set cItem = cBar.Items.Add(, "TablesDestinationsΠλοίων", Space(5) & " - Προορισμοί πλοίων")
-            Set cItem = cBar.Items.Add(, "TablesDestinationsΛεωφορείων", Space(5) & " - Προορισμοί λεωφορείων")
-            Set cItem = cBar.Items.Add(, "TablesPickupPoints", Space(5) & " - Σημεία παραλαβής επιβατών")
-            Set cItem = cBar.Items.Add(, "UtilsJoinDestinationsWithRoutes", Space(5) & " - Σύνδεση προορισμών με δρομολόγια λεωφορείων")
-            Set cItem = cBar.Items.Add(, "TablesPriceListsΠλοίων", Space(5) & " - Τιμοκατάλογοι εκδρομών πλοίων")
-            Set cItem = cBar.Items.Add(, "TablesPriceListsΛεωφορείων", Space(5) & " - Τιμοκατάλογοι εκδρομών λεωφορείων")
-            Set cItem = cBar.Items.Add(, "TablesBanks", Space(5) & " - Τράπεζες")
-            Set cItem = cBar.Items.Add(, "TablesPaymentWays", Space(5) & " - Τρόποι πληρωμής")
-            Set cItem = cBar.Items.Add(, "TablesOccupantsDescriptions", Space(5) & " - Χαρακτηρισμοί επιβαινόντων")
-            Set cItem = cBar.Items.Add(, "TablesUsers", Space(5) & " - Χρήστες")
-        Set cItem = cBar.Items.Add(, "Εργασίες", "Εργασίες")
-            cItem.ItemType = eItemText
-            cItem.Bold = True
-            cItem.TextColor = RGB(96, 150, 207)
-            Set cItem = cBar.Items.Add(, "UtilsSalesExport", Space(5) & " - Δημιουργία αρχείου πωλήσεων")
-            Set cItem = cBar.Items.Add(, "UtilsCheckFiles", Space(5) & " - Ελεγχος αρχείων")
+    On Error GoTo ErrTrap
+    
+    Dim intLoop As Integer
+    
+    CommonMain.Tag = "True"
+    
+    'Κεντράρισμα πλοήγησης
+    With frmNavigation
+        .Left = (CommonMain.Width / 2) - (.Width / 2)
+        .Top = CommonMain.Height - GetSetting(strApplicationName, "Settings", "Navigation Top")
+    End With
+    
+    'Απόσταση των μενού από την πλοήγηση
+    For intLoop = 1 To menuFrame.UBound
+        menuFrame(intLoop).Top = frmNavigation.Top - menuFrame(intLoop).Height + 100
+        menuFrame(intLoop).Left = frmNavigation.Left + cmdMenu(intLoop - 1).Left
+    Next intLoop
+    
+    'Χρώματα επικεφαλίδων μενού
+    For intLoop = 1 To mnuHeader.UBound
+        mnuHeader(intLoop).BackColor = &HFFC0C0
+        mnuHeader(intLoop).ForeColor = &H0&
+    Next intLoop
+    
+    'Χρώματα επιλογών
+    For intLoop = 1 To menuOption.UBound
+        menuOption(intLoop).BackColor = menuFrame(1).BackColor
+        menuOption(intLoop).Caption = Space(1) & menuOption(intLoop).Caption & Space(1)
+        menuOption(intLoop).MousePointer = 0
+    Next intLoop
+    
+    Exit Function
+    
+ErrTrap:
+    If Err.Number = 340 Then Resume Next
 
 End Function
 
@@ -257,16 +1868,97 @@ End Function
 
 
 
-Private Function UpdateCompanyLabel()
+Private Function HideAllMenus()
+
+    Dim intLoop As Integer
+    
+    For intLoop = 1 To menuFrame.UBound
+        menuFrame(intLoop).Visible = False
+    Next intLoop
+
+End Function
+
+Private Function PositionImage()
+
+    imgImage.Left = frmNavigation.Left + frmNavigation.Width - imgImage.Width - 1000
+    imgImage.Top = frmNavigation.Top - imgImage.Height - 200
+
+End Function
+
+Private Function PositionCompanyLabel()
             
     With lblCompany
         .BackColor = CommonMain.BackColor
-        .Top = vbExplorerBar.Top - 300
-        .Left = vbExplorerBar.Left
-        .Width = vbExplorerBar.Width + 10
+        .Left = frmNavigation.Left + 1000
+        .Top = frmNavigation.Top - lblCompany.Height - 500
     End With
 
 End Function
+
+Private Sub cmdMenu_Click(index As Integer)
+
+    Dim intLoop As Integer
+    
+    HideAllMenus
+    
+    For intLoop = 1 To cmdMenu.UBound
+        If index = intLoop Then
+            menuFrame(intLoop).Left = cmdMenu(index).Left + frmNavigation.Left + 20
+            menuFrame(intLoop).Visible = Not menuFrame(intLoop).Visible
+        End If
+    Next intLoop
+
+End Sub
+
+Private Sub cmdMenu_MouseIn(index As Integer, Shift As Integer)
+
+    Select Case index
+        Case Is < 7
+            cmdMenu(index).BackColor = &H808000
+            cmdMenu(index).ForeColor = &HFFFFFF
+        Case Is = 7
+            cmdMenu(index).BackColor = &H404000
+            cmdMenu(index).ForeColor = &HFFFFFF
+        Case Is = 8
+            cmdMenu(index).BackColor = &HFF&
+            cmdMenu(index).ForeColor = &HFFFFFF
+        End Select
+    
+End Sub
+
+Private Sub cmdMenu_MouseOut(index As Integer, Shift As Integer)
+
+    Select Case index
+        Case Is < 7
+            cmdMenu(index).BackColor = &HC0C000
+            cmdMenu(index).ForeColor = &H0
+        Case Is = 7
+            cmdMenu(index).BackColor = &H808000
+            cmdMenu(index).ForeColor = &H0
+        Case Is = 8
+            cmdMenu(index).BackColor = &H8080FF
+            cmdMenu(index).ForeColor = &H0
+        End Select
+        
+End Sub
+
+Private Sub Form_Activate()
+
+    If isFirstTime Then
+        isFirstTime = False
+        HideAllMenus
+        BuildMenu
+        PositionImage
+        PositionCompanyLabel
+    End If
+
+End Sub
+
+Private Sub Form_Click()
+
+    HideAllMenus
+
+End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
 
@@ -278,80 +1970,26 @@ End Sub
 
 Private Sub Form_Load()
 
-    BuildMenu
-    
     strImageDirectory = GetSetting(strApplicationName, "Path Names", "Image Directory")
 
     With CommonMain
+        .Height = Screen.Height
+        .Width = Screen.Width
         .ScaleHeight = .Height
         .ScaleWidth = .Width
-        .imgImage.Top = .Height - .imgImage.Height - 1000
-        .imgImage.Left = Screen.Width - .imgImage.Width - 500
         .BackColor = vbBlack
         .Refresh
     End With
-    
-    UpdateCompanyLabel
     
     strReportsPathName = GetSetting(appName:=strApplicationName, Section:="Path Names", Key:="Reports Path Name")
     strUnicodeFile = GetSetting(appName:=strApplicationName, Section:="Path Names", Key:="Reports Path Name") & "UnicodeFile.txt"
     strAsciiFile = GetSetting(appName:=strApplicationName, Section:="Path Names", Key:="Reports Path Name") & "AsciiFile.txt"
     
+    isFirstTime = True
+
     blnAppIsRunning = True
     
 End Sub
-
-Private Function BuildMenu()
-
-    Dim cBar As cExplorerBar
-    Dim cItem As cExplorerBarItem
-    
-    Dim intLoop As Integer
-    Dim intItem As Integer
-    Dim strMenuCategory As String
-    Dim strMenuCategories As String
-    
-    With CommonMain
-        .Tag = "True"
-        .Height = Screen.Height
-        .ScaleHeight = .Height
-    End With
-    
-    strMenuCategories = GetSetting(strApplicationName, "Settings", "Menu Categories")
-    For intLoop = 1 To Len(strMenuCategories)
-        While Mid(strMenuCategories, intLoop, 1) <> "," And intLoop <= Len(strMenuCategories)
-            strMenuCategory = strMenuCategory & Mid(strMenuCategories, intLoop, 1)
-            intLoop = intLoop + 1
-        Wend
-        intItem = intItem + 1
-        ReDim Preserve arrMenu(intItem)
-        arrMenu(intItem) = Int(strMenuCategory)
-        strMenuCategory = ""
-    Next intLoop
-    
-    With CommonMain.vbExplorerBar
-        
-        .Height = GetSetting(strApplicationName, "Settings", "Menu Height")
-        .Left = ((Screen.Width / Screen.TwipsPerPixelX) / 3)
-        .Redraw = False
-        .Top = (CommonMain.Height / 2) - (.Height / 2) - 200
-        .UseExplorerStyle = False
-        .Width = GetSetting(strApplicationName, "Settings", "Menu Width")
-        
-        AddIncomeMenu
-        AddExpensesMenu
-        AddDebitorsSubMenu
-        AddCreditorsSubMenu
-        AddShipsPassengers
-        AddTransfersSubMenu
-        AddUtilsSubMenu
-        AddExitSubMenu
-        
-        .Redraw = True
-        
-    End With
-
-End Function
 
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
 
@@ -387,35 +2025,34 @@ Private Function CloseApp()
 
 End Function
 
-Private Sub vbExplorerBar_BarClick(bar As vbalExplorerBarLib6.cExplorerBar)
+Private Sub menuFrame_MouseMove(index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
 
-    ResizeBar bar.index, bar.State, vbExplorerBar, arrMenu(1), arrMenu(2), arrMenu(3), arrMenu(4), arrMenu(5), arrMenu(6), arrMenu(7), arrMenu(8)
+    On Error GoTo ErrTrap
     
-    UpdateCompanyLabel
+    Dim intLoop As Integer
+    
+    For intLoop = 1 To menuOption.UBound
+        menuOption(intLoop).BackColor = menuFrame(index).BackColor
+    Next
+    
+    Exit Sub
+    
+ErrTrap:
+    If Err.Number = 340 Then Resume Next
 
 End Sub
 
-Private Sub ResizeBar(intKey, blnState As Boolean, ExplorerBar As vbalExplorerBarCtl, ParamArray Buttons() As Variant)
 
-    'Κάθετο κεντράρισμα
-    With ExplorerBar
-        .Height = GetSetting(strApplicationName, "Settings", "Menu Height")
-        If Not blnState Then .Top = (Me.Height / 2) - (.Height / 2): Exit Sub
-        .Redraw = False
-        .Height = Buttons(intKey - 1)
-        .Top = (Me.Height / 2) - (.Height / 2) - 50
-        .Redraw = True
-    End With
-        
-End Sub
-
-Private Sub vbExplorerBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
+Private Sub menuOption_Click(index As Integer)
 
     Dim obj As Object
 
-    Select Case itm.Key
+    HideAllMenus
+    menuOption(index).BackColor = &HFFFFC0
+    
+    Select Case index
         'Εσοδα
-        Case "ΕσοδαΕκδρομέςΠλοίωνΚινήσεις"
+        Case 1
             With InvoicesOut
                 .lblTitle.Caption = "Εκδρομές πλοίων"
                 .txtInvoiceMasterRefersTo.text = "2"
@@ -423,7 +2060,7 @@ Private Sub vbExplorerBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
                 .Tag = "True"
                 .Show 1, Me
             End With
-        Case "ΕσοδαΕκδρομέςΠλοίωνΗμερολόγιο"
+        Case 2
             With InvoicesOutIndex
                 .lblTitle.Caption = "Ημερολόγιο εκδρομών πλοίων"
                 .txtInvoiceMasterRefersTo.text = "2"
@@ -431,7 +2068,7 @@ Private Sub vbExplorerBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
                 .Tag = "True"
                 .Show 1, Me
             End With
-        Case "ΕσοδαΕκδρομέςΛεωφορείωνΚινήσεις"
+        Case 3
             With InvoicesOut
                 .lblTitle.Caption = "Εκδρομές λεωφορείων"
                 .txtInvoiceMasterRefersTo.text = "2"
@@ -443,7 +2080,7 @@ Private Sub vbExplorerBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
                 .Tag = "True"
                 .Show 1, Me
             End With
-        Case "ΕσοδαΕκδρομέςΛεωφορείωνΗμερολόγιο"
+        Case 4
             With InvoicesOutIndex
                 .lblTitle.Caption = "Ημερολόγιο εκδρομών λεωφορείων"
                 .txtInvoiceMasterRefersTo.text = "2"
@@ -451,7 +2088,7 @@ Private Sub vbExplorerBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
                 .Tag = "True"
                 .Show 1, Me
             End With
-        Case "ΕσοδαΤύποιΠαραστατικώνΔιαχείρηση"
+        Case 5
             With TablesCodes
                 .lblTitle.Caption = "Τύποι παραστατικών εσόδων"
                 .txtCodeMasterRefersTo.text = "2"
@@ -459,24 +2096,22 @@ Private Sub vbExplorerBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
                 .Tag = "True"
                 .Show 1, Me
             End With
-        'Τέλος έσοδα
-        
         'Εξοδα
-        Case "ΕξοδαΚινήσεις"
+        Case 6
             With InvoicesIn
                 .Tag = "True"
                 .txtInvoiceMasterRefersTo.text = "1"
                 .txtInvoiceSecondaryRefersTo.text = ""
                 .Show 1, Me
             End With
-        Case "ΕξοδαΗμερολόγιο"
+        Case 7
             With InvoicesInIndex
                 .txtInvoiceMasterRefersTo.text = "1"
                 .txtInvoiceSecondaryRefersTo.text = ""
                 .Tag = "True"
                 .Show 1, Me
             End With
-        Case "ΕξοδαΤύποιΠαραστατικών"
+        Case 8
             With TablesCodes
                 .lblTitle.Caption = "Τύποι παραστατικών εξόδων"
                 .txtCodeMasterRefersTo.text = "1"
@@ -484,18 +2119,16 @@ Private Sub vbExplorerBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
                 .Tag = "True"
                 .Show 1, Me
             End With
-        'Τέλος έξοδα
-        
         'Χρεώστες
-        Case "ΧρεώστεςΑρχείο"
-            With persons
+        Case 9
+            With Persons
                 .Tag = "True"
                 .txtCustomersOrSuppliers.text = "Customers"
                 .txtInvoiceMasterRefersTo.text = "2"
                 .lblTitle.Caption = "Πελάτες"
                 .Show 1, Me
             End With
-        Case "ΧρεώστεςΚινήσειςΕκδρομέςΠλοίων"
+        Case 10
             With PersonsTransactions
                 .lblTitle.Caption = "Κινήσεις εκδρομών πλοίων"
                 .txtInvoiceMasterRefersTo.text = "4"
@@ -505,7 +2138,7 @@ Private Sub vbExplorerBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
                 .Tag = "True"
                 .Show 1, Me
             End With
-        Case "ΧρεώστεςΚινήσειςΕκδρομέςΛεωφορείων"
+        Case 11
             With PersonsTransactions
                 .lblTitle.Caption = "Κινήσεις εκδρομών λεωφορείων"
                 .txtInvoiceMasterRefersTo.text = "4"
@@ -515,7 +2148,7 @@ Private Sub vbExplorerBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
                 .Tag = "True"
                 .Show 1, Me
             End With
-        Case "ΧρεώστεςΚαρτέλα"
+        Case 12
             With PersonsLedger
                 .lblTitle.Caption = "Καρτέλα χρεώστη"
                 .txtInvoiceMasterRefersTo.text = "2"
@@ -524,7 +2157,7 @@ Private Sub vbExplorerBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
                 .Tag = "True"
                 .Show 1, Me
             End With
-        Case "ΧρεώστεςΙσοζύγιο"
+        Case 13
             With PersonsBalanceSheet
                 .lblTitle.Caption = "Ισοζύγιο χρεωστών"
                 .txtInvoiceMasterRefersTo.text = "2"
@@ -533,7 +2166,7 @@ Private Sub vbExplorerBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
                 .Tag = "True"
                 .Show 1, Me
             End With
-        Case "ΧρεώστεςΤύποιΠαραστατικώνΕκδρομώνΠλοίων"
+        Case 14
             With TablesCodes
                 .lblTitle.Caption = "Τύποι παραστατικών εκδρομών πλοίων"
                 .Tag = "True"
@@ -541,7 +2174,7 @@ Private Sub vbExplorerBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
                 .txtCodeSecondaryRefersTo.text = "1"
                 .Show 1, Me
             End With
-        Case "ΧρεώστεςΤύποιΠαραστατικώνΕκδρομώνΛεωφορείων"
+        Case 15
             With TablesCodes
                 .lblTitle.Caption = "Τύποι παραστατικών εκδρομών λεωφορείων"
                 .Tag = "True"
@@ -549,18 +2182,16 @@ Private Sub vbExplorerBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
                 .txtCodeSecondaryRefersTo.text = "2"
                 .Show 1, Me
             End With
-        'Τέλος χρεώστες
-        
-        'ΠΙστωτές
-        Case "ΠιστωτέςΑρχείο"
-            With persons
+        'Πιστωτές
+        Case 16
+            With Persons
                 .Tag = "True"
                 .txtCustomersOrSuppliers.text = "Suppliers"
                 .txtInvoiceMasterRefersTo.text = "1"
                 .lblTitle.Caption = "Πιστωτές"
                 .Show 1, Me
             End With
-        Case "ΠιστωτέςΚινήσεις"
+        Case 17
             With PersonsTransactions
                 .lblTitle.Caption = "Κινήσεις πιστωτών"
                 .txtInvoiceMasterRefersTo.text = "3"
@@ -570,7 +2201,7 @@ Private Sub vbExplorerBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
                 .Tag = "True"
                 .Show 1, Me
             End With
-        Case "ΠιστωτέςΚαρτέλα"
+        Case 18
             With PersonsLedger
                 .lblTitle.Caption = "Καρτέλα πιστωτή"
                 .txtInvoiceMasterRefersTo.text = "1"
@@ -579,7 +2210,7 @@ Private Sub vbExplorerBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
                 .Tag = "True"
                 .Show 1, Me
             End With
-        Case "ΠιστωτέςΙσοζύγιο"
+        Case 19
             With PersonsBalanceSheet
                 .lblTitle.Caption = "Ισοζύγιο πιστωτών"
                 .txtInvoiceMasterRefersTo.text = "1"
@@ -588,50 +2219,46 @@ Private Sub vbExplorerBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
                 .Tag = "True"
                 .Show 1, Me
             End With
-        Case "ΠιστωτέςΤύποιΠαραστατικών"
+        Case 20
             With TablesCodes
                 .lblTitle.Caption = "Τύποι παραστατικών πιστωτών"
                 .Tag = "True"
                 .txtCodeMasterRefersTo.text = "3"
                 .Show 1, Me
             End With
-        'Τέλος πιστωτές
-            
-        'Επιβαίνοντες πλοίων
-        Case "ΕπιβαίνοντεςΠλοίωνΚινήσεις"
+        'Επιβάτες πλοίων
+        Case 21
             With ShipsTransactions
                 .Tag = "True"
                 .Show 1, Me
             End With
-        Case "ΕπιβαίνοντεςΠλοίωνΚατάσταση"
+        Case 22
             With ShipsRouteReport
                 .Tag = "True"
                 .Show 1, Me
             End With
-        Case "ΕπιβαίνοντεςΠλοίωνΣτατιστικάΠωλήσεις"
+        Case 23
             With ShipsStatistics
                 .lblTitle.Caption = "Στατιστικά με βάση τις πωλήσεις"
                 .txtTable.text = "Sales"
                 .Tag = "True"
                 .Show 1, Me
             End With
-        Case "ΕπιβαίνοντεςΠλοίωνΣτατιστικάΛιμεναρχείο"
+        Case 24
             With ShipsStatistics
                 .lblTitle.Caption = "Στατιστικά με βάση τους επιβαίνοντες"
                 .txtTable.text = "Manifest"
                 .Tag = "True"
                 .Show 1, Me
             End With
-        'Τέλος επιβαίνοντες πλοίων
-        
-        'Μεταφορές λεωφορείων
-        Case "ΜεταφορέςΛεωφορείωνΓρήγορηΚαταχώρησηΚινήσεις"
+        'Transfers
+        Case 25
             With CoachesPickupsBrief
                 .txtRefersTo.text = "2"
                 .Tag = "True"
                 .Show 1, Me
             End With
-        Case "ΜεταφορέςΛεωφορείωνΓρήγορηΚαταχώρησηΗμερολόγιο"
+        Case 26
             With CoachesReport
                 .Tag = "True"
                 .txtRefersTo.text = "2"
@@ -639,13 +2266,13 @@ Private Sub vbExplorerBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
                 .grdCoachesReport.Tag = "grdCoachesReportBrief"
                 .Show 1, Me
             End With
-        Case "ΜεταφορέςΛεωφορείωνΚανονικήΚαταχώρησηΚινήσεις"
+        Case 27
             With CoachesPickupsStandard
                 .txtRefersTo.text = "1"
                 .Tag = "True"
                 .Show 1, Me
             End With
-        Case "ΜεταφορέςΛεωφορείωνΚανονικήΚαταχώρησηΗμερολόγιο"
+        Case 28
             With CoachesReport
                 .Tag = "True"
                 .txtRefersTo.text = "1"
@@ -653,157 +2280,142 @@ Private Sub vbExplorerBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
                 .grdCoachesReport.Tag = "grdCoachesReportStandard"
                 .Show 1, Me
             End With
-        'Τέλος μεταφορές λεωφορείων
-        
         'Βοηθητικά
-        Case "TablesCoachRoutes"
-            With TablesCoachRoutes
-                .Tag = "True"
-                .Show 1, Me
-            End With
-        Case "TablesShipRoutes"
-            With TablesShipRoutes
-                .Tag = "True"
-                .Show 1, Me
-            End With
-        Case "UtilsSalesExport"
-            With UtilsSalesExport
-                .Tag = "True"
-                .Show 1, Me
-            End With
-        Case "TablesPrinters"
-            With TablesPrinters
-                .Tag = "True"
-                .Show 1, Me
-            End With
-        Case "TablesTaxOffices"
-            With TablesTaxOffices
-                .Tag = "True"
-                .Show 1, Me
-            End With
-        Case "ΒοηθητικάΠαράμετροι"
+        Case 29
             With TablesSettings
                 .Tag = "True"
                 .Show 1, Me
             End With
-        Case "TablesShips"
+        Case 30
+            With TablesPrinters
+                .Tag = "True"
+                .Show 1, Me
+            End With
+        Case 31
+            With TablesShipRoutes
+                .Tag = "True"
+                .Show 1, Me
+            End With
+        Case 32
+            With TablesCoachRoutes
+                .Tag = "True"
+                .Show 1, Me
+            End With
+        Case 33
+            With TablesExpenseCategories
+                .Tag = "True"
+                .Show 1, Me
+            End With
+        Case 34
+            With TablesTaxOffices
+                .Tag = "True"
+                .Show 1, Me
+            End With
+        Case 35
+            With TablesPaymentTerms
+                .Tag = "True"
+                .Show 1, Me
+            End With
+        Case 36
             With TablesShips
                 .Tag = "True"
                 .Show 1, Me
             End With
-        Case "TablesDestinationsΠλοίων"
+        Case 49
+            With TablesVATPercents
+                .Tag = "True"
+                .Show 1, Me
+            End With
+        Case 37
             With TablesDestinations
                 .Tag = "True"
                 .lblTitle.Caption = "Προορισμοί πλοίων"
                 .txtShowInList.text = "1"
                 .Show 1, Me
             End With
-        Case "TablesDestinationsΛεωφορείων"
+        Case 38
             With TablesDestinations
                 .Tag = "True"
                 .lblTitle.Caption = "Προορισμοί λεωφορείων"
                 .txtShowInList.text = "2"
                 .Show 1, Me
             End With
-        Case "TablesPickupPoints"
+        Case 39
             With TablesPickupPoints
                 .Tag = "True"
                 .Show 1, Me
             End With
-        Case "ΒοηθητικάΠροορισμοίΔρομολόγια"
+        Case 40
             With UtilsJoinDestinationsWithRoutes
                 .Tag = "True"
                 .Show 1, Me
             End With
-        Case "TablesPriceListsΠλοίων"
+        Case 41
             With TablesPrices
                 .Tag = "True"
                 .lblTitle.Caption = "Τιμοκατάλογοι εκδρομών πλοίων"
                 .txtShowInList.text = "1"
                 .Show 1, Me
             End With
-        Case "TablesPriceListsΛεωφορείων"
+        Case 42
             With TablesPrices
                 .Tag = "True"
                 .lblTitle.Caption = "Τιμοκατάλογοι εκδρομών λεωφορείων"
                 .txtShowInList.text = "2"
                 .Show 1, Me
             End With
-        Case "TablesPaymentTerms"
-            With TablesPaymentTerms
-                .Tag = "True"
-                .Show 1, Me
-            End With
-        Case "TablesPaymentWays"
-            With TablesPaymentWays
-                .Tag = "True"
-                .Show 1, Me
-            End With
-        Case "TablesExpenseCategories"
-            With TablesExpenseCategories
-                .Tag = "True"
-                .Show 1, Me
-            End With
-        Case "UtilsCheckFiles"
-            With UtilsCheckFiles
-                .Tag = "True"
-                .Show 1, Me
-            End With
-        Case "TablesOccupantsDescriptions"
-            With TablesOccupantsDescriptions
-                .Tag = "True"
-                .Show 1, Me
-            End With
-        Case "TablesUsers"
-            With TablesUsers
-                .Tag = "True"
-                .Show 1, Me
-            End With
-        Case "TablesBanks"
+        Case 43
             With TablesBanks
                 .Tag = "True"
                 .Show 1, Me
             End With
-        Case "TablesVATPercents"
-            With TablesVATPercents
+        Case 44
+            With TablesPaymentWays
                 .Tag = "True"
                 .Show 1, Me
             End With
-        'Τέλος βοηθητικά
-        
-        'Εξοδος
-        Case "ΕξοδοςΑλλαγήΕταιρίας"
+        Case 45
+            With TablesOccupantsDescriptions
+                .Tag = "True"
+                .Show 1, Me
+            End With
+        Case 46
+            With TablesUsers
+                .Tag = "True"
+                .Show 1, Me
+            End With
+        Case 47
+            With UtilsSalesExport
+                .Tag = "True"
+                .Show 1, Me
+            End With
+        Case 48
+            With UtilsCheckFiles
+                .Tag = "True"
+                .Show 1, Me
+            End With
+        Case 51
             With CommonLogin
                 .Tag = "True"
                 .Visible = True
             End With
-        Case "ΕξοδοςΤερματισμόςΕφαρμογής"
+        Case 52
             If CloseApp Then
                 For Each obj In Forms
                     Unload obj
                 Next
                 End
             End If
-        'Τέλος έξοδος
-        
     End Select
 
 End Sub
 
-Private Function AddExpensesMenu()
+Private Sub menuOption_MouseMove(index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
 
-    Dim cBar As cExplorerBar
-    Dim cItem As cExplorerBarItem
+    If X >= menuOption(index).Left - 1200 Then
+        menuOption(index).BackColor = &H80C0FF: Exit Sub
+    End If
 
-    Set cBar = CommonMain.vbExplorerBar.Bars.Add(, "Εξοδα", Space(5) & "Εξοδα")
-        cBar.IsSpecial = True
-        cBar.State = eBarCollapsed
-        Set cItem = cBar.Items.Add(, "ΕξοδαΚινήσεις", " - Κινήσεις")
-        Set cItem = cBar.Items.Add(, "ΕξοδαΗμερολόγιο", " - Ημερολόγιο")
-        Set cItem = cBar.Items.Add(, "ΕξοδαΤύποιΠαραστατικών", " - Τύποι παραστατικών")
-
-End Function
-
-
+End Sub
 
 

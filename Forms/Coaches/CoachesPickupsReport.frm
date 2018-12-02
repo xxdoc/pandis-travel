@@ -1510,6 +1510,7 @@ Private Function DoReport(action As String)
                                 .WindowState = vbMaximized
                                 .Show 1
                             Else
+                                .Printer.DeviceName = strPrinterName
                                 .PrintReport False
                                 .Run True
                             End If

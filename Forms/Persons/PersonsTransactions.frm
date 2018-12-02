@@ -1933,6 +1933,16 @@ Private Function ValidateFields()
         End If
     End If
     
+    'Μηχανογραφικό στοιχείο: Εχω καταχωρήσει σε μεταγενέστερη ημερομηνία
+    If chkCodeHandID.Value = 0 Then
+        If CDate(mskDateIssue.text) < CDate(txtCodeLastDate) Then
+            If MyMsgBox(4, strApplicationName, strAppMessages(4) & txtCodeLastDate.text, 1) Then
+            End If
+            mskDateIssue.SetFocus
+            Exit Function
+        End If
+    End If
+    
     'Πελάτης
     If txtInvoicePersonID.text = "" Then
         If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then

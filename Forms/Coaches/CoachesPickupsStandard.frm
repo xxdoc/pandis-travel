@@ -1,7 +1,6 @@
 VERSION 5.00
 Object = "{158C2A77-1CCD-44C8-AF42-AA199C5DCC6C}#1.0#0"; "dcButton.ocx"
 Object = "{FFE4AEB4-0D55-4004-ADF2-3C1C84D17A72}#1.0#0"; "userControls.ocx"
-Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomct2.ocx"
 Begin VB.Form CoachesPickupsStandard 
    Appearance      =   0  'Flat
    BackColor       =   &H00E0E0E0&
@@ -23,14 +22,14 @@ Begin VB.Form CoachesPickupsStandard
       BorderStyle     =   0  'None
       Height          =   690
       Left            =   450
-      TabIndex        =   47
+      TabIndex        =   44
       Top             =   7350
       Width           =   8940
       Begin Dacara_dcButton.dcButton cmdButton 
          Height          =   690
          Index           =   0
          Left            =   225
-         TabIndex        =   48
+         TabIndex        =   45
          TabStop         =   0   'False
          Top             =   0
          Width           =   1365
@@ -55,7 +54,7 @@ Begin VB.Form CoachesPickupsStandard
          Height          =   690
          Index           =   5
          Left            =   7350
-         TabIndex        =   49
+         TabIndex        =   46
          TabStop         =   0   'False
          Top             =   0
          Width           =   1365
@@ -80,7 +79,7 @@ Begin VB.Form CoachesPickupsStandard
          Height          =   690
          Index           =   1
          Left            =   1650
-         TabIndex        =   50
+         TabIndex        =   47
          TabStop         =   0   'False
          Top             =   0
          Width           =   1365
@@ -105,7 +104,7 @@ Begin VB.Form CoachesPickupsStandard
          Height          =   690
          Index           =   2
          Left            =   3075
-         TabIndex        =   51
+         TabIndex        =   48
          TabStop         =   0   'False
          Top             =   0
          Width           =   1365
@@ -130,7 +129,7 @@ Begin VB.Form CoachesPickupsStandard
          Height          =   690
          Index           =   3
          Left            =   4500
-         TabIndex        =   52
+         TabIndex        =   49
          TabStop         =   0   'False
          Top             =   0
          Width           =   1365
@@ -155,7 +154,7 @@ Begin VB.Form CoachesPickupsStandard
          Height          =   690
          Index           =   4
          Left            =   5925
-         TabIndex        =   53
+         TabIndex        =   50
          TabStop         =   0   'False
          Top             =   0
          Width           =   1365
@@ -757,11 +756,11 @@ Begin VB.Form CoachesPickupsStandard
    End
    Begin Dacara_dcButton.dcButton cmdIndex 
       Height          =   465
-      Index           =   0
-      Left            =   3750
-      TabIndex        =   40
+      Index           =   1
+      Left            =   7275
+      TabIndex        =   39
       TabStop         =   0   'False
-      Top             =   1125
+      Top             =   1650
       Width           =   390
       _ExtentX        =   688
       _ExtentY        =   820
@@ -785,11 +784,11 @@ Begin VB.Form CoachesPickupsStandard
    End
    Begin Dacara_dcButton.dcButton cmdIndex 
       Height          =   465
-      Index           =   1
+      Index           =   2
       Left            =   7275
-      TabIndex        =   41
+      TabIndex        =   40
       TabStop         =   0   'False
-      Top             =   1650
+      Top             =   2175
       Width           =   390
       _ExtentX        =   688
       _ExtentY        =   820
@@ -813,11 +812,11 @@ Begin VB.Form CoachesPickupsStandard
    End
    Begin Dacara_dcButton.dcButton cmdIndex 
       Height          =   465
-      Index           =   2
+      Index           =   3
       Left            =   7275
-      TabIndex        =   42
+      TabIndex        =   41
       TabStop         =   0   'False
-      Top             =   2175
+      Top             =   2700
       Width           =   390
       _ExtentX        =   688
       _ExtentY        =   820
@@ -841,11 +840,11 @@ Begin VB.Form CoachesPickupsStandard
    End
    Begin Dacara_dcButton.dcButton cmdIndex 
       Height          =   465
-      Index           =   3
+      Index           =   4
       Left            =   7275
-      TabIndex        =   43
+      TabIndex        =   42
       TabStop         =   0   'False
-      Top             =   2700
+      Top             =   3225
       Width           =   390
       _ExtentX        =   688
       _ExtentY        =   820
@@ -869,11 +868,11 @@ Begin VB.Form CoachesPickupsStandard
    End
    Begin Dacara_dcButton.dcButton cmdIndex 
       Height          =   465
-      Index           =   4
-      Left            =   7275
-      TabIndex        =   44
+      Index           =   5
+      Left            =   8025
+      TabIndex        =   43
       TabStop         =   0   'False
-      Top             =   3225
+      Top             =   3750
       Width           =   390
       _ExtentX        =   688
       _ExtentY        =   820
@@ -897,11 +896,11 @@ Begin VB.Form CoachesPickupsStandard
    End
    Begin Dacara_dcButton.dcButton cmdIndex 
       Height          =   465
-      Index           =   5
-      Left            =   8025
-      TabIndex        =   45
+      Index           =   0
+      Left            =   3750
+      TabIndex        =   51
       TabStop         =   0   'False
-      Top             =   3750
+      Top             =   1125
       Width           =   390
       _ExtentX        =   688
       _ExtentY        =   820
@@ -918,25 +917,9 @@ Begin VB.Form CoachesPickupsStandard
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   0
       PicNormal       =   "CoachesPickupsStandard.frx":1C02
       PicSizeH        =   16
       PicSizeW        =   16
-   End
-   Begin MSComCtl2.MonthView monthlyCalendar 
-      Height          =   2370
-      Left            =   12000
-      TabIndex        =   46
-      Top             =   2775
-      Width           =   2805
-      _ExtentX        =   4948
-      _ExtentY        =   4180
-      _Version        =   393216
-      ForeColor       =   0
-      BackColor       =   14737632
-      Appearance      =   1
-      StartOfWeek     =   25362434
-      CurrentDate     =   43031
    End
    Begin VB.Shape shpWedge 
       BackColor       =   &H0000FFFF&
@@ -991,27 +974,6 @@ Begin VB.Form CoachesPickupsStandard
       Top             =   8025
       Visible         =   0   'False
       Width           =   840
-   End
-   Begin VB.Label lblWeekday 
-      AutoSize        =   -1  'True
-      BackColor       =   &H000080FF&
-      BackStyle       =   0  'Transparent
-      Caption         =   "Ημέρα"
-      BeginProperty Font 
-         Name            =   "Ubuntu Condensed"
-         Size            =   9.75
-         Charset         =   161
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H00000000&
-      Height          =   315
-      Left            =   4200
-      TabIndex        =   39
-      Top             =   1200
-      Width           =   465
    End
    Begin VB.Label lblTitle 
       AutoSize        =   -1  'True
@@ -1299,7 +1261,7 @@ Dim blnCancel As Boolean
 
 Private Function AbortProcedure(blnStatus)
 
-    If monthlyCalendar.Visible Then monthlyCalendar.Visible = False: Exit Function
+    'If monthlyCalendar.Visible Then monthlyCalendar.Visible = False: Exit Function
 
     If Not blnStatus Then
         If MyMsgBox(3, strApplicationName, strStandardMessages(3), 2) Then
@@ -1307,7 +1269,8 @@ Private Function AbortProcedure(blnStatus)
             blnCancel = True
             ClearFields txtTransferID, txtCustomerID, txtTransferTypeID, txtPickupPointID, txtRouteID, txtDestinationID
             ClearFields mskDate, txtCustomerDescription, txtTransferTypeDescription, txtDestinationDescription, txtPickupPointDescription, txtRouteShortDescription, txtRouteDescription, mskAdults, mskKids, mskFree, txtRemarks
-            ClearFields lblWeekday, mskTotal
+            'ClearFields lblWeekday, mskTotal
+            ClearFields mskTotal
             DisableFields mskDate, txtCustomerDescription, txtTransferTypeDescription, txtDestinationDescription, txtPickupPointDescription, txtRouteShortDescription, txtRouteDescription, mskAdults, mskKids, mskFree, txtRemarks
             DisableFields cmdIndex(0), cmdIndex(1), cmdIndex(2), cmdIndex(3), cmdIndex(4), cmdIndex(5)
             UpdateButtons Me, 5, 1, 0, 0, IIf(CheckForLoadedForm("ΜεταφορέςΗμερολόγιο"), 0, 1), 0, 1
@@ -1324,7 +1287,8 @@ Private Function DeleteRecord()
         blnCancel = True
         ClearFields txtTransferID, txtCustomerID, txtTransferTypeID, txtPickupPointID, txtRouteID, txtDestinationID
         ClearFields mskDate, txtCustomerDescription, txtTransferTypeDescription, txtDestinationDescription, txtPickupPointDescription, txtRouteShortDescription, txtRouteDescription, mskAdults, mskKids, mskFree, txtRemarks
-        ClearFields lblWeekday, mskTotal
+        'ClearFields lblWeekday, mskTotal
+        ClearFields mskTotal
         DisableFields mskDate, txtCustomerDescription, txtTransferTypeDescription, txtDestinationDescription, txtPickupPointDescription, txtRouteShortDescription, txtRouteDescription, mskAdults, mskKids, mskFree, txtRemarks
         DisableFields cmdIndex(0), cmdIndex(1), cmdIndex(2), cmdIndex(3), cmdIndex(4), cmdIndex(5)
         UpdateButtons Me, 5, 1, 0, 0, IIf(CheckForLoadedForm("ΜεταφορέςΗμερολόγιο"), 0, 1), 0, 1
@@ -1371,7 +1335,8 @@ Private Function SaveRecord()
         blnCancel = True
         ClearFields txtTransferID, txtCustomerID, txtTransferTypeID, txtPickupPointID, txtRouteID, txtDestinationID
         ClearFields mskDate, txtCustomerDescription, txtTransferTypeDescription, txtDestinationDescription, txtPickupPointDescription, txtRouteShortDescription, txtRouteDescription, mskAdults, mskKids, mskFree, txtRemarks
-        ClearFields lblWeekday, mskTotal
+        'ClearFields lblWeekday, mskTotal
+        ClearFields mskTotal
         DisableFields mskDate, txtCustomerDescription, txtTransferTypeDescription, txtDestinationDescription, txtPickupPointDescription, txtRouteShortDescription, txtRouteDescription, mskAdults, mskKids, mskFree, txtRemarks
         DisableFields cmdIndex(0), cmdIndex(1), cmdIndex(2), cmdIndex(3), cmdIndex(4), cmdIndex(5)
         UpdateButtons Me, 5, 1, 0, 0, 1, 0, 1
@@ -1473,7 +1438,8 @@ Private Function NewRecord()
     blnCancel = False
     ClearFields txtTransferID, txtCustomerID, txtTransferTypeID, txtPickupPointID, txtRouteID, txtDestinationID
     ClearFields mskDate, txtCustomerDescription, txtTransferTypeDescription, txtDestinationDescription, txtPickupPointDescription, txtRouteShortDescription, txtRouteDescription, mskAdults, mskKids, mskFree, txtRemarks
-    ClearFields lblWeekday, mskTotal
+    'ClearFields lblWeekday, mskTotal
+    ClearFields mskTotal
     EnableFields mskDate, txtCustomerDescription, txtTransferTypeDescription, txtDestinationDescription, txtPickupPointDescription, txtRouteShortDescription, txtRouteDescription, mskAdults, mskKids, mskFree, txtRemarks
     EnableFields cmdIndex(0), cmdIndex(1), cmdIndex(2), cmdIndex(3), cmdIndex(4), cmdIndex(5)
     UpdateButtons Me, 5, 0, 1, 0, 0, 1, 0
@@ -1494,7 +1460,7 @@ Private Sub cmdIndex_Click(index As Integer)
     Select Case index
         Case 0
             'Ημερολόγιο
-            ShowMonthlyCalendar Me, monthlyCalendar
+            'ShowMonthlyCalendar Me, monthlyCalendar
         Case 1
             'Πελάτης
             Set tmpRecordset = CheckForMatch("CommonDB", "Customers", "Description", "String", txtCustomerDescription.text)
@@ -1613,7 +1579,8 @@ Public Function SeekRecord(myTransferID, myRefersTo)
     
     ClearFields txtTransferID, txtCustomerID, txtTransferTypeID, txtPickupPointID, txtRouteID, txtDestinationID
     ClearFields mskDate, txtCustomerDescription, txtTransferTypeDescription, txtDestinationDescription, txtPickupPointDescription, txtRouteShortDescription, txtRouteDescription, mskAdults, mskKids, mskFree, txtRemarks
-    ClearFields lblWeekday, mskTotal
+    'ClearFields lblWeekday, mskTotal
+    ClearFields mskTotal
     DisableFields mskDate, txtCustomerDescription, txtTransferTypeDescription, txtDestinationDescription, txtPickupPointDescription, txtRouteShortDescription, txtRouteDescription, mskAdults, mskKids, mskFree, txtRemarks
     DisableFields cmdIndex(0), cmdIndex(1), cmdIndex(2), cmdIndex(3), cmdIndex(4), cmdIndex(5)
     
@@ -1645,7 +1612,7 @@ Public Function SeekRecord(myTransferID, myRefersTo)
         EnableFields mskDate, txtCustomerDescription, txtTransferTypeDescription, txtDestinationDescription, txtPickupPointDescription, txtRouteShortDescription, txtRouteDescription, mskAdults, mskKids, mskFree, txtRemarks
         EnableFields cmdIndex(0), cmdIndex(1), cmdIndex(2), cmdIndex(3), cmdIndex(4), cmdIndex(5)
         mskTotal.text = AddNumbers(mskAdults.text, mskKids.text, mskFree.text)
-        lblWeekday.Caption = FindWeekDay(mskDate.text)
+        'lblWeekday.Caption = FindWeekDay(mskDate.text)
         txtRefersTo.text = myRefersTo
         blnCancel = False
         blnStatus = False
@@ -1685,33 +1652,34 @@ Private Sub Form_Load()
     blnCancel = True
     ClearFields txtTransferID, txtCustomerID, txtTransferTypeID, txtPickupPointID, txtRouteID, txtDestinationID
     ClearFields mskDate, txtCustomerDescription, txtTransferTypeDescription, txtDestinationDescription, txtPickupPointDescription, txtRouteShortDescription, txtRouteDescription, mskAdults, mskKids, mskFree, txtRemarks
-    ClearFields lblWeekday, mskTotal
+    'ClearFields lblWeekday, mskTotal
+    ClearFields mskTotal
     DisableFields mskDate, txtCustomerDescription, txtTransferTypeDescription, txtDestinationDescription, txtPickupPointDescription, txtRouteShortDescription, txtRouteDescription, mskAdults, mskKids, mskFree, txtRemarks
     DisableFields cmdIndex(0), cmdIndex(1), cmdIndex(2), cmdIndex(3), cmdIndex(4), cmdIndex(5)
-    monthlyCalendar.Visible = False
+    'monthlyCalendar.Visible = False
     UpdateButtons Me, 5, 1, 0, 0, 1, 0, 1
 
 End Sub
 
 Private Sub monthlyCalendar_DblClick()
 
-    mskDate.text = format(monthlyCalendar.Value, "dd/mm/yyyy")
-    monthlyCalendar.Visible = False
+    'mskDate.text = format(monthlyCalendar.Value, "dd/mm/yyyy")
+    'monthlyCalendar.Visible = False
 
 End Sub
 
 Private Sub monthlyCalendar_KeyPress(KeyAscii As Integer)
 
-    If KeyAscii = vbKeyReturn Then
-        mskDate.text = format(monthlyCalendar.Value, "dd/mm/yyyy")
-        monthlyCalendar.Visible = False
-    End If
+    'If KeyAscii = vbKeyReturn Then
+    '    mskDate.text = format(monthlyCalendar.Value, "dd/mm/yyyy")
+    '    monthlyCalendar.Visible = False
+    'End If
 
 End Sub
 
 Private Sub mskDate_GotFocus()
 
-    lblWeekday.Caption = FindWeekDay(mskDate.text)
+    'lblWeekday.Caption = FindWeekDay(mskDate.text)
     
 End Sub
 
@@ -1723,13 +1691,13 @@ End Sub
 
 Private Sub mskDate_LostFocus()
 
-    lblWeekday.Caption = FindWeekDay(mskDate.text)
+    'lblWeekday.Caption = FindWeekDay(mskDate.text)
 
 End Sub
 
 Private Sub mskDate_Validate(Cancel As Boolean)
 
-    lblWeekday.Caption = FindWeekDay(mskDate.text)
+    'lblWeekday.Caption = FindWeekDay(mskDate.text)
     
 End Sub
 

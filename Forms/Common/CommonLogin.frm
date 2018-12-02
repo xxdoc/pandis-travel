@@ -109,6 +109,7 @@ Begin VB.Form CommonLogin
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   0
+      MousePointer    =   2
       PicOpacity      =   0
    End
    Begin Dacara_dcButton.dcButton cmdButton 
@@ -135,6 +136,7 @@ Begin VB.Form CommonLogin
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   0
+      MousePointer    =   2
       PicOpacity      =   0
    End
    Begin VB.Label lblProgress 
@@ -463,11 +465,11 @@ Private Sub cboUsers_KeyPress(KeyAscii As Integer)
 
 End Sub
 
-Private Sub cmdButton_Click(index As Integer)
+Private Sub cmdButton_Click(Index As Integer)
 
     Dim obj As Object
     
-    Select Case index
+    Select Case Index
         Case 0
             If ValidateFields Then Start
         Case 1
@@ -494,7 +496,7 @@ Private Function CloseApp()
 
 End Function
 
-Private Sub cmdButton_KeyDown(index As Integer, KeyCode As Integer, Shift As Integer)
+Private Sub cmdButton_KeyDown(Index As Integer, KeyCode As Integer, Shift As Integer)
 
     CheckForArrows (KeyCode)
 

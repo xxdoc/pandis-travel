@@ -98,8 +98,8 @@ Begin VB.Form PersonsLedger
          Begin UserControls.newText txtPersonDescription 
             Height          =   465
             Left            =   2100
-            TabIndex        =   3
-            Top             =   1350
+            TabIndex        =   1
+            Top             =   825
             Width           =   4965
             _ExtentX        =   8758
             _ExtentY        =   820
@@ -120,8 +120,8 @@ Begin VB.Form PersonsLedger
          Begin UserControls.newDate mskInvoiceDateIssueFrom 
             Height          =   465
             Left            =   2100
-            TabIndex        =   1
-            Top             =   825
+            TabIndex        =   2
+            Top             =   1350
             Width           =   1455
             _ExtentX        =   2672
             _ExtentY        =   820
@@ -141,8 +141,8 @@ Begin VB.Form PersonsLedger
          Begin UserControls.newDate mskInvoiceDateIssueTo 
             Height          =   465
             Left            =   3600
-            TabIndex        =   2
-            Top             =   825
+            TabIndex        =   3
+            Top             =   1350
             Width           =   1455
             _ExtentX        =   2672
             _ExtentY        =   820
@@ -165,7 +165,7 @@ Begin VB.Form PersonsLedger
             Left            =   7125
             TabIndex        =   32
             TabStop         =   0   'False
-            Top             =   1350
+            Top             =   825
             Width           =   390
             _ExtentX        =   688
             _ExtentY        =   820
@@ -393,7 +393,7 @@ Begin VB.Form PersonsLedger
             Index           =   2
             Left            =   450
             TabIndex        =   34
-            Top             =   1425
+            Top             =   900
             Width           =   1215
          End
          Begin VB.Label lblLabel 
@@ -413,7 +413,7 @@ Begin VB.Form PersonsLedger
             Index           =   0
             Left            =   450
             TabIndex        =   33
-            Top             =   900
+            Top             =   1425
             Width           =   1215
          End
          Begin VB.Label Label1 
@@ -1627,7 +1627,7 @@ Private Function FindRecordsAndPopulateGrid()
             blnError = False
             blnProcessing = False
             frmCriteria(0).Visible = True
-            mskInvoiceDateIssueFrom.SetFocus
+            txtPersonDescription.SetFocus
         End If
     End If
 
@@ -1857,7 +1857,7 @@ Private Sub cmdButton_Click(index As Integer)
         Case 3
             DoReport "CreatePDF", txtCustomersOrSuppliers.text
         Case 4
-            ExportToExcel
+            'ExportToExcel
         Case 5
             AbortProcedure False
         Case 6
@@ -1866,91 +1866,14 @@ Private Sub cmdButton_Click(index As Integer)
     
 End Sub
 
-Private Function ExportToExcel()
-
-    On Error GoTo ErrTrap
-    
-    Dim lngRow As Long
-    Dim lngCol As Long
-    Dim xlsRowOffsetFromTop As Long
-    Dim xlsColCount As Long
-    
-    Dim oExcel As Object
-    Dim oBook As Object
-    Dim oSheet As Object
-
-    Set oExcel = CreateObject("Excel.Application")
-    Set oBook = oExcel.Workbooks.Add
-    Set oSheet = oBook.Worksheets(1)
-    
-    xlsRowOffsetFromTop = 10
-    xlsColCount = 12
-    
-    With oSheet
-    
-        SetFontNameAndSize oSheet, "Ubuntu Condensed", 11
-        AddCompanyData oSheet, xlsColCount
-        AddTitle oSheet, lblTitle.Caption, xlsColCount
-        AddCriteria oSheet, lblCriteria.Caption, xlsColCount
-        AddHeaders oSheet, grdCustomersLedger, xlsColCount, "A", "Date", "B", "InvoiceDetails", "C", "Destination", "D", "Adults", "E", "Kids", "F", "Free", "G", "AdultsAmount", "H", "KidsAmount", "I", "DirectAmount", "J", "Debit", "K", "Credit", "L", "Balance"
-        AdjustColumnWidths oSheet, "A", 10, "B", 15, "C", 40, "D", 10, "E", 10, "F", 10, "G", 10, "H", 10, "I", 10, "J", 10, "K", 10, "L", 10
-                
-        For lngRow = 1 To grdCustomersLedger.RowCount
-            .Range("A" & lngRow + xlsRowOffsetFromTop) = grdCustomersLedger.CellValue(lngRow, "Date")
-            .Range("B" & lngRow + xlsRowOffsetFromTop) = grdCustomersLedger.CellValue(lngRow, "InvoiceDetails")
-            .Range("C" & lngRow + xlsRowOffsetFromTop) = grdCustomersLedger.CellValue(lngRow, "Destination")
-            .Range("D" & lngRow + xlsRowOffsetFromTop) = grdCustomersLedger.CellValue(lngRow, "Adults")
-            .Range("E" & lngRow + xlsRowOffsetFromTop) = grdCustomersLedger.CellValue(lngRow, "Kids")
-            .Range("F" & lngRow + xlsRowOffsetFromTop) = grdCustomersLedger.CellValue(lngRow, "Free")
-            .Range("G" & lngRow + xlsRowOffsetFromTop) = grdCustomersLedger.CellValue(lngRow, "AdultsAmount")
-            .Range("H" & lngRow + xlsRowOffsetFromTop) = grdCustomersLedger.CellValue(lngRow, "KidsAmount")
-            .Range("I" & lngRow + xlsRowOffsetFromTop) = grdCustomersLedger.CellValue(lngRow, "DirectAmount")
-            .Range("J" & lngRow + xlsRowOffsetFromTop) = grdCustomersLedger.CellValue(lngRow, "Debit")
-            .Range("K" & lngRow + xlsRowOffsetFromTop) = grdCustomersLedger.CellValue(lngRow, "Credit")
-            .Range("L" & lngRow + xlsRowOffsetFromTop) = grdCustomersLedger.CellValue(lngRow, "Balance")
-        Next lngRow
-        
-        AddNumberFormats oSheet, grdCustomersLedger, "Dates", 10, "A"
-        AddNumberFormats oSheet, grdCustomersLedger, "Integers", 10, "D", "E", "F"
-        AddNumberFormats oSheet, grdCustomersLedger, "Floats", 10, "G", "H", "I", "J", "K", "L"
-    
-    End With
-    
-    oBook.SaveAs strReportsPathName & lblTitle.Caption & ".xls"
-    
-    oExcel.Quit
-    
-    grdCustomersLedger.SetFocus
-    
-    MyMsgBox 1, strApplicationName, strStandardMessages(8), 1
-    
-    Exit Function
-    
-ErrTrap:
-    oBook.Close False
-    oExcel.Quit
-
-    grdCustomersLedger.SetFocus
-    
-    If Err.Number = 1004 Then
-        MyMsgBox 4, strApplicationName, strStandardMessages(27), 1
-    Else
-        DisplayErrorMessage True, Err.Description
-    End If
-    
-    Exit Function
-    
-End Function
-
-
-Private Function DoReport(action As String, persons As String)
+Private Function DoReport(action As String, Persons As String)
     
     On Error GoTo ErrTrap
     
     If action = "Print" Then
         If SelectPrinter("PrinterPrintsReports") Then
-            If persons = "Customers" Then CreateUnicodeFileForCustomers lblTitle.Caption & " " & txtPersonDescription.text, " ·¸ " & mskInvoiceDateIssueFrom.text & " ›˘Ú " & mskInvoiceDateIssueTo.text, "", intPrinterReportDetailLines
-            If persons = "Suppliers" Then CreateUnicodeFileForSuppliers lblTitle.Caption & " " & txtPersonDescription.text, " ·¸ " & mskInvoiceDateIssueFrom.text & " ›˘Ú " & mskInvoiceDateIssueTo.text, "", intPrinterReportDetailLines
+            If Persons = "Customers" Then CreateUnicodeFileForCustomers lblTitle.Caption & " " & txtPersonDescription.text, " ·¸ " & mskInvoiceDateIssueFrom.text & " ›˘Ú " & mskInvoiceDateIssueTo.text, "", intPrinterReportDetailLines
+            If Persons = "Suppliers" Then CreateUnicodeFileForSuppliers lblTitle.Caption & " " & txtPersonDescription.text, " ·¸ " & mskInvoiceDateIssueFrom.text & " ›˘Ú " & mskInvoiceDateIssueTo.text, "", intPrinterReportDetailLines
             With rptOneLiner
                 If intPreviewReports = 1 Then
                     .Restart
@@ -1958,6 +1881,7 @@ Private Function DoReport(action As String, persons As String)
                     .WindowState = vbMaximized
                     .Show 1
                 Else
+                    .Printer.DeviceName = strPrinterName
                     .PrintReport False
                     .Run True
                 End If
@@ -1966,10 +1890,10 @@ Private Function DoReport(action As String, persons As String)
     End If
     
     If action = "CreatePDF" Then
-        If persons = "Customers" Then CreateUnicodeFileForCustomers lblTitle.Caption & " " & txtPersonDescription.text, " ·¸ " & mskInvoiceDateIssueFrom.text & " ›˘Ú " & mskInvoiceDateIssueTo.text, "", GetSetting(strApplicationName, "Settings", "Export Report Height")
-        If persons = "Customers" Then CreateUnisexPDF lblTitle.Caption & " " & txtPersonDescription.text
-        If persons = "Suppliers" Then CreateUnicodeFileForSuppliers lblTitle.Caption & " " & txtPersonDescription.text, " ·¸ " & mskInvoiceDateIssueFrom.text & " ›˘Ú " & mskInvoiceDateIssueTo.text, "", GetSetting(strApplicationName, "Settings", "Export Report Height")
-        If persons = "Suppliers" Then CreateUnisexPDF lblTitle.Caption & " " & txtPersonDescription.text
+        If Persons = "Customers" Then CreateUnicodeFileForCustomers lblTitle.Caption & " " & txtPersonDescription.text, " ·¸ " & mskInvoiceDateIssueFrom.text & " ›˘Ú " & mskInvoiceDateIssueTo.text, "", GetSetting(strApplicationName, "Settings", "Export Report Height")
+        If Persons = "Customers" Then CreateUnisexPDF lblTitle.Caption & " " & txtPersonDescription.text
+        If Persons = "Suppliers" Then CreateUnicodeFileForSuppliers lblTitle.Caption & " " & txtPersonDescription.text, " ·¸ " & mskInvoiceDateIssueFrom.text & " ›˘Ú " & mskInvoiceDateIssueTo.text, "", GetSetting(strApplicationName, "Settings", "Export Report Height")
+        If Persons = "Suppliers" Then CreateUnisexPDF lblTitle.Caption & " " & txtPersonDescription.text
         If MyMsgBox(1, strApplicationName, strStandardMessages(8), 1) Then
         End If
     End If
@@ -1986,6 +1910,14 @@ Private Function ValidateFields()
 
     '¡Ò˜ÈÍ›Ú ÙÈÏ›Ú
     ValidateFields = False
+    
+    '”ıÌ·ÎÎ·Û¸ÏÂÌÔÚ
+    If txtInvoicePersonID.text = "" Then
+        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
+        End If
+        txtPersonDescription.SetFocus
+        Exit Function
+    End If
     
     '¡¸
     If mskInvoiceDateIssueFrom.text = "" Then
@@ -2013,14 +1945,6 @@ Private Function ValidateFields()
         End If
     End If
     
-    '”ıÌ·ÎÎ·Û¸ÏÂÌÔÚ
-    If txtInvoicePersonID.text = "" Then
-        If MyMsgBox(4, strApplicationName, strStandardMessages(1), 1) Then
-        End If
-        txtPersonDescription.SetFocus
-        Exit Function
-    End If
-    
     ValidateFields = True
     
 End Function
@@ -2033,7 +1957,7 @@ Private Function AbortProcedure(blnStatus)
         ClearFields lblSelectedGridTotals, lblSelectedGridLines, lblCriteria, lblRecordCount
         ClearFields grdCustomersLedger, grdSuppliersLedger
         frmCriteria(0).Visible = True
-        mskInvoiceDateIssueFrom.SetFocus
+        txtPersonDescription.SetFocus
         UpdateButtons Me, 6, 1, 0, 0, 0, 0, 0, 1
     End If
     
@@ -2281,7 +2205,7 @@ Private Sub Form_Activate()
         DisplayCustomersOrSuppliersGrid
         HideOrDisplayDestinationCriteria
         frmCriteria(0).Visible = True
-        mskInvoiceDateIssueFrom.SetFocus
+        txtPersonDescription.SetFocus
     End If
             
     'AddDummyLines grdCustomersLedger, "99999", "A99/99/9999A", "¡¡¡¡¡¡¡¡¡¡¡¡", "¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡", "999999", "999999", "999999", "-9999999", "-9999999", "-9999999", "-9999999", "-9999999", "-9999999"
