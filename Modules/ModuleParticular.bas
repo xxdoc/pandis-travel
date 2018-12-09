@@ -62,19 +62,6 @@ Function AddNumberFormats(sheet As Object, grid As iGrid, format As String, rowO
 
 End Function
 
-Function AdjustColumnWidths(sheet As Object, ParamArray columns() As Variant)
-
-    Dim X As Integer
-    
-    'Excel
-    With sheet
-        For X = 0 To UBound(columns) - 1 / 2 Step 2
-            .columns(columns(X)).columnWidth = columns(X + 1)
-        Next X
-    End With
-
-End Function
-
 Function CreateSELECTStatement(InvoiceMasterRefersTo As String)
 
     Dim strSQL As String

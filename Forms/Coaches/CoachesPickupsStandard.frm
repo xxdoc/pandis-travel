@@ -1546,12 +1546,12 @@ Private Function FindRoute()
     
     Set rsTable = CommonDB.OpenRecordset("PickupRoutes")
     With rsTable
-        .index = "ID"
+        .index = "PickupRouteID"
         .Seek "=", Val(txtRouteID.text)
         If Not .NoMatch Then
-            txtRouteID.text = !RouteID
-            txtRouteShortDescription.text = !RouteShortDescription
-            txtRouteDescription.text = !routeDescription
+            txtRouteID.text = !PickupRouteID
+            txtRouteShortDescription.text = !PickupRouteShortDescription
+            txtRouteDescription.text = !PickupRouteDescription
             txtRouteShortDescription.Locked = True
         Else
             txtRouteID.text = ""
@@ -1600,7 +1600,7 @@ Public Function SeekRecord(myTransferID, myRefersTo)
         txtDestinationID.text = tmpRecordset.Fields(0)
         txtDestinationDescription.text = tmpRecordset.Fields(2)
         'Δρομολόγιο - 2 από 3
-        Set tmpRecordset = CheckForMatch("CommonDB", "PickupRoutes", "RouteID", "Numeric", txtRouteID.text)
+        Set tmpRecordset = CheckForMatch("CommonDB", "PickupRoutes", "PickupRouteID", "Numeric", txtRouteID.text)
         txtRouteID.text = tmpRecordset.Fields(0)
         txtRouteShortDescription.text = tmpRecordset.Fields(1)
         txtRouteDescription.text = tmpRecordset.Fields(2)

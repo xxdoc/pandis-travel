@@ -1953,7 +1953,7 @@ Private Function ImportCrew(shipID As Integer)
         With tmpRecordset
             If .RecordCount > 0 Then
                 While Not .EOF
-                    strResult = MainSaveRecord("CommonDB", "Manifest", True, strApplicationName, "ID", "", mskDate.text, Val(txtRouteID.text), grdShipsRouteReport.CellValue(1, "DestinationID"), Val(txtShipID.text), !CrewPropertyID, !CrewLastName, !CrewFirstName, !CrewGenderID, !CrewAgeID, "", "", "1", strCurrentUser)
+                    strResult = MainSaveRecord("CommonDB", "Manifest", True, strApplicationName, "TripID", "", mskDate.text, Val(txtRouteID.text), grdShipsRouteReport.CellValue(1, "DestinationID"), Val(txtShipID.text), !CrewPropertyID, !CrewLastName, !CrewFirstName, !CrewGenderID, !CrewAgeID, "", "", "1", strCurrentUser)
                     .MoveNext
                 Wend
             End If

@@ -1573,6 +1573,64 @@ Sub ValidateInput(KeyAscii)
 
 End Sub
 
+Function AddTitle(sheet As Object, title As String, colCount As Long)
+
+    'Excel
+    With sheet
+        .Range("A6:" & Chr(colCount + 64) & "6").MergeCells = True
+        .Range("A6").Value = title
+        .Range("A6").HorizontalAlignment = xlCenter
+        .Range("A6").VerticalAlignment = xlCenter
+        .rows("6").RowHeight = 24
+    End With
+
+End Function
+
+
+
+Function AdjustColumnWidths(sheet As Object, ParamArray columns() As Variant)
+
+    Dim X As Integer
+    
+    'Excel
+    With sheet
+        For X = 0 To UBound(columns) - 1 / 2 Step 2
+            .columns(columns(X)).columnWidth = columns(X + 1)
+        Next X
+    End With
+
+End Function
+Function AddCriteria(sheet As Object, criteria As String, colCount As Long)
+
+    'Excel
+    With sheet
+        .Range("A7:" & Chr(colCount + 64) & "7").MergeCells = True
+        .Range("A7").Value = criteria
+        .Range("A7").HorizontalAlignment = xlCenter
+        .Range("A7").VerticalAlignment = xlCenter
+        .rows("7").RowHeight = 24
+    End With
+
+End Function
+
+Function AddHeaders(sheet As Object, grid As iGrid, colCount As Long, ParamArray columns() As Variant)
+
+    Dim X As Integer
+    
+    'Excel
+    With sheet
+        .Range("A9:" & Chr(colCount + 64) & "9").WrapText = True
+        .Range("A9:" & Chr(colCount + 64) & "9").HorizontalAlignment = xlCenter
+        .Range("A9:" & Chr(colCount + 64) & "9").VerticalAlignment = xlCenter
+        For X = 0 To UBound(columns) - 1 / 2 Step 2
+            .Range("" & columns(X) & "9").Value = grid.ColHeaderText(columns(X + 1))
+        Next X
+        .rows("9").RowHeight = 30
+    End With
+
+End Function
+
+
 Sub LoadMessages()
 
     strStandardMessages(1) = Chr(13) & "Το πεδίο είναι υποχρεωτικό." & Chr(13)

@@ -130,8 +130,8 @@ Private Sub ReportHeader_Format()
         
         'Ημερομηνίες
         lblPlace.Caption = "ΚΕΡΚΥΡΑ"
-        lblFooterDate.Caption = Format(Date, "dd/mm/yyyy")
-        lblTime.Caption = Format(Time, "hh:mm")
+        lblFooterDate.Caption = format(Date, "dd/mm/yyyy")
+        lblTime.Caption = format(Time, "hh:mm")
         
     End With
     

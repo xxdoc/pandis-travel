@@ -1198,7 +1198,7 @@ Private Sub cmdButton_Click(index As Integer)
         Case 3
             DoReport "CreatePDF"
         Case 4
-            'ExportToExcel
+            ExportToExcel
         Case 5
             AbortProcedure False
         Case 6
@@ -1206,6 +1206,74 @@ Private Sub cmdButton_Click(index As Integer)
     End Select
    
 End Sub
+Private Function ExportToExcel()
+
+    On Error GoTo ErrTrap
+    
+    Dim lngRow As Long
+    Dim lngCol As Long
+    Dim xlsRowOffsetFromTop As Long
+    Dim xlsColCount As Long
+    
+    Dim oExcel As Object
+    Dim oBook As Object
+    Dim oSheet As Object
+
+    Set oExcel = CreateObject("Excel.Application")
+    Set oBook = oExcel.Workbooks.Add
+    Set oSheet = oBook.Worksheets(1)
+    
+    xlsRowOffsetFromTop = 10
+    xlsColCount = 7
+    
+    With oSheet
+    
+        SetFontNameAndSize oSheet, "Ubuntu Condensed", 11
+        AddCompanyData oSheet, xlsColCount
+        AddTitle oSheet, lblTitle.Caption, xlsColCount
+        AddCriteria oSheet, lblCriteria.Caption, xlsColCount
+        AddHeaders oSheet, grdPersonsBalanceSheet, xlsColCount, "A", "Description", "B", "DebitSoFar", "C", "CreditSoFar", "D", "BalanceSoFar", "E", "DebitPeriod", "F", "CreditPeriod", "G", "Balance"
+        AdjustColumnWidths oSheet, "A", 60, "B", 15, "C", 15, "D", 15, "E", 15, "F", 15, "G", 15
+                
+        For lngRow = 1 To grdPersonsBalanceSheet.RowCount
+            .Range("A" & lngRow + xlsRowOffsetFromTop) = grdPersonsBalanceSheet.CellValue(lngRow, "Description")
+            .Range("B" & lngRow + xlsRowOffsetFromTop) = grdPersonsBalanceSheet.CellValue(lngRow, "DebitSoFar")
+            .Range("C" & lngRow + xlsRowOffsetFromTop) = grdPersonsBalanceSheet.CellValue(lngRow, "CreditSoFar")
+            .Range("D" & lngRow + xlsRowOffsetFromTop) = grdPersonsBalanceSheet.CellValue(lngRow, "BalanceSoFar")
+            .Range("E" & lngRow + xlsRowOffsetFromTop) = grdPersonsBalanceSheet.CellValue(lngRow, "DebitPeriod")
+            .Range("F" & lngRow + xlsRowOffsetFromTop) = grdPersonsBalanceSheet.CellValue(lngRow, "CreditPeriod")
+            .Range("G" & lngRow + xlsRowOffsetFromTop) = grdPersonsBalanceSheet.CellValue(lngRow, "Balance")
+        Next lngRow
+        
+        AddNumberFormats oSheet, grdPersonsBalanceSheet, "Floats", 10, "B", "C", "D", "E", "F", "G"
+    
+    End With
+    
+    oBook.SaveAs strReportsPathName & lblTitle.Caption & ".xls"
+    
+    oExcel.Quit
+    
+    grdPersonsBalanceSheet.SetFocus
+    
+    MyMsgBox 1, strApplicationName, strStandardMessages(8), 1
+    
+    Exit Function
+    
+ErrTrap:
+    oBook.Close False
+    oExcel.Quit
+
+    grdPersonsBalanceSheet.SetFocus
+    
+    If Err.Number = 1004 Then
+        MyMsgBox 4, strApplicationName, strStandardMessages(27), 1
+    Else
+        DisplayErrorMessage True, Err.Description
+    End If
+    
+    Exit Function
+    
+End Function
 
 Private Function DoReport(action As String)
     

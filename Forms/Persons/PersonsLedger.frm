@@ -1857,7 +1857,7 @@ Private Sub cmdButton_Click(index As Integer)
         Case 3
             DoReport "CreatePDF", txtCustomersOrSuppliers.text
         Case 4
-            'ExportToExcel
+            ExportToExcel
         Case 5
             AbortProcedure False
         Case 6
@@ -1865,6 +1865,109 @@ Private Sub cmdButton_Click(index As Integer)
     End Select
     
 End Sub
+
+Private Function ExportToExcel()
+
+    On Error GoTo ErrTrap
+    
+    Dim lngRow As Long
+    Dim lngCol As Long
+    Dim xlsRowOffsetFromTop As Long
+    Dim xlsColCount As Long
+    
+    Dim oExcel As Object
+    Dim oBook As Object
+    Dim oSheet As Object
+
+    Set oExcel = CreateObject("Excel.Application")
+    Set oBook = oExcel.Workbooks.Add
+    Set oSheet = oBook.Worksheets(1)
+    
+    xlsRowOffsetFromTop = 10
+    xlsColCount = 12
+    
+    With oSheet
+    
+        SetFontNameAndSize oSheet, "Ubuntu Condensed", 11
+        AddCompanyData oSheet, xlsColCount
+        AddTitle oSheet, lblTitle.Caption, xlsColCount
+        AddCriteria oSheet, lblCriteria.Caption, xlsColCount
+        AddHeaders oSheet, grdCustomersLedger, xlsColCount, "A", "Date", "B", "InvoiceDetails", "C", "Destination", "D", "Adults", "E", "Kids", "F", "Free", "G", "AdultsAmount", "H", "KidsAmount", "I", "DirectAmount", "J", "Debit", "K", "Credit", "L", "Balance"
+        AdjustColumnWidths oSheet, "A", 10, "B", 15, "C", 40, "D", 10, "E", 10, "F", 10, "G", 10, "H", 10, "I", 10, "J", 10, "K", 10, "L", 10
+                
+        For lngRow = 1 To grdCustomersLedger.RowCount
+            .Range("A" & lngRow + xlsRowOffsetFromTop) = grdCustomersLedger.CellValue(lngRow, "Date")
+            .Range("B" & lngRow + xlsRowOffsetFromTop) = grdCustomersLedger.CellValue(lngRow, "InvoiceDetails")
+            .Range("C" & lngRow + xlsRowOffsetFromTop) = grdCustomersLedger.CellValue(lngRow, "Destination")
+            .Range("D" & lngRow + xlsRowOffsetFromTop) = grdCustomersLedger.CellValue(lngRow, "Adults")
+            .Range("E" & lngRow + xlsRowOffsetFromTop) = grdCustomersLedger.CellValue(lngRow, "Kids")
+            .Range("F" & lngRow + xlsRowOffsetFromTop) = grdCustomersLedger.CellValue(lngRow, "Free")
+            .Range("G" & lngRow + xlsRowOffsetFromTop) = grdCustomersLedger.CellValue(lngRow, "AdultsAmount")
+            .Range("H" & lngRow + xlsRowOffsetFromTop) = grdCustomersLedger.CellValue(lngRow, "KidsAmount")
+            .Range("I" & lngRow + xlsRowOffsetFromTop) = grdCustomersLedger.CellValue(lngRow, "DirectAmount")
+            .Range("J" & lngRow + xlsRowOffsetFromTop) = grdCustomersLedger.CellValue(lngRow, "Debit")
+            .Range("K" & lngRow + xlsRowOffsetFromTop) = grdCustomersLedger.CellValue(lngRow, "Credit")
+            .Range("L" & lngRow + xlsRowOffsetFromTop) = grdCustomersLedger.CellValue(lngRow, "Balance")
+        Next lngRow
+        
+        AddNumberFormats oSheet, grdCustomersLedger, "Dates", 10, "A"
+        AddNumberFormats oSheet, grdCustomersLedger, "Integers", 10, "D", "E", "F"
+        AddNumberFormats oSheet, grdCustomersLedger, "Floats", 10, "G", "H", "I", "J", "K", "L"
+    
+    End With
+    
+    oBook.SaveAs strReportsPathName & lblTitle.Caption & ".xls"
+    
+    oExcel.Quit
+    
+    grdCustomersLedger.SetFocus
+    
+    MyMsgBox 1, strApplicationName, strStandardMessages(8), 1
+    
+    Exit Function
+    
+ErrTrap:
+    oBook.Close False
+    oExcel.Quit
+
+    grdCustomersLedger.SetFocus
+    
+    If Err.Number = 1004 Then
+        MyMsgBox 4, strApplicationName, strStandardMessages(27), 1
+    Else
+        DisplayErrorMessage True, Err.Description
+    End If
+    
+    Exit Function
+    
+End Function
+
+Function AddNumberFormats(sheet As Object, grid As iGrid, format As String, rowOffsetFromTop As Long, ParamArray columns() As Variant)
+
+    Dim column As Long
+    Dim row As Long
+    
+    'Excel
+    With sheet
+        For column = 0 To UBound(columns)
+            Select Case format
+                Case "Floats"
+                    For row = 1 To grid.RowCount
+                        .Range(columns(column) & row + rowOffsetFromTop).NumberFormat = "#,##0.00_);[Red]#,##0.00 "
+                    Next row
+                Case "Integers"
+                    For row = 1 To grid.RowCount
+                        .Range(columns(column) & row + rowOffsetFromTop).NumberFormat = "#,##0_);[Red]#,##0 "
+                    Next row
+                Case "Dates"
+                    For row = 1 To grid.RowCount
+                        .Range(columns(column) & row + rowOffsetFromTop).NumberFormat = "dd-mm-yyyy"
+                    Next row
+            End Select
+        Next column
+    End With
+
+End Function
 
 Private Function DoReport(action As String, Persons As String)
     
